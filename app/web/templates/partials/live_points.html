@@ -1,0 +1,41 @@
+{% import "macros.html" as ui %}
+{% macro live_players(players, now, tz) %}
+<ul class="live-points__players">
+  {% for player in players %}
+  <li><a class="live-points__player" href="/spieler/{{ player.id }}">
+    {{ ui.avatar(player) }}
+    <span class="player__main"><span class="player__name">{{ player.name }}</span>
+      <span class="player__meta">{% if player.kickoff and player.kickoff > now %}Anpfiff {{ player.kickoff | local_time(tz) }}{% else %}{{ player.status_label }}{% endif %}</span>
+    </span>
+    <span class="live-points__score num {% if player.points is not none and player.points < 0 %}change--down{% endif %}">{{ player.points if player.points is not none else '–' }}<small>{{ 'Punkte' if player.points is not none else 'unbekannt' }}</small></span>
+  </a></li>
+  {% endfor %}
+</ul>
+{% endmacro %}
+
+{% set tz = request.app.state.settings.tz %}
+<section class="live-points" id="live-points" aria-labelledby="live-title"
+         hx-get="/spieltag/punkte" hx-trigger="refresh-points" hx-swap="outerHTML"
+         data-auto-refresh="{{ 'true' if retryable or (points and points.auto_refresh) else 'false' }}"
+         data-interval="{{ points.interval if points else 600 }}">
+  <div class="live-points__head">
+    <h2 id="live-title">{% if points %}{{ points.matchday }}. Spieltag{% else %}Spieltagspunkte{% endif %}</h2>
+    <button class="button button--quiet" type="button" hx-get="/spieltag/punkte" hx-target="#live-points" hx-swap="outerHTML" hx-disabled-elt="this">Stand prüfen</button>
+  </div>
+  {% if error %}<p class="note note--warning" role="status">{{ error }}</p>
+  {% if retryable %}<p class="muted small">Bei sichtbarer Online-Seite wird in zehn Minuten erneut geprüft.</p>{% endif %}
+  {% elif points %}
+  <p class="muted small">Eigene Spieltags-Elf · Wertung vorläufig</p>
+  <div class="live-points__total">
+    <span class="stat__value num">{{ points.official_points if points.official_points is not none else '–' }}</span>
+    <span class="muted">Kickbase-Spieltagspunkte</span>
+  </div>
+  {% if points.official_points is none %}<p class="note">Kickbase liefert gerade keine eigene Spieltagssumme. Fehlende Werte zählen hier nicht als null.</p>{% endif %}
+  {% if points.differs %}<p class="note">Summe der Spieler: <span class="num">{{ points.lineup_points }}</span>. Die Kickbase-Spieltagssumme kann wegen Spieltagsregeln oder Korrekturen abweichen; maßgeblich ist der Wert oben.</p>{% endif %}
+  {% if points.open_slots %}<p class="note note--warning">{{ points.open_slots }} Plätze der Spieltags-Elf ohne Spielerdaten. Keine Ersatzspieler aus dem heutigen Kader ergänzt.</p>{% endif %}
+  {% if points.lineup %}{{ live_players(points.lineup, points.now, tz) }}{% else %}<p class="muted">Kickbase liefert noch keine Spieler für diese Spieltags-Elf.</p>{% endif %}
+  {% if points.bench %}<details class="section-details"><summary>Bank · zählt hier nicht zur Elf ({{ points.bench|length }})</summary>{{ live_players(points.bench, points.now, tz) }}</details>{% endif %}
+  <p class="freshness{% if points.stale %} freshness--stale{% endif %}">Stand {{ points.fetched_at | local_time(tz) }}{% if points.stale %} – Quelle nicht erreichbar oder Spielplan veraltet, ältere Daten.{% endif %}</p>
+  <p class="muted small">{% if points.auto_refresh %}Bei geöffnetem, sichtbarem Bildschirm und bestehender Verbindung alle {{ points.interval // 60 }} Minuten prüfen.{% else %}Gerade keine laufende Partie im Spielplan; bei Bedarf Stand prüfen.{% endif %} Änderungen und Korrekturen bleiben möglich. Die nächste Aufstellung findest du unter „Mein Team“.</p>
+  {% else %}<p class="muted">Im Spielplan hat noch kein Spieltag begonnen.</p>{% endif %}
+</section>

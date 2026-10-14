@@ -1,0 +1,302 @@
+{
+  "it": [
+    {
+      "i": "6292",
+      "n": "Hansen",
+      "ap": 63,
+      "lo": 3,
+      "st": 0,
+      "lst": 1,
+      "mdst": 0,
+      "tid": "29",
+      "pos": 2,
+      "os": "VFB",
+      "ph": [
+        {
+          "hp": true,
+          "p": 93
+        },
+        {
+          "hp": true,
+          "p": 44
+        },
+        {
+          "hp": true,
+          "p": 52
+        },
+        {
+          "hp": true,
+          "p": 64
+        }
+      ],
+      "ht": true,
+      "pim": "content/file/25a358d12b764a1699faaa5cd208f776.png",
+      "ictp": false
+    },
+    {
+      "i": "8227",
+      "n": "Vandevoordt",
+      "ap": 133,
+      "lo": 0,
+      "st": 0,
+      "lst": 1,
+      "mdst": 0,
+      "tid": "43",
+      "pos": 1,
+      "os": "SGE",
+      "ph": [
+        {
+          "hp": true,
+          "p": 107
+        },
+        {
+          "hp": true,
+          "p": 207
+        },
+        {
+          "hp": true,
+          "p": 31
+        },
+        {
+          "hp": true,
+          "p": 187
+        }
+      ],
+      "ht": true,
+      "pim": "content/file/41e6d9b5a6dc41378971c7acec655cef.png",
+      "ictp": false
+    },
+    {
+      "i": "3759",
+      "n": "Gutiérrez",
+      "ap": 200,
+      "lo": 1,
+      "st": 0,
+      "lst": 1,
+      "mdst": 0,
+      "tid": "7",
+      "pos": 2,
+      "os": "M05",
+      "ph": [
+        {
+          "hp": true,
+          "p": 309
+        },
+        {
+          "hp": true,
+          "p": 95
+        },
+        {
+          "hp": true,
+          "p": 280
+        },
+        {
+          "hp": true,
+          "p": 117
+        }
+      ],
+      "ht": false,
+      "pim": "content/file/72b74c3259934631ba5bf9cc87fb104c.png",
+      "ictp": false
+    },
+    {
+      "i": "11956",
+      "n": "Fernández",
+      "ap": 123,
+      "lo": 8,
+      "st": 0,
+      "lst": 1,
+      "mdst": 0,
+      "tid": "7",
+      "pos": 3,
+      "os": "M05",
+      "ph": [
+        {
+          "hp": true,
+          "p": 125
+        },
+        {
+          "hp": true,
+          "p": 98
+        },
+        {
+          "hp": true,
+          "p": 228
+        },
+        {
+          "hp": true,
+          "p": 39
+        }
+      ],
+      "ht": false,
+      "pim": "content/file/72b74c3259934631ba5bf9cc87fb104c.png",
+      "ictp": false
+    },
+    {
+      "i": "8307",
+      "n": "Sano",
+      "ap": 145,
+      "lo": 5,
+      "st": 0,
+      "lst": 1,
+      "mdst": 0,
+      "tid": "18",
+      "pos": 3,
+      "os": "B04",
+      "ph": [
+        {
+          "hp": true,
+          "p": 169
+        },
+        {
+          "hp": true,
+          "p": 99
+        },
+        {
+          "hp": true,
+          "p": 180
+        },
+        {
+          "hp": true,
+          "p": 133
+        }
+      ],
+      "ht": true,
+      "pim": "content/file/3b8addfebba24f57b176b6fbe7d1ba7b.png",
+      "ictp": false
+    },
+    {
+      "i": "6061",
+      "n": "Maza",
+      "ap": 173,
+      "lo": 4,
+      "st": 2,
+      "lst": 1,
+      "mdst": 0,
+      "tid": "7",
+      "pos": 3,
+      "os": "M05",
+      "ph": [
+        {
+          "hp": true,
+          "p": 194
+        },
+        {
+          "hp": true,
+          "p": 71
+        },
+        {
+          "hp": true,
+          "p": 319
+        },
+        {
+          "hp": true,
+          "p": 107
+        }
+      ],
+      "ht": false,
+      "pim": "content/file/72b74c3259934631ba5bf9cc87fb104c.png",
+      "ictp": false
+    },
+    {
+      "i": "17288",
+      "n": "Regeer",
+      "ap": 114,
+      "lo": 6,
+      "st": 0,
+      "lst": 1,
+      "mdst": 0,
+      "tid": "10",
+      "pos": 3,
+      "os": "BVB",
+      "ph": [
+        {
+          "hp": true,
+          "p": 186
+        },
+        {
+          "hp": true,
+          "p": 25
+        },
+        {
+          "hp": true,
+          "p": 130
+        },
+        {
+          "hp": false
+        }
+      ],
+      "ht": false,
+      "pim": "content/file/2d03e9b347934deaa8a0c040a9594150.png",
+      "ictp": false
+    },
+    {
+      "i": "17285",
+      "n": "Brassier",
+      "ap": 103,
+      "lo": 2,
+      "st": 0,
+      "lst": 1,
+      "mdst": 0,
+      "tid": "4",
+      "pos": 2,
+      "os": "RBL",
+      "ph": [
+        {
+          "hp": true,
+          "p": 103
+        },
+        {
+          "hp": true,
+          "p": 128
+        },
+        {
+          "hp": true,
+          "p": 79
+        },
+        {
+          "hp": false
+        }
+      ],
+      "ht": false,
+      "pim": "content/file/22edbaccec3048b49f80a4433d588cbd.png",
+      "ictp": false
+    },
+    {
+      "i": "7737",
+      "n": "Veerman",
+      "ap": 80,
+      "lo": 7,
+      "st": 0,
+      "lst": 1,
+      "mdst": 0,
+      "tid": "3",
+      "pos": 3,
+      "os": "SVW",
+      "ph": [
+        {
+          "hp": true,
+          "p": 107
+        },
+        {
+          "hp": true,
+          "p": 101
+        },
+        {
+          "hp": true,
+          "p": 75
+        },
+        {
+          "hp": true,
+          "p": 36
+        }
+      ],
+      "ht": true,
+      "pim": "content/file/d5ca76d467ce40e1b9012c9f28f77855.png",
+      "ictp": false
+    }
+  ],
+  "ua": "content/file/anonymous.png",
+  "prfu": "content/file/anonymous.png",
+  "cpte": true
+}

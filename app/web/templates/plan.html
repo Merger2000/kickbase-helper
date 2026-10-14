@@ -1,0 +1,18 @@
+{% extends "layout.html" %}
+{% block title %}Dein Plan · Kickbase Helper{% endblock %}
+{% block content %}
+<h1>Dein Plan</h1>
+<p class="lead">Was möchtest du als Nächstes entscheiden?</p>
+{% for title, links in [
+  ('Transfers & Budget', [('/empfehlungen/trading', 'Trading & Deadline', 'Steigende Spieler halten, Budget rechtzeitig decken.'), ('/empfehlungen/trends', 'Tagestrends & Trendwenden', 'Sieben Tagesänderungen aus bestätigten Marktwertständen.'), ('/empfehlungen/kaufen', 'Spieler kaufen', 'Passende Angebote für Budget und Kaderlücken.'), ('/empfehlungen/verkaufen', 'Verkäufe prüfen', 'Ausfälle, fallende Werte und Finanzierung.'), ('/empfehlungen/simulation', 'Transfers durchspielen', 'Käufe und Verkäufe kombinieren: Budget und Elf danach.')]),
+  ('Dein Spieltag', [('/empfehlungen/elf', 'Beste Elf', 'Formation und Besetzung aus deinem aktuellen Kader.'), ('/spieltag', 'Spieltagspunkte', 'Punkte deiner aufgestellten Spieler und Bank.'), ('/kader/rollen', 'Stammkader schützen', 'Eigene Stammspieler und Trading-Positionen markieren.')]),
+  ('Rückblick', [('/empfehlungen/gewinne', 'Transfer-Gewinne', 'Echte Verkaufserlöse gegenüber bezahlten Kaufpreisen.'), ('/empfehlungen/bilanz', 'Bilanz & Gebote', 'Wie haben sich Empfehlungen und Gebote entwickelt?')])
+] %}
+<section class="plan-group" aria-labelledby="plan-{{ loop.index }}">
+<h2 id="plan-{{ loop.index }}">{{ title }}</h2>
+<nav class="plan-links" aria-label="{{ title }}">
+{% for href, label, description in links %}<a href="{{ href }}"><span><strong>{{ label }}</strong><small>{{ description }}</small></span><span aria-hidden="true">›</span></a>{% endfor %}
+</nav>
+</section>
+{% endfor %}
+{% endblock %}

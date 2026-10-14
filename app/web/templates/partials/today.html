@@ -1,0 +1,63 @@
+{% import "macros.html" as ui %}
+{% set tz = request.app.state.settings.tz %}
+{% set tone_label = {"danger": "Dringend", "warn": "Prüfen", "ok": "In Ordnung"} %}
+<section class="today" id="today" aria-labelledby="today-title">
+  <div class="today__head">
+    <h2 id="today-title">Heute</h2>
+    {% if today and today.deadline %}
+    <p class="today__deadline{% if today.deadline_close %} today__deadline--close{% endif %}">
+      <span class="today__countdown num">{{ today.countdown }}</span>
+      <span class="today__when muted">bis zur Deadline{% if today.matchday %} ({{ today.matchday }}. Spieltag){% endif %},
+        <time class="num" datetime="{{ today.deadline.isoformat() }}">{{ today.deadline | local_time(tz) }}</time></span>
+    </p>
+    {% elif today %}
+    <p class="today__when muted">Keine Deadline angekündigt.</p>
+    {% endif %}
+  </div>
+
+  {% if error %}
+  <p class="note">„Heute“ konnte nicht geladen werden. {{ error }}</p>
+  {% endif %}
+
+  {% if today %}
+  <ul class="todo-list">
+    {% for item in today.items if item.tone != "ok" %}
+    <li>
+      {% if item.href %}<a class="todo todo--{{ item.tone }}" href="{{ item.href }}">{% else %}<div class="todo todo--{{ item.tone }}">{% endif %}
+        <span class="visually-hidden">{{ tone_label[item.tone] }}:</span>
+        <span class="todo__text">
+          <span class="todo__title">{{ item.title }}</span>
+          {% if item.detail %}<span class="todo__detail">{{ item.detail }}</span>{% endif %}
+        </span>
+        {% if item.href %}<span class="todo__go">{{ item.link }}</span></a>{% else %}</div>{% endif %}
+    </li>
+    {% endfor %}
+  </ul>
+  {% if today.all_clear %}<p class="muted">Keine dringenden Aufgaben vor der Deadline.</p>{% endif %}
+  {% if today.best_buy or today.items | selectattr("tone", "equalto", "ok") | list %}
+  <details class="section-details">
+    <summary>Weitere Hinweise &amp; Kaufchance</summary>
+    <ul class="todo-list">
+      {% for item in today.items if item.tone == "ok" %}
+      <li><div class="todo todo--ok"><span class="todo__text"><span class="todo__title">{{ item.title }}</span>{% if item.detail %}<span class="todo__detail">{{ item.detail }}</span>{% endif %}</span></div></li>
+      {% endfor %}
+    {% if today.best_buy %}
+    {% set r = today.best_buy %}
+    <li>
+      <a class="todo todo--buy" href="/spieler/{{ r.player.id }}">
+        <span class="todo__text">
+          <span class="todo__title">Beste Kaufchance: {{ r.player.name }}</span>
+          <span class="todo__detail num">{{ r.player.position.short_label }}{% if r.player.team_name %}, {{ r.player.team_name }}{% endif %}
+            – Preis {{ r.price | money_short }}, Score {{ r.score.shown_total }}{% if r.bid %}, Gebot {{ r.bid.amount | money_short }}{% if today.bid_hint %} (Schätzung, siehe Kaufen){% endif %}{% endif %}</span>
+        </span>
+        <span class="todo__go">Ansehen</span>
+      </a>
+    </li>
+    {% endif %}
+  </ul>
+  </details>
+  {% endif %}
+  {{ ui.data_notes(today.notes, today.warnings) }}
+  {% if today.stale %}<p class="freshness freshness--stale">Kickbase ist gerade nicht erreichbar – teils ältere Daten.</p>{% endif %}
+  {% endif %}
+</section>

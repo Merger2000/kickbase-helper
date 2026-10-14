@@ -1,0 +1,33 @@
+{
+  "t1": "2",
+  "t2": "9",
+  "t1n": "Verein Eins",
+  "t2n": "Verein Zwei",
+  "t1sy": "VE1",
+  "t2sy": "VE2",
+  "t1g": 2,
+  "t2g": 1,
+  "mt": 90,
+  "md": "2026-08-22T13:30:00Z",
+  "mst": 2,
+  "mtd": "90",
+  "il": false,
+  "t1lp": [
+    {"i": 1001, "n": "Spieler Eins", "pos": 1},
+    {"i": 1002, "n": "Spieler Zwei", "pos": 2}
+  ],
+  "t1nlp": [
+    {"i": 1003, "n": "Spieler Drei", "pos": 4}
+  ],
+  "t2lp": [
+    {"i": 2001, "n": "Spieler Vier", "pos": 1}
+  ],
+  "t2nlp": [
+    {"i": 2002, "n": "Spieler Fuenf", "pos": 3}
+  ],
+  "ts1": "2026-08-22T13:30:00Z",
+  "ts2": "2026-08-22T14:30:00Z",
+  "events": [],
+  "t1im": "content/file/team1.png",
+  "t2im": "content/file/team2.png"
+}

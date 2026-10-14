@@ -1,0 +1,7 @@
+<a class="back" href="/empfehlungen">Alle Werkzeuge im Plan</a>
+<h1>{{ views[view] }}</h1>
+{% if view in ('kaufen', 'trading', 'verkaufen') %}
+<nav class="segments" aria-label="Transferplanung">
+{% for key in ('kaufen', 'trading', 'verkaufen') %}<a href="/empfehlungen/{{ key }}"{% if key == view %} aria-current="page"{% endif %}>{{ views[key] }}</a>{% endfor %}
+</nav>
+{% endif %}

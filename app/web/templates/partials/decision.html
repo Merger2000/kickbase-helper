@@ -1,0 +1,32 @@
+{% import "macros.html" as ui %}
+<section class="decision" id="decision" aria-labelledby="decision-title">
+  {% if error %}
+  <h2 id="decision-title">Einschätzung</h2>
+  <p class="note">Die Einschätzung konnte nicht geladen werden. {{ error }}</p>
+  {% elif decision %}
+  {% set d = decision %}
+  <div class="decision__head">
+    <div>
+      <h2 id="decision-title">{{ "Halten oder verkaufen?" if d.in_squad else "Kaufen?" }}</h2>
+      <p class="decision__verdict decision__verdict--{{ d.tone }}">{{ d.verdict }}</p>
+    </div>
+    <span class="rec__score"><span class="rec__total">{{ d.score.shown_total }}</span><span class="rec__unit">Score</span></span>
+  </div>
+  {% if d.reasons %}<ul class="rec__reasons">{% for r in d.reasons %}<li>{{ r }}</li>{% endfor %}</ul>{% endif %}
+  <dl class="rec__facts">
+    <div><dt>Startchance</dt><dd class="num">{% if d.start.percent is not none %}{{ d.start.percent }} %{% else %}–{% endif %}</dd></div>
+    <div><dt>Marktwert 24 h</dt><dd class="num">{{ d.momentum.change_24h | signed_money if d.momentum and d.momentum.change_24h is not none else "–" }}</dd></div>
+    {% if d.gain is not none %}<div><dt>Gewinn seit Kauf</dt><dd class="num">{{ d.gain | signed_money }}</dd></div>{% endif %}
+    <div><dt>Aufstellungsindex</dt><dd class="num">{% if d.xp is not none %}{{ (d.xp.value * 100) | round | int }}/100{% else %}–{% endif %}</dd></div>
+    {% if d.min_score is not none %}<div><dt>Mindest-Score</dt><dd class="num">{{ d.min_score | int }}</dd></div>{% endif %}
+  </dl>
+  {% if d.in_squad %}<a class="rec__link" href="/empfehlungen/trading">Trading &amp; Finanzierung bis zur Deadline</a>{% endif %}
+  {{ ui.score_table(d.score) }}
+  {% if d.xp is not none %}
+  {{ ui.xp_table(d.xp) }}
+  {% endif %}
+  <p class="muted small">Gewichtet wie auf der Seite {{ "Verkaufen" if d.in_squad else "Kaufen" }} (Profil „{{ d.profile }}“).</p>
+  {{ ui.data_notes(d.notes, d.warnings) }}
+  {% if d.stale %}<p class="freshness freshness--stale">Kickbase ist gerade nicht erreichbar – teils ältere Daten.</p>{% endif %}
+  {% endif %}
+</section>

@@ -1,0 +1,25 @@
+{% extends "layout.html" %}
+{% block title %}Spieler · Kickbase Helper{% endblock %}
+{% block content %}
+<h1>Spieler</h1>
+<form class="search" action="/spieler" method="get" role="search"
+      hx-get="/spieler" hx-target="#player-results" hx-swap="outerHTML" hx-push-url="true"
+      hx-sync="this:replace" hx-indicator="#player-loading, #player-results"
+      hx-trigger="submit, input changed delay:300ms from:input[name=q], change">
+  <label class="visually-hidden" for="q">Name oder Verein</label>
+  <input class="input" id="q" name="q" type="search" value="{{ query }}" placeholder="Name oder Verein"
+         autocomplete="off" enterkeyhint="search">
+  <fieldset class="chips">
+    <legend class="visually-hidden">Position</legend>
+    {% for value, label in position_filters %}
+    <label class="chip">
+      <input type="radio" name="pos" value="{{ value }}" {% if value == position %}checked{% endif %}>
+      <span>{{ label }}</span>
+    </label>
+    {% endfor %}
+  </fieldset>
+  <noscript><button class="button" type="submit">Suchen</button></noscript>
+</form>
+<p class="request-status muted small" id="player-loading" role="status">Spieler werden geladen …</p>
+{% include "partials/player_list.html" %}
+{% endblock %}

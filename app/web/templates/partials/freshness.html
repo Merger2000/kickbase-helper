@@ -1,0 +1,5 @@
+<p class="freshness{% if basis.stale %} freshness--stale{% endif %}">
+  Stand {{ basis.fetched_at | local_time(request.app.state.settings.tz) }}
+  {%- if basis.stale %} – manche Daten sind älter, weil eine Quelle gerade nicht erreichbar ist.{% endif %}
+  Spielplan und Tabelle: OpenLigaDB (ODbL).
+</p>

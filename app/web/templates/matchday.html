@@ -1,0 +1,7 @@
+{% extends "layout.html" %}
+{% block title %}Spieltagspunkte · Kickbase Helper{% endblock %}
+{% block scripts %}<script src="{{ static_url('js/live-points.js') }}" defer></script>{% endblock %}
+{% block content %}
+<a class="back" href="/">Mein Team</a>
+{% include "partials/live_points.html" %}
+{% endblock %}

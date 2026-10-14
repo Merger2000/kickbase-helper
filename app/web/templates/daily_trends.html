@@ -1,0 +1,34 @@
+{% extends "layout.html" %}
+{% macro players(items) %}
+<ul class="trading-list">
+{% for p in items %}<li class="trade-card trade-card--compact"><details class="trade-fold">
+<summary><span class="trade-fold__who"><strong>{{ p.name }}</strong><small>{{ p.label }}</small></span><span class="num {% if p.confirmed and p.latest > 0 %}change change--up{% elif p.confirmed and p.latest < 0 %}change change--down{% endif %}">{{ p.latest | signed_money if p.confirmed else '–' }}<small>letztes Update</small></span></summary>
+<div class="trade-fold__body">
+<ol class="daily-strip" aria-label="Sieben gespeicherte Tagesänderungen von {{ p.name }}">
+{% for d in p.movements %}<li><time datetime="{{ d.day.isoformat() }}">{{ d.day.strftime('%d.%m.') }}</time><span class="num {% if d.change is not none and d.change > 0 %}change--up{% elif d.change is not none and d.change < 0 %}change--down{% endif %}">{{ d.change | signed_money if d.change is not none else '–' }}</span></li>{% endfor %}
+</ol>
+{% if not p.confirmed %}<p class="muted small">Der letzte gespeicherte Tagesstand passt noch nicht zu den aktuellen Kaderdaten oder ist unvollständig. Bis zum Abgleich wird keine aktuelle Trendwende bestätigt.</p>{% endif %}
+<p class="muted small">Jeder Wert vergleicht zwei direkt aufeinanderfolgende Markttage. „–“ bedeutet fehlende Daten. Ein unverändertes Update unterbricht eine steigende oder fallende Serie.</p>
+<a class="rec__link" href="/spieler/{{ p.player_id }}">Spieler &amp; Einsatz prüfen</a>
+</div></details></li>{% endfor %}
+</ul>
+{% endmacro %}
+{% block title %}Tagestrends · Kickbase Helper{% endblock %}
+{% block content %}
+{% include "partials/plan_nav.html" %}
+{% if error %}<p class="alert" role="alert">{{ error }}</p>{% endif %}
+{% if data %}
+<p class="lead">Eigener Kader, Marktwertstand {{ data.as_of.strftime('%d.%m.%Y') }}. Bestätigte Tagesänderungen statt eines pauschalen Wochentrends.</p>
+{% if data.stale %}<p class="note note--warning">Kaderdaten älter: aktuelle Trendwenden werden nicht bestätigt.</p>{% endif %}
+{% if data.unconfirmed %}<p class="note">Bei {{ data.unconfirmed }} {{ 'Spieler' if data.unconfirmed == 1 else 'Spielern' }} ist der aktuelle Tagesstand noch nicht bestätigt. Gespeicherte ältere Änderungen bleiben in den Details sichtbar.</p>{% endif %}
+<section class="trading-section"><h2>Trendwenden im Kader</h2>
+{% if data.turns %}{{ players(data.turns) }}{% else %}<p class="muted">Keine bestätigte Trendwende beim letzten Update. Fehlende Daten oder ein unverändertes Update bestätigen keine Richtung.</p>{% endif %}
+<p class="muted small">Eine Trendwende zeigt nur den beobachteten Wechsel von steigend zu fallend oder umgekehrt. Sie ist keine Prognose und keine automatische Verkaufsempfehlung; Stammkader und Deadline weiter beachten.</p>
+</section>
+<section class="trading-section"><h2>Weitere Tagesverläufe</h2>
+{% if data.others %}{{ players(data.others[:3]) }}{% if data.others | length > 3 %}<details class="section-details"><summary>Weitere {{ data.others | length - 3 }} Kaderspieler</summary>{{ players(data.others[3:]) }}</details>{% endif %}{% elif not data.players %}<p class="muted">Kein eigener Kader vorhanden.</p>{% else %}<p class="muted">Alle Kaderspieler sind oben bei den Trendwenden aufgeführt.</p>{% endif %}
+</section>
+<details class="section-details"><summary>Wie wird eine Änderung bestätigt?</summary><p class="muted small">Gespeicherter Tagesmarktwert und Tagesänderung müssen zum aktuellen Kickbase-Kaderstand passen. Datenlücken werden nicht überbrückt. Rund um das tägliche Marktwert-Update und bei älteren Kaderdaten bleibt der aktuelle Stand unbestätigt. Der bestehende tägliche Abgleich liefert die Historie; kein zusätzliches API-Polling.</p></details>
+<p class="freshness">Kaderstand {{ data.fetched_at | local_time(request.app.state.settings.tz) }}. Datumsangaben im Verlauf sind Kickbase-Markttage.</p>
+{% endif %}
+{% endblock %}

@@ -1,0 +1,38 @@
+{% extends "layout.html" %}
+{% set tz=request.app.state.settings.tz %}
+{% macro rows(items, open=false) %}
+<ul class="trading-list">
+{% for r in items %}<li class="trade-card trade-card--compact"><details class="trade-fold">
+<summary><span class="trade-fold__who"><strong>{{ r.name }}</strong><small>{{ 'Im Kader · noch nicht realisiert' if open else 'Verkauft ' ~ (r.sold_at | local_time(tz)) }}</small></span><span class="num {% if r.gain is not none and r.gain > 0 %}change change--up{% elif r.gain is not none and r.gain < 0 %}change change--down{% endif %}">{{ r.gain | signed_money if r.gain is not none else 'unbekannt' }}</span></summary>
+<div class="trade-fold__body">
+<dl class="rec__facts"><div><dt>Bezahlt</dt><dd class="num">{{ r.purchase_price | money_short if r.purchase_price is not none else 'unbekannt' }}</dd></div><div><dt>{{ 'Marktwert heute' if open else 'Verkaufserlös' }}</dt><dd class="num">{{ (r.market_value if open else r.sale_price) | money_short }}</dd></div>{% if r.held_days is not none %}<div><dt>Haltedauer</dt><dd>{{ 'unter 1 Tag' if r.held_days == 0 else r.held_days ~ (' Tag' if r.held_days == 1 else ' Tage') }}</dd></div>{% endif %}</dl>
+{% if r.purchased_at %}<p class="muted small">Gekauft {{ r.purchased_at | local_time(tz) }}. Kaufpreis einschließlich bezahltem Aufschlag.</p>{% else %}<p class="muted small">Kein eindeutig zuordenbarer Kaufpreis. Der Gewinn wird nicht geschätzt.</p>{% endif %}
+{% if open %}<p class="muted small">Differenz zum aktuellen Marktwert, falls zu diesem Wert verkauft würde. Kein bestätigter Verkaufserlös.</p><a class="rec__link" href="/spieler/{{ r.player_id }}">Spieler ansehen</a>{% endif %}
+</div></details></li>{% endfor %}
+</ul>
+{% endmacro %}
+{% block title %}Transfer-Gewinne · Kickbase Helper{% endblock %}
+{% block content %}
+{% include "partials/plan_nav.html" %}
+{% if error %}<p class="alert" role="alert">{{ error }}</p>{% endif %}
+{% if data %}
+<p class="lead">Eigene Verkäufe der letzten 60 Tage. Nur belegte, gespeicherte Transfers zählen; das ist eine Teilauswertung deiner Historie.</p>
+{% if data.collection_warning %}<p class="note note--warning">{{ data.collection_warning }}</p>{% endif %}
+{% if data.stale %}<p class="note note--warning">Kaderdaten älter: offene Wertsteigerungen vor Entscheidungen in Kickbase prüfen.</p>{% endif %}
+<section class="scoreboard scoreboard--profit" aria-label="Erfasste Transfer-Gewinne">
+<div class="stat"><span class="stat__label">Realisiert</span><span class="stat__value num">{{ data.realized | money_short(signed=true) if data.realized is not none else '–' }}</span><span class="stat__note">aus {{ data.known_closed | length }} belegten Verkäufen</span></div>
+<div class="stat"><span class="stat__label">Offen im Kader</span><span class="stat__value num">{{ data.open_gain | money_short(signed=true) if data.open_gain is not none else '–' }}</span><span class="stat__note">bekannte Einstandspreise; kein Erlös</span></div>
+</section>
+{% set unknown = data.closed | length - data.known_closed | length %}
+{% if unknown %}<p class="note note--warning">{{ unknown }} {{ 'eigener Verkauf' if unknown == 1 else 'eigene Verkäufe' }} ohne eindeutig zuordenbaren Kaufpreis: nicht in der Gewinnsumme enthalten.</p>{% endif %}
+{% if data.unknown_sellers %}<p class="note">Bei {{ data.unknown_sellers }} {{ 'Verkauf' if data.unknown_sellers == 1 else 'Verkäufen' }} der Liga an Kickbase ist der Verkäufer noch unbekannt. Diese Ereignisse zählen nicht als deine Verkäufe.</p>{% endif %}
+<section class="trading-section"><h2>Abgeschlossene Transfers</h2>
+{% if data.closed %}{{ rows(data.closed[:3]) }}{% if data.closed | length > 3 %}<details class="section-details"><summary>{{ 'Weiterer Abschluss' if data.closed | length == 4 else 'Weitere ' ~ (data.closed | length - 3) ~ ' Abschlüsse' }}</summary>{{ rows(data.closed[3:]) }}</details>{% endif %}{% else %}<p class="muted">Noch keine eigenen Verkäufe in diesem Zeitraum eindeutig erkannt. Das bedeutet nicht, dass dein tatsächlicher Gewinn null ist.</p>{% endif %}
+</section>
+<section class="trading-section"><h2>Offene Positionen</h2><p class="muted small">Alle eigenen Kaderspieler, auch Stammspieler. Offene Differenzen erhöhen dein verfügbares Budget nicht.</p>
+{% if data.holdings %}{{ rows(data.holdings[:3],open=true) }}{% if data.holdings | length > 3 %}<details class="section-details"><summary>Weitere {{ data.holdings | length - 3 }} Kaderspieler</summary>{{ rows(data.holdings[3:],open=true) }}</details>{% endif %}{% else %}<p class="muted">Keine Kaderspieler vorhanden.</p>{% endif %}
+</section>
+<details class="section-details"><summary>Quelle &amp; Grenzen der Rechnung</summary><p class="muted small">Aktivitätsfeed: tatsächliche Preise, Käufer-/Verkäuferzuordnung über den Namen des eigenen Accounts. Historische Namen, fehlende Ereignisse und Manager-Verkäufe ohne Verkäuferangabe können die Auswertung einschränken. Ein zwischenzeitlicher oder zeitlich uneindeutiger Transfer unterbricht die Zuordnung. Keine Gebote als Kaufpreis, keine Anfangskader-Preise oder fehlenden Erlöse schätzen.</p>{% if data.history_since %}<p class="muted small">Gespeicherte Transferereignisse ab {{ data.history_since | local_time(tz) }}; ältere Käufe werden für Verkäufe im 60-Tage-Zeitraum berücksichtigt. Die erste Speicherung bestätigt keine vollständige Historie.</p>{% endif %}</details>
+<p class="freshness">Kaderstand {{ data.fetched_at | local_time(tz) }}. Transferhistorie wird vom vorhandenen Sammler alle zwei Stunden ergänzt.</p>
+{% endif %}
+{% endblock %}

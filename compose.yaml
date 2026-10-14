@@ -1,0 +1,120 @@
+name: kickbase-helper
+
+x-logging: &logging
+  driver: json-file
+  options:
+    max-size: "10m"
+    max-file: "3"
+
+x-app: &app
+  build:
+    context: .
+    dockerfile: docker/app.Dockerfile
+  image: kickbase-helper-app:latest
+  restart: unless-stopped
+  env_file: .env
+  environment:
+    # POSTGRES_PASSWORD must be URL-safe (hex), it is embedded in the URL as is.
+    DATABASE_URL: postgresql+psycopg://${POSTGRES_USER:?fehlt in .env}:${POSTGRES_PASSWORD:?fehlt in .env}@db:5432/${POSTGRES_DB:?fehlt in .env}
+  secrets:
+    - kickbase_email
+    - kickbase_password
+    - llm_api_key
+  logging: *logging
+
+services:
+  db:
+    image: postgres:16-alpine
+    restart: unless-stopped
+    environment:
+      POSTGRES_USER: ${POSTGRES_USER:?fehlt in .env}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:?fehlt in .env}
+      POSTGRES_DB: ${POSTGRES_DB:?fehlt in .env}
+      TZ: ${TZ:-Europe/Berlin}
+    volumes:
+      - pgdata:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U \"$$POSTGRES_USER\" -d \"$$POSTGRES_DB\""]
+      interval: 10s
+      timeout: 5s
+      retries: 10
+    logging: *logging
+
+  app:
+    <<: *app
+    command: ["web"]
+    depends_on:
+      db:
+        condition: service_healthy
+    healthcheck:
+      test:
+        - CMD
+        - python
+        - -c
+        - "import urllib.request; urllib.request.urlopen('http://127.0.0.1:8000/health', timeout=3)"
+      interval: 30s
+      timeout: 5s
+      start_period: 20s
+      retries: 3
+
+  worker:
+    <<: *app
+    command: ["worker"]
+    secrets:
+      - kickbase_email
+      - kickbase_password
+      - telegram_bot_token
+      - llm_api_key
+      - claude_bridge_token
+    # Claude im Telegram-Chat: the bridge runs on the host (deploy/claude-bridge/), and the
+    # Claude CLI there reads the Kickbase tools from the worker – published on loopback only.
+    extra_hosts:
+      - "host.docker.internal:host-gateway"
+    ports:
+      - "127.0.0.1:8768:8768"
+    depends_on:
+      app:
+        condition: service_healthy
+
+  proxy:
+    build:
+      context: docker/caddy
+    image: kickbase-helper-proxy:latest
+    restart: unless-stopped
+    # Only port published to the network (the worker's 8768 is loopback only). The hostname resolves internally (AdGuard) only.
+    ports:
+      - "443:443/tcp"
+      - "443:443/udp"
+    environment:
+      PUBLIC_URL: ${PUBLIC_URL:?fehlt in .env}
+    secrets:
+      - ionos_token
+    volumes:
+      - caddy_data:/data
+      - caddy_config:/config
+    depends_on:
+      - app
+    logging: *logging
+
+secrets:
+  kickbase_email:
+    file: /opt/kickbase-helper/secrets/kickbase_email
+  kickbase_password:
+    file: /opt/kickbase-helper/secrets/kickbase_password
+  ionos_token:
+    file: /opt/kickbase-helper/secrets/ionos_token
+  # Telegram bot token (notifications), gitignored file next to this compose file.
+  telegram_bot_token:
+    file: ./secrets/telegram_bot_token
+  # API key of the language model (Mistral), gitignored; without it the worker runs without AI.
+  llm_api_key:
+    file: ./secrets/llm_api_key
+  # Shared token of the Claude bridge on the host (deploy/claude-bridge/), gitignored; an empty
+  # file switches Claude im Chat off.
+  claude_bridge_token:
+    file: ./secrets/claude_bridge_token
+
+volumes:
+  pgdata:
+  caddy_data:
+  caddy_config:

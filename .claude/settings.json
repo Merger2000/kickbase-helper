@@ -1,0 +1,48 @@
+{
+  "model": "sonnet",
+  "autoCompactWindow": 200000,
+  "env": {
+    "CLAUDE_CODE_SUBAGENT_MODEL": "sonnet",
+    "CLAUDE_CODE_SUBAGENT_MODEL_FORCE": "1"
+  },
+  "permissions": {
+    "defaultMode": "auto",
+    "allow": [
+      "Bash(opencode run:*)",
+      "Bash(mkdir -p .agent-logs:*)",
+      "Bash(tail:*)",
+      "Bash(sleep:*)",
+      "Bash(git status:*)",
+      "Bash(git diff:*)",
+      "Bash(git log:*)",
+      "Bash(git show:*)",
+      "Bash(git add:*)",
+      "Bash(git commit:*)",
+      "Bash(git checkout:*)",
+      "Bash(git pull:*)",
+      "Bash(git fetch:*)",
+      "Bash(git push -u origin HEAD)",
+      "Bash(git push)",
+      "Bash(gh pr create:*)",
+      "Bash(gh pr view:*)",
+      "Bash(gh pr comment:*)",
+      "Bash(gh pr merge --squash --delete-branch:*)",
+      "Bash(gh pr checks:*)",
+      "Bash(uv run pytest:*)",
+      "Bash(uv run ruff:*)",
+      "Bash(uv run python scripts/spec.py:*)",
+      "Bash(docker compose up -d --build)",
+      "Bash(docker compose ps:*)",
+      "Bash(docker compose logs:*)",
+      "Bash(curl -fsS https://kickbase.example.com/health)"
+    ],
+    "deny": [
+      "Read(//opt/kickbase-helper/secrets/**)",
+      "Edit(//opt/kickbase-helper/secrets/**)",
+      "Bash(git push --force:*)",
+      "Bash(git push -f:*)",
+      "Bash(git push origin main:*)",
+      "Bash(docker compose down -v:*)"
+    ]
+  }
+}

@@ -1,0 +1,226 @@
+{% extends "layout.html" %}
+{% import "macros.html" as ui %}
+{% block title %}{{ views[view] }} · Empfehlungen · Kickbase Helper{% endblock %}
+{% block content %}
+{% include "partials/plan_nav.html" %}
+
+{% if error %}<p class="alert" role="alert">{{ error }}</p>{% endif %}
+{% if basis and view != "kaufen" %}{{ ui.data_notes(basis.notes, basis.warnings) }}{% endif %}
+
+{% if data %}
+{% if view == "kaufen" %}
+{% set position_names = {1: "Torwart", 2: "Abwehr", 3: "Mittelfeld", 4: "Sturm"} %}
+<p class="lead">
+  Budget nach Geboten <strong class="num">{{ data.budget | money_short }}</strong>.
+  {% if data.deadline %}Nächste Aufstellungs-Deadline: <strong class="num">{{ data.deadline | local_time(request.app.state.settings.tz) }}</strong>.
+  {% else %}Die nächste Aufstellungs-Deadline ist gerade nicht bekannt, deshalb fehlt der Hinweis „vor dem Spieltag“.{% endif %}
+</p>
+{% if data.gaps %}
+<p class="note note--gap">
+  Für eine volle Elf fehlen {% for pos, count in data.gaps.items() %}{{ count }}× {{ position_names[pos.value] }}{% if not loop.last %}, {% endif %}{% endfor %}
+  (verletzte Spieler nicht mitgezählt).
+</p>
+{% endif %}
+<form class="buy-filters" action="/empfehlungen/kaufen" method="get"
+      hx-get="/empfehlungen/kaufen" hx-target="#buy-results" hx-swap="outerHTML" hx-push-url="true"
+      hx-sync="this:replace" hx-indicator="#buy-loading, #buy-results"
+      hx-trigger="submit, change, input changed delay:400ms from:input[name=max]">
+  <div class="buy-filters__row">
+    <label class="field">
+      <span class="field__label">Sortierung</span>
+      <select class="input" name="sort">
+        {% for key, label in sorts.items() %}<option value="{{ key }}"{% if key == filters.sort %} selected{% endif %}>{{ label }}</option>{% endfor %}
+      </select>
+    </label>
+    <label class="field">
+      <span class="field__label">Max. Preis (Mio.)</span>
+      <input class="input" name="max" inputmode="decimal" value="{{ max_input }}" placeholder="Budget" pattern="\d{1,3}([.,]\d{1,2})?" autocomplete="off">
+    </label>
+  </div>
+  <fieldset class="chips">
+    <legend class="visually-hidden">Position</legend>
+    {% for value, label in position_filters %}
+    <label class="chip">
+      <input type="radio" name="pos" value="{{ value }}" {% if value == filters.position %}checked{% endif %}>
+      <span>{{ label }}</span>
+    </label>
+    {% endfor %}
+  </fieldset>
+  <details class="filter-options"{% if filters.gaps_only or filters.over_budget or not filters.before_deadline %} open{% endif %}>
+  <summary>Weitere Filter</summary>
+  <div class="toggles">
+    {% if data.deadline %}
+    <input type="hidden" name="vor" value="0">
+    <label class="toggle"><input type="checkbox" name="vor" value="1"{% if filters.before_deadline %} checked{% endif %}> <span>Angebote ausblenden, die erst nach der Deadline enden</span></label>
+    {% endif %}
+    {% if data.gaps %}
+    <label class="toggle"><input type="checkbox" name="luecke" value="1"{% if filters.gaps_only %} checked{% endif %}> <span>Nur Kaderlücken</span></label>
+    {% endif %}
+    {% if data.over_budget_recs %}
+    <label class="toggle"><input type="checkbox" name="ueber" value="1"{% if filters.over_budget %} checked{% endif %}> <span>Auch Spieler über dem Budget anzeigen</span></label>
+    {% endif %}
+  </div>
+  </details>
+  <div class="filter-actions">
+    <a class="button button--quiet" href="/empfehlungen/kaufen">Filter zurücksetzen</a>
+    <span class="request-status muted small" id="buy-loading" role="status">Angebote werden geladen …</span>
+  </div>
+  <noscript><button class="button" type="submit">Anwenden</button></noscript>
+</form>
+{% include "partials/buy_results.html" %}
+{{ ui.weights_note(data.profile) }}
+
+{% elif view == "verkaufen" %}
+{% if basis.holding_roles.values() | select("equalto", "core") | list %}<p class="note">Geschützte Stammspieler werden im Finanzierungsplan ausgelassen. Ausfall-/Trendrisiken werden weiterhin angezeigt. <a href="/kader/rollen">Schutz bearbeiten</a></p>{% endif %}
+<p class="lead">
+  Eigene Spieler mit aktuellem Marktwertrückgang oder unsicherem Einsatz. Steigende Trading-Spieler
+  werden unter der Woche gehalten; vor der Deadline zählt die Spieltags-Elf.
+</p>
+<a class="button button--quiet" href="/empfehlungen/trading">Trading &amp; Deadline-Plan öffnen</a>
+{% if data.minus_if_bids_win and not data.guide %}
+<p class="note">Gewinnst du alle offenen Gebote, bist du <strong class="num">{{ data.minus_if_bids_win | money_short }}</strong> im Minus – dann vor dem Spieltag verkaufen oder Gebote zurückziehen.</p>
+{% endif %}
+{% if data.guide %}
+<section class="guide" aria-labelledby="guide-title">
+  <h2 id="guide-title">Ins Plus kommen</h2>
+  <p class="muted small">
+    Du bist <strong class="num">{{ data.guide.deficit | money_short }}</strong> im Minus. Im Minus gibt es keine Punkte –
+    jeder fehlende Startelf-Spieler kostet −100. Du musst Spieler im Wert von mindestens
+    <strong class="num">{{ data.guide.deficit | money_short }}</strong> verkaufen.
+    {% if data.minus_if_bids_win %}Gewinnst du außerdem alle offenen Gebote, fehlen insgesamt
+    <strong class="num">{{ data.minus_if_bids_win | money_short }}</strong>.{% endif %}
+  </p>
+  {% macro sell_option(option) %}
+  <ul>
+    {% for p in option.players %}
+    <li><span>{{ p.name }} <span class="muted small num">Ø {{ p.average_points }}{% if p.start_percent is not none %}, Startchance {{ p.start_percent }} %{% endif %}</span></span> <span class="num">{{ p.value | money_short }}</span></li>
+    {% endfor %}
+  </ul>
+  <p class="muted small">
+    Summe <span class="num">{{ option.total | money_short }}</span>{% if option.covers %}, danach <span class="num">{{ option.surplus | money_short(signed=true) }}</span> auf dem Konto{% else %} – reicht noch nicht{% endif %}.
+    <strong>Punkteverlust {{ option.points_lost }}</strong> (Saison {{ option.season_loss | round | int }}, nächster Spieltag {{ option.matchday_loss | round | int }}{% if option.newly_empty %}, {{ option.newly_empty }} {{ "Platz" if option.newly_empty == 1 else "Plätze" }} mehr leer {{ option.slot_loss | round | int }}{% endif %}).
+  </p>
+  {% endmacro %}
+  <div class="guide__options">
+    {% if data.guide.best %}
+    <div class="guide__option guide__option--best">
+      <h3>Empfehlung: geringster Punkteverlust</h3>
+      {{ sell_option(data.guide.best) }}
+    </div>
+    {% endif %}
+    <div class="guide__option">
+      <h3>Wenigste Verkäufe</h3>
+      {{ sell_option(data.guide.fewest) }}
+    </div>
+    <div class="guide__option">
+      <h3>Nur Verkaufskandidaten</h3>
+      {% if data.guide.candidates.players %}{{ sell_option(data.guide.candidates) }}{% else %}<p class="muted">Keine Verkaufskandidaten.</p>{% endif %}
+    </div>
+  </div>
+  {% set w = data.guide.weights %}
+  <p class="muted small">Punkteverlust = {{ w.season | decimal(1) }} × Saison-Ø + {{ w.matchday | decimal(1) }} × Ø × Startchance (nächster Spieltag) + {{ w.empty_slot_points | int }} je Platz, der danach in der Elf leer bliebe. Die Empfehlung hat den kleinsten Punkteverlust. Gewichte in <code>config/scoring.yaml</code> (<code>sell_guide</code>).</p>
+</section>
+{% endif %}
+{% if data.recommendations %}
+<ol class="recs">
+  {% for rec in data.recommendations %}
+  <li class="rec">
+    <div class="rec__head">
+      <a class="rec__player" href="/spieler/{{ rec.player.id }}">
+        {{ ui.avatar(rec.player) }}
+        <span class="rec__who">
+          <span class="rec__name">{{ rec.player.name }}</span>{% if rec.holding_role == "core" %} <span class="badge badge--fit">Von dir geschützt</span>{% endif %}
+          <span class="rec__meta">{{ rec.player.position.short_label }}{% if rec.player.team_name %}, {{ rec.player.team_name }}{% endif %}</span>
+        </span>
+      </a>
+      <span class="rec__score"><span class="rec__total">{{ rec.score.shown_total }}</span><span class="rec__unit">Score</span></span>
+    </div>
+    <ul class="rec__reasons">
+      {% for reason in rec.reasons %}<li>{{ reason }}</li>{% endfor %}
+    </ul>
+    <dl class="rec__facts">
+      <div><dt>Marktwert</dt><dd class="num">{{ rec.market_value | money_short }}</dd></div>
+      <div><dt>24 Stunden</dt><dd class="num">{{ rec.momentum.change_24h | signed_money if rec.momentum and rec.momentum.change_24h is not none else "–" }}</dd></div>
+      {% if rec.gain is not none %}
+      <div><dt>Seit Kauf</dt><dd class="num change {% if rec.gain > 0 %}change--up{% elif rec.gain < 0 %}change--down{% endif %}">{{ rec.gain | signed_money }}</dd></div>
+      {% endif %}
+    </dl>
+    {{ ui.score_parts(rec.score) }}
+    {{ ui.score_table(rec.score) }}
+  </li>
+  {% endfor %}
+</ol>
+{% else %}
+<section class="empty">
+  <h2>Keine Verkaufskandidaten</h2>
+  <p class="muted">Alle Spieler sind fit und keiner verliert gerade deutlich an Marktwert.</p>
+</section>
+{% endif %}
+{% if data.unflagged %}<p class="muted small">{{ data.unflagged }} weitere Spieler ohne Auffälligkeit.</p>{% endif %}
+{% if data.trading_held %}<p class="note">{{ data.trading_held | length }} Spieler mit unsicherem Einsatz steigen aktuell: als Trading-Position vorerst halten, vor der Deadline erneut prüfen.</p>{% endif %}
+{{ ui.weights_note(data.profile) }}
+
+{% else %}
+<p class="lead">
+  Die beste Aufstellung aus deinem Kader für die nächsten Spiele: <strong class="num">{{ data.formation.label }}</strong>,
+  Index-Summe <strong class="num">{{ data.total_index | round | int }}</strong> (Startchance × Form × Gegner).
+  Verletzte und Gesperrte sind ausgenommen.
+</p>
+<p class="muted small">Der Aufstellungsindex (0–100 je Spieler) vergleicht das Potenzial für die nächsten Spiele. Er ist eine relative Kennzahl; tatsächliche Kickbase-Punkte werden noch nicht prognostiziert.</p>
+{% if data.coming_in or data.going_out %}
+<div class="changes">
+  {% if data.coming_in %}<p><span class="changes__label">Neu rein:</span> {% for rec in data.coming_in %}{{ rec.player.name }}{% if not loop.last %}, {% endif %}{% endfor %}</p>{% endif %}
+  {% if data.going_out %}<p><span class="changes__label">Raus:</span> {{ data.going_out | join(", ") }}</p>{% endif %}
+</div>
+{% else %}
+<p class="note{% if not data.lines | sum(attribute='empty_slots') %} note--ok{% endif %}">{% if data.lines | sum(attribute="empty_slots") %}Die belegten Plätze entsprechen bereits der Empfehlung. Für eine volle Elf fehlen noch Spieler.{% else %}Deine aktuelle Aufstellung ist schon die beste.{% endif %}</p>
+{% endif %}
+{{ ui.pitch(data.lines, mode="xp") }}
+{% if data.lines | sum(attribute="empty_slots") %}
+<p class="lineup__hint">Für {{ data.lines | sum(attribute="empty_slots") }} {{ "Platz" if data.lines | sum(attribute="empty_slots") == 1 else "Plätze" }} fehlen dir Spieler – das kostet Punkte.</p>
+{% endif %}
+<details class="recs-explained section-details">
+  <summary>Warum diese Elf?</summary>
+  <ol class="recs recs--compact">
+    {% for line in data.lines | reverse %}{% for rec in line.players %}
+    <li class="rec">
+      <div class="rec__head">
+        <a class="rec__player" href="/spieler/{{ rec.player.id }}">
+          {{ ui.avatar(rec.player) }}
+          <span class="rec__who">
+            <span class="rec__name">{{ rec.player.name }}</span>{% if rec.holding_role == "core" %} <span class="badge badge--fit">Von dir geschützt</span>{% endif %}
+            <span class="rec__meta">{{ rec.player.position.short_label }}{% if rec.player.team_name %}, {{ rec.player.team_name }}{% endif %}</span>
+          </span>
+        </a>
+        <span class="rec__score"><span class="rec__total">{{ (rec.xp.value * 100) | round | int }}</span><span class="rec__unit">Index / 100</span></span>
+      </div>
+      {% if rec in data.stand_ins %}
+      <p class="rec__deadline"><span class="badge badge--doubtful">Notbesetzung</span>
+        <span class="muted small">Startchance {{ rec.start.percent }} % ({{ rec.start.reasons | join(", ") }}) – besser als ein leerer Platz</span></p>
+      {% endif %}
+      {{ ui.xp_table(rec.xp) }}
+    </li>
+    {% endfor %}{% endfor %}
+  </ol>
+</details>
+{% if data.bench %}
+<p class="bench"><span class="bench__label">Bank:</span>
+  {% for rec in data.bench %}{{ rec.player.name }} (Index {{ (rec.xp.value * 100) | round | int }}){% if not loop.last %}, {% endif %}{% endfor %}
+</p>
+{% endif %}
+{% if data.excluded %}
+<p class="bench"><span class="bench__label">Fällt aus:</span>
+  {% for rec in data.excluded %}{{ rec.player.name }} ({{ rec.start.reasons[0] if rec.start else rec.player.status_label }}){% if not loop.last %}, {% endif %}{% endfor %}
+</p>
+{% endif %}
+{% if data.risky %}
+<p class="bench"><span class="bench__label">Starteinsatz unwahrscheinlich:</span>
+  {% for rec in data.risky %}{{ rec.player.name }} ({{ rec.start.percent }} %: {{ rec.start.reasons | join(", ") }}){% if not loop.last %}; {% endif %}{% endfor %}
+</p>
+{% endif %}
+{{ ui.weights_note(data.profile) }}
+{% endif %}
+
+{% if view != "kaufen" %}{% include "partials/freshness.html" %}{% endif %}
+{% endif %}
+{% endblock %}

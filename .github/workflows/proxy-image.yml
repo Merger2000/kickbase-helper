@@ -1,0 +1,48 @@
+name: Proxy-Image
+
+# The Caddy build (xcaddy + IONOS DNS plugin) takes minutes, so it only runs when it changes.
+on:
+  pull_request:
+    paths:
+      - docker/caddy/**
+      - .github/workflows/proxy-image.yml
+  push:
+    branches: [main]
+    paths:
+      - docker/caddy/**
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: proxy-image-${{ github.event.pull_request.number || github.ref }}
+  cancel-in-progress: ${{ github.event_name == 'pull_request' }}
+
+jobs:
+  build:
+    name: Caddy-Image (Build + IONOS-Plugin)
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          persist-credentials: false
+      - uses: docker/setup-buildx-action@f87e5991a6d7451dcb8d9637bfbc97413f497069 # v4.4.1
+      - uses: docker/build-push-action@c3c9e263c25d99ce0380d002d59b67737d91b0dc # v7.4.0
+        with:
+          context: docker/caddy
+          tags: kickbase-helper-proxy:ci
+          load: true
+          cache-from: type=gha,scope=proxy
+          cache-to: type=gha,scope=proxy,mode=max
+      - name: DNS-Plugin eingebaut?
+        run: |
+          docker run --rm --entrypoint caddy kickbase-helper-proxy:ci list-modules \
+            | grep -x 'dns.providers.ionos'
+      - name: Konfigurierbarer Hostname
+        run: |
+          docker run --rm --network none --entrypoint caddy \
+            -e PUBLIC_URL=https://kickbase.example.com -e IONOS_API_TOKEN=example.example \
+            kickbase-helper-proxy:ci adapt --config /etc/caddy/Caddyfile --adapter caddyfile \
+            | jq -e '.apps.http.servers.srv0.routes[0].match[0].host == ["kickbase.example.com"]'

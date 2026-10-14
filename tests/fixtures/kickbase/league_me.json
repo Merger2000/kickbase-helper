@@ -1,0 +1,58 @@
+{
+  "b": 17012409.0,
+  "bs": 1,
+  "mppu": 16,
+  "un": 125,
+  "adm": false,
+  "cpi": "1",
+  "lnm": "Testliga",
+  "tpc": [
+    {
+      "tid": "29",
+      "npt": 1,
+      "tim": "content/file/ce455adfd794457f9ab90f7bab522812.svg"
+    },
+    {
+      "tid": "43",
+      "npt": 1,
+      "tim": "content/file/29ceb88867954b548ca9e27d39d050c2.svg"
+    },
+    {
+      "tid": "7",
+      "npt": 3,
+      "tim": "content/file/e06a055a6eaf4fd7bebfadb35037f957.svg"
+    },
+    {
+      "tid": "18",
+      "npt": 1,
+      "tim": "content/file/d4ac9675b44944039d463837f888cb1c.svg"
+    },
+    {
+      "tid": "10",
+      "npt": 1,
+      "tim": "content/file/82f8ba6f2d9e46119e4deac25a0b5480.svg"
+    },
+    {
+      "tid": "4",
+      "npt": 1,
+      "tim": "content/file/422de82bee3b47eb898699d6d27095ba.svg"
+    },
+    {
+      "tid": "3",
+      "npt": 1,
+      "tim": "content/file/dc3d63ae79bf4282a4107bafcd572b99.svg"
+    }
+  ],
+  "mpst": 5,
+  "gpm": 1,
+  "rnkm": 2,
+  "mgc": 6,
+  "mgm": 18,
+  "hum": false,
+  "isp": false,
+  "cd": "DE",
+  "upe": false,
+  "as2e": true,
+  "isvf": false,
+  "vft": 0
+}

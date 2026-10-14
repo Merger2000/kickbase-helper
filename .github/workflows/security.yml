@@ -1,0 +1,63 @@
+name: Security
+
+# Checks that depend on external vulnerability databases. They run weekly and on PRs that change
+# dependencies or images – so a freshly published CVE does not suddenly turn every feature PR red.
+on:
+  schedule:
+    - cron: "17 5 * * 1" # Monday morning (UTC)
+  pull_request:
+    paths:
+      - pyproject.toml
+      - uv.lock
+      - docker/**
+      - .github/workflows/security.yml
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: security-${{ github.event.pull_request.number || github.ref }}
+  cancel-in-progress: ${{ github.event_name == 'pull_request' }}
+
+jobs:
+  python-deps:
+    name: Python-Abhängigkeiten (pip-audit)
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          persist-credentials: false
+      - uses: astral-sh/setup-uv@1c37ad07a6a961277cf70c0d37d6f313000f5884 # v10.3.0
+      - name: pip-audit (gelockte Laufzeit-Abhängigkeiten)
+        run: |
+          uv export --frozen --no-dev --no-emit-project --format requirements-txt -o requirements.txt
+          uvx pip-audit@2.10.1 -r requirements.txt --require-hashes --disable-pip \
+            --progress-spinner off --desc on
+
+  app-image:
+    name: App-Image (Trivy)
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          persist-credentials: false
+      - uses: docker/setup-buildx-action@f87e5991a6d7451dcb8d9637bfbc97413f497069 # v4.4.1
+      - uses: docker/build-push-action@c3c9e263c25d99ce0380d002d59b67737d91b0dc # v7.4.0
+        with:
+          context: .
+          file: docker/app.Dockerfile
+          tags: kickbase-helper-app:scan
+          load: true
+          cache-from: type=gha,scope=app
+      # Only fixable HIGH/CRITICAL findings fail the run – those can actually be resolved by a
+      # newer base image or dependency.
+      - uses: aquasecurity/trivy-action@ed142fd0673e97e23eac54620cfb913e5ce36c25 # v0.36.0
+        with:
+          image-ref: kickbase-helper-app:scan
+          severity: HIGH,CRITICAL
+          ignore-unfixed: true
+          exit-code: "1"
+          format: table

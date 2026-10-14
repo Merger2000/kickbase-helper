@@ -1,0 +1,102 @@
+# Gewichte und Parameter der Empfehlungen. Jede Empfehlung zeigt ihre Bestandteile mit genau
+# diesen Gewichten an. Änderungen wirken nach einem Neustart der App.
+#
+# Score = 100 · clamp(Form·w_form + Trend·w_trend + Programm·w_programm + Einsatz·w_einsatz
+#                    + Klasse·w_klasse − Status·w_status, 0, 1)
+# Form, Trend, Programm, Einsatz und Klasse liegen jeweils zwischen 0 und 1, der Status-Malus
+# ebenfalls. Die positiven Gewichte eines Profils ergeben zusammen 1.
+
+form:
+  # gewichteter Schnitt der Punkte der letzten Spieltage, neuester zuerst; nicht gespielt = 0.
+  # Ergebnis als Perzentil innerhalb der Position (0 = schlechtester, 1 = bester).
+  recency_weights: [5, 4, 3, 2, 1]
+
+trend:
+  # Marktwert-Änderung über so viele Tage, gekappt auf ±cap_percent, linear auf 0…1.
+  days: 7
+  cap_percent: 15
+
+programme:
+  # nächste Spiele des Vereins; Gegnerstärke = Punkte pro Spiel / 3, auswärts schwerer.
+  matches: 3
+  home_factor: 0.9
+  away_factor: 1.1
+  # Bis zu so vielen gespielten Partien wird die Vorjahrestabelle beigemischt.
+  blend_previous_season_until: 4
+  # Punkte pro Spiel für Aufsteiger ohne Vorjahr in der Bundesliga.
+  promoted_points_per_game: 1.0
+
+# Kickbase-Status als Abzug. Bewusst zusätzlich zum Bestandteil „Einsatz“, der den Status schon
+# in die Startchance einrechnet: Einsatz misst „spielt er am nächsten Spieltag?“, der Status-Malus
+# das Risiko darüber hinaus (Rückfall, Formverlust, fallender Marktwert). Beides steht mit
+# eigenem Wert in der Score-Erklärung.
+status_malus:
+  fit: 0.0
+  # „angeschlagen“: die Startchance (Einsatz) ist schon auf 50 % gedeckelt, daher nur ein
+  # kleiner Zusatzabzug (09.10.2026: 0,3 → 0,15, sonst landeten Top-Spieler unter Mittelmaß).
+  fraglich: 0.15
+  aufbautraining: 0.4
+  faellt_aus: 1.0
+  unbekannt: 0.5
+
+# Klasse: wie gut ein Spieler über die letzten Spieltage hinaus ist – Marktwert-Rang in der
+# Position (Kickbase preist mehrere Spielzeiten ein) und Saison-Ø; der Saison-Ø zählt mit den
+# Einsätzen mehr, höchstens max_season_share (nach full_after_appearances Einsätzen).
+klasse:
+  max_season_share: 0.5
+  full_after_appearances: 8
+
+profiles:
+  kaufen:
+    weights: {form: 0.25, trend: 0.25, programm: 0.15, einsatz: 0.15, klasse: 0.20, status: 1.0}
+    min_score: 40
+  verkaufen:
+    # Halten oder verkaufen: Klasse zählt am meisten – einen Top-Spieler verkauft man nicht wegen
+    # einer schwachen Woche (09.10.2026: Trend 0,50 → 0,25, Klasse neu 0,30).
+    weights: {form: 0.25, trend: 0.25, programm: 0.10, einsatz: 0.10, klasse: 0.30, status: 1.0}
+    # Spieler erscheinen hier, wenn der Trend darunter liegt oder ihre Startchance unter 50 %
+    # liegt (verletzt, gesperrt, nicht in der voraussichtlichen Startelf).
+    trend_threshold_percent: -3
+  aufstellung:
+    weights: {form: 0.45, trend: 0.0, programm: 0.20, einsatz: 0.15, klasse: 0.20, status: 1.0}
+
+# Verkaufs-Guide im Minus („Ins Plus kommen“): empfohlen wird die Kombination aus höchstens
+# max_players Spielern, die das Minus deckt und am wenigsten Punkte kostet. Verlust je Spieler =
+# season_weight · Saison-Ø (seine Klasse) + matchday_weight · Ø × Startchance (nächster
+# Spieltag); jeder Platz, der danach in der Elf leer bliebe, kostet empty_slot_points.
+sell_guide:
+  season_weight: 0.6
+  matchday_weight: 0.4
+  empty_slot_points: 100
+  max_players: 4
+
+bids:
+  # Empfohlenes Gebot = Marktwert · (1 + Aufschlag); der Aufschlag ist das Quantil der
+  # Aufschläge, die in der Liga für vergleichbare Spieler bezahlt wurden (Kaufpreis gegenüber
+  # dem Marktwert am Kauftag). 0,7 = höher als 70 % dieser Aufschläge.
+  quantile: 0.7
+  period_days: 60
+  # Vergleichbar = gleiche Preisklasse (Grenzen in €); unter min_comparable Käufen dort zählen
+  # alle Preisklassen.
+  price_bounds: [1000000, 3000000, 8000000, 15000000]
+  min_comparable: 10
+
+# Relativer Aufstellungsindex (interner Name xP), keine Punkteprognose/ Wahrscheinlichkeit.
+# Index = Startchance × Formrang × Programm; jeder Faktor liegt zwischen 0 und 1 (bzw. Startchance
+# als 0…100 %, intern /100). Verletzte oder nicht im Kader stehende Spieler bekommen xP = 0,
+# egal wie gut Form und Gegner wären – ohne Einsatz keine Punkte.
+# Spieler ohne einen einzigen Einsatz in den letzten Spieltagen: Form-Faktor 0 (Perzentil wäre
+# nur ein Rang unter lauter Null-Punkt-Spielern und sagt nichts).
+# Wird später um Wettquoten (Block C6) erweitert: gleiche Schnittstelle, ein zusätzlicher
+# Faktor zwischen 0 und 1 fließt multiplikativ ein.
+xp:
+  # Wert, der für fehlende Daten angesetzt wird (Form/Programm ohne Wert). 0,5 ist neutral –
+  # weder positiv noch negativ. Niedriger (z. B. 0,3) heißt „im Zweifel weniger erwarten".
+  neutral: 0.5
+
+# Trading ist getrennt vom Spieltags-Score: beobachtete Tagesbewegung, keine Prognose.
+trading:
+  close_hours: 24        # spätestens dann Spieltags-Elf und Finanzierung finalisieren
+  safety_hours: 2        # Verkauf/Verrechnung vor der tatsächlichen Deadline einplanen
+  min_daily_gain: 20000  # Mindestanstieg (€) für Marktangebote im Trading-Bereich
+  daily_fall_percent: -0.25  # aktueller Rückgang als Verkaufssignal; nicht das 7-Tage-Minus

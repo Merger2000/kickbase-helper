@@ -1,0 +1,49 @@
+{
+  "it": [
+    {
+      "i": "1000001",
+      "n": "Andere Liga 1",
+      "cpi": "1",
+      "b": 13232313,
+      "un": 512,
+      "lpc": 11,
+      "bs": 1,
+      "vr": 4,
+      "adm": true,
+      "pl": 3,
+      "tv": 289465060,
+      "idf": true,
+      "cpim": "content/file/a9eb2919122b4e248349ba91db351901.png",
+      "gpm": 1,
+      "rnkm": 1,
+      "isvf": false,
+      "vft": 0,
+      "hum": false,
+      "isp": false
+    },
+    {
+      "i": "1000002",
+      "n": "Testliga",
+      "cpi": "1",
+      "b": 17012409,
+      "un": 125,
+      "lpc": 9,
+      "bs": 1,
+      "vr": 4,
+      "adm": false,
+      "pl": 2,
+      "tv": 154370651,
+      "idf": false,
+      "cpim": "content/file/a9eb2919122b4e248349ba91db351901.png",
+      "gpm": 1,
+      "rnkm": 2,
+      "isvf": false,
+      "vft": 0,
+      "hum": false,
+      "isp": false
+    }
+  ],
+  "anol": 3,
+  "anopl": 12,
+  "anoprl": 3
+}

@@ -1,0 +1,20 @@
+{% extends "layout.html" %}
+{% block title %}Stammkader &amp; Trading · Kickbase Helper{% endblock %}
+{% block scripts %}<script src="{{ static_url('js/holding-roles.js') }}" defer></script>{% endblock %}
+{% block content %}
+<a class="back" href="/empfehlungen/trading">Zurück zum Trading-Plan</a>
+<h1>Dein Stammkader</h1>
+<p class="lead">Welche Spieler sollen im Finanzierungsplan bleiben?</p>
+<details class="section-details"><summary>Was bewirken die Rollen?</summary><p class="muted small">„Stammkader schützen“ verhindert automatische Finanzierungsvorschläge mit diesem Spieler. Verletzungen und eine unvollständige Elf bleiben relevant. „Trading“ ist eine eigene Notiz; ein von der besten Elf benötigter Spieler kann weiterhin dort vorgesehen sein.</p></details>
+{% if error %}<p class="alert" role="alert">{{ error }}</p>{% endif %}
+{% if data %}
+<ul class="trading-list holding-list">
+{% for player in data.players %}<li class="trade-card">
+<h2><a href="/spieler/{{ player.id }}">{{ player.name }}</a></h2>
+<p class="muted small">{{ player.position.short_label }} · {{ player.market_value | money_short }}</p>
+{% set player_id=player.id %}{% set player_name=player.name %}{% set role=data.roles.get(player.id,'auto') %}{% include "partials/holding_role.html" %}
+</li>{% endfor %}
+</ul>
+<p class="freshness">Änderungen sind lokal gespeichert. Der Trading-Plan und die Finanzierungsrechnung beim nächsten Öffnen berücksichtigen sie.</p>
+{% endif %}
+{% endblock %}

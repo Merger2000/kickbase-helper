@@ -1,0 +1,26 @@
+# Claude Code Remote Control für kickbase-helper – Aufträge vom Handy (siehe docs/deployment.md).
+# Installation (einmalig):
+#   sudo cp deploy/claude-remote.service /etc/systemd/system/
+#   sudo systemctl daemon-reload && sudo systemctl enable --now claude-remote
+# Status/Logs:  systemctl status claude-remote   ·   journalctl -u claude-remote -f
+[Unit]
+Description=Claude Code Remote Control (kickbase-helper)
+After=network-online.target docker.service
+Wants=network-online.target
+
+[Service]
+Type=simple
+User=claude
+WorkingDirectory=/home/claude/kickbase-helper
+# Login-Shell, damit PATH (claude, opencode, uv, gh) wie im Terminal gesetzt ist.
+# `script` stellt ein Pseudo-Terminal bereit, das claude remote-control erwartet.
+# --capacity 2: eine laufende Session plus eine neue, ohne erst archivieren zu müssen. Dass nur
+# ein Agent gleichzeitig arbeitet, prüft /auftrag (sauberes Arbeitsverzeichnis).
+# same-dir statt worktree, damit .env, secrets/ und der Compose-Projektname fürs Deployment stimmen.
+ExecStart=/bin/bash -lc 'exec script -qefc "claude remote-control --name Kickbase-Helper --permission-mode auto --capacity 2" /dev/null'
+Restart=always
+RestartSec=30
+# Nach ~10 min ohne Netz beendet sich der Server – systemd startet ihn neu.
+
+[Install]
+WantedBy=multi-user.target

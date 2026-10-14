@@ -1,0 +1,287 @@
+{
+  "tid": "29",
+  "tn": "Paderborn",
+  "pl": 2,
+  "p": 1763,
+  "ma": {
+    "mi": "11995",
+    "t1": "29",
+    "t2": "14",
+    "t1g": 3,
+    "t2g": 1,
+    "mtd": "90",
+    "st": 2,
+    "il": false,
+    "dt": "2026-09-20T17:30:00Z",
+    "t1im": "content/file/ce455adfd794457f9ab90f7bab522812.svg",
+    "t2im": "content/file/5212904732a04199aab426e44067347c.svg"
+  },
+  "it": [
+    {
+      "i": "1964",
+      "n": "Götze",
+      "k": [
+        8
+      ],
+      "mdst": 3,
+      "p": 40,
+      "pim": "content/file/25a358d12b764a1699faaa5cd208f776.png"
+    },
+    {
+      "i": "2015",
+      "n": "Obermair",
+      "k": [
+        9
+      ],
+      "mdst": 5,
+      "p": 62,
+      "pim": "content/file/25a358d12b764a1699faaa5cd208f776.png"
+    },
+    {
+      "i": "2498",
+      "n": "Baack",
+      "k": [
+        8
+      ],
+      "mdst": 3,
+      "p": 32,
+      "pim": "content/file/25a358d12b764a1699faaa5cd208f776.png"
+    },
+    {
+      "i": "2749",
+      "n": "Tigges",
+      "k": [
+        8,
+        1
+      ],
+      "mdst": 3,
+      "p": 151,
+      "pim": "content/file/25a358d12b764a1699faaa5cd208f776.png"
+    },
+    {
+      "i": "2977",
+      "n": "Noll",
+      "k": [],
+      "mdst": 5,
+      "p": 122,
+      "pim": "content/file/25a358d12b764a1699faaa5cd208f776.png"
+    },
+    {
+      "i": "3027",
+      "n": "Pieringer",
+      "k": [
+        9
+      ],
+      "mdst": 5,
+      "p": 70,
+      "pim": "content/file/25a358d12b764a1699faaa5cd208f776.png"
+    },
+    {
+      "i": "3081",
+      "n": "Vidović",
+      "k": [
+        9
+      ],
+      "mdst": 5,
+      "p": 94,
+      "pim": "content/file/25a358d12b764a1699faaa5cd208f776.png"
+    },
+    {
+      "i": "3336",
+      "n": "Marino",
+      "k": [
+        1,
+        9
+      ],
+      "mdst": 5,
+      "p": 144,
+      "pim": "content/file/25a358d12b764a1699faaa5cd208f776.png"
+    },
+    {
+      "i": "3559",
+      "n": "Ulrich",
+      "k": [],
+      "mdst": 5,
+      "p": 109,
+      "pim": "content/file/25a358d12b764a1699faaa5cd208f776.png"
+    },
+    {
+      "i": "6197",
+      "n": "Curda",
+      "k": [
+        3
+      ],
+      "mdst": 5,
+      "p": 159,
+      "pim": "content/file/25a358d12b764a1699faaa5cd208f776.png"
+    },
+    {
+      "i": "6217",
+      "n": "Philippe",
+      "k": [
+        8
+      ],
+      "mdst": 3,
+      "p": 59,
+      "pim": "content/file/25a358d12b764a1699faaa5cd208f776.png"
+    },
+    {
+      "i": "6292",
+      "n": "Hansen",
+      "k": [
+        9
+      ],
+      "mdst": 5,
+      "p": 93,
+      "pim": "content/file/25a358d12b764a1699faaa5cd208f776.png"
+    },
+    {
+      "i": "7320",
+      "n": "Scheller",
+      "k": [],
+      "mdst": 5,
+      "p": 116,
+      "pim": "content/file/25a358d12b764a1699faaa5cd208f776.png"
+    },
+    {
+      "i": "7616",
+      "n": "ter Horst",
+      "k": [],
+      "mdst": 5,
+      "p": 161,
+      "pim": "content/file/25a358d12b764a1699faaa5cd208f776.png"
+    },
+    {
+      "i": "8292",
+      "n": "Castañeda",
+      "k": [
+        1
+      ],
+      "mdst": 5,
+      "p": 235,
+      "pim": "content/file/25a358d12b764a1699faaa5cd208f776.png"
+    },
+    {
+      "i": "8872",
+      "n": "Sticker",
+      "k": [
+        8,
+        3
+      ],
+      "mdst": 3,
+      "p": 116,
+      "pim": "content/file/25a358d12b764a1699faaa5cd208f776.png"
+    }
+  ],
+  "tpm": [
+    {
+      "i": "8",
+      "n": "Schalke",
+      "p": 1146,
+      "tim": "content/file/fed743ec085c41a9b2453875157257fe.svg"
+    },
+    {
+      "i": "10",
+      "n": "Bremen",
+      "p": 1762,
+      "tim": "content/file/82f8ba6f2d9e46119e4deac25a0b5480.svg"
+    },
+    {
+      "i": "5",
+      "n": "Freiburg",
+      "p": 1091,
+      "tim": "content/file/6c1a9f14b668493283f966834891aa70.svg"
+    },
+    {
+      "i": "40",
+      "n": "Union Berlin",
+      "p": 87,
+      "tim": "content/file/8f4c7c08ee9b4dca85c28260fc5917bd.svg"
+    },
+    {
+      "i": "7",
+      "n": "Leverkusen",
+      "p": 1643,
+      "tim": "content/file/e06a055a6eaf4fd7bebfadb35037f957.svg"
+    },
+    {
+      "i": "2",
+      "n": "Bayern",
+      "p": 3265,
+      "tim": "content/file/ff70df040a9f4179a7b45219225a2273.svg"
+    },
+    {
+      "i": "13",
+      "n": "Augsburg",
+      "p": 658,
+      "tim": "content/file/8d68c946b9774505b8292adfa910d0a0.svg"
+    },
+    {
+      "i": "4",
+      "n": "Frankfurt",
+      "p": 967,
+      "tim": "content/file/422de82bee3b47eb898699d6d27095ba.svg"
+    },
+    {
+      "i": "14",
+      "n": "Hoffenheim",
+      "p": 1069,
+      "tim": "content/file/5212904732a04199aab426e44067347c.svg"
+    },
+    {
+      "i": "15",
+      "n": "M'gladbach",
+      "p": 827,
+      "tim": "content/file/7178ef92ad0747a5ad1a05d0783f5088.svg"
+    },
+    {
+      "i": "18",
+      "n": "Mainz",
+      "p": 1628,
+      "tim": "content/file/d4ac9675b44944039d463837f888cb1c.svg"
+    },
+    {
+      "i": "28",
+      "n": "Köln",
+      "p": 816,
+      "tim": "content/file/dca70c4089fd4623932b245c0e81eaba.svg"
+    },
+    {
+      "i": "77",
+      "n": "Elversberg",
+      "p": 1084,
+      "tim": "content/file/0316d4ec54e94ae4afac4ba34fcec8de.svg"
+    },
+    {
+      "i": "43",
+      "n": "Leipzig",
+      "p": 534,
+      "tim": "content/file/29ceb88867954b548ca9e27d39d050c2.svg"
+    },
+    {
+      "i": "9",
+      "n": "Stuttgart",
+      "p": 471,
+      "tim": "content/file/9a1bb78d0ccf45f895797c0c6d8c4d40.svg"
+    },
+    {
+      "i": "3",
+      "n": "Dortmund",
+      "p": 1438,
+      "tim": "content/file/dc3d63ae79bf4282a4107bafcd572b99.svg"
+    },
+    {
+      "i": "6",
+      "n": "Hamburg",
+      "p": 1342,
+      "tim": "content/file/c9b7d8772f324f9badeb285af4c5810a.svg"
+    },
+    {
+      "i": "29",
+      "n": "Paderborn",
+      "p": 1763,
+      "tim": "content/file/ce455adfd794457f9ab90f7bab522812.svg"
+    }
+  ],
+  "tim": "content/file/ce455adfd794457f9ab90f7bab522812.svg"
+}

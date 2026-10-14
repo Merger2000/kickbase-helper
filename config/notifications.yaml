@@ -1,0 +1,56 @@
+# Telegram-Benachrichtigungen über die eigenen Spieler. Änderungen wirken nach einem Neustart
+# des Workers.
+
+market_value:
+  # Meldung, wenn sich der Marktwert eines eigenen Spielers an einem Tag mindestens so stark
+  # ändert. Übliche Tagesbewegungen liegen meist unter 5 %; 10 % sind selten und handlungsrelevant.
+  min_percent: 10
+  # … oder absolut mindestens so viel (wichtig bei teuren Spielern, wo 10 % sehr viel Geld sind).
+  min_amount: 1500000
+
+# Meldung bei jeder Änderung des Status (fit, angeschlagen, verletzt, gesperrt, …).
+status_changes: true
+
+# Alarme für Spieler auf der Merkliste (siehe /merkliste). Gelesen vom Worker-Job
+# `notify_watchlist` (Telegram) und vom Bot-Lagebild (`app/bot/context.py`); jeder Schalter
+# aktiviert oder deaktiviert einen Auslöser. Die Schwelle `price_below` steht pro Spieler in
+# der DB, nicht hier.
+watchlist:
+  # Spieler taucht neu auf dem Transfermarkt auf (nicht im eigenen Kader, kein eigenes Gebot).
+  listing: true
+  # Preis eines Marktangebots (oder Marktwert, falls nicht gelistet) ist ≤ price_below.
+  price_below: true
+  # Statuswechsel eines Merklisten-Spielers (Baseline wird beim ersten Lauf aufgebaut).
+  status_changes: true
+  # Spieler stand in der LigaInsider-Prognose-Elf und fehlt jetzt / ist nur „alternative".
+  lineup_dropped: true
+
+# Alarme für Gebote anderer Manager auf eigene gelistete Spieler (Block C, C2). Gelesen vom
+# Worker-Job `notify_own_offers` (Telegram, mit Dedupe über `listing_key + Betrag`) und vom
+# Bot-Lagebild (`app/bot/context.py`). Eine Annahme erfolgt nie hier, sondern nur in der
+# Kickbase-App. Bieternamen (`unm`) sind privat und werden weder gemeldet noch an die KI
+# weitergegeben.
+own_offers:
+  # Alarm komplett aus (kein Auslöser, kein API-Call im Job). Das Bot-Lagebild blendet den
+  # Abschnitt trotzdem ein, sobald ein eigenes Listing überhaupt Gebote hat – die Info bleibt
+  # für Antworten verfügbar, nur der Telegram-Alarm schweigt.
+  enabled: true
+  # Minimaler Aufschlag in % über Marktwert, damit *der Telegram-Alarm* ausgelöst wird. „0"
+  # reagiert auf jedes Gebot, das überhaupt über dem Marktwert liegt; höhere Werte filtern
+  # Niedrig-Gebote aus. Kickbase-Sofortverkauf zahlt den Marktwert, also schlägt der
+  # Schwellwert *nicht* dort auf. Für das Bot-Lagebild zählt nur „es liegt überhaupt ein
+  # Gebot vor" – der Schwellwert filtert dort nicht.
+  min_premium_pct: 0
+
+# Spieltags-Bilanz nach Abpfiff (Block C, C3): Telegram meldet Punkte, Platz-Änderung,
+# Top/Flop und verpasste Punkte. Die Zeile in `matchday_results` wird *immer* geschrieben
+# (auch ohne Telegram oder bei `enabled: false`), nur die Telegram-Nachricht selbst ist
+# geschaltet. Der Worker-Job `matchday_report` läuft nach `sync_points` (23:55 abends,
+# 07:35 morgens als Nachholer) und meldet nur, wenn alle Spiele des Spieltags beendet sind
+# (OpenLigaDB) und der neue Spieltag noch nicht in `notify.matchday_report` gemeldet wurde.
+# Beim ersten Lauf werden fehlende frühere Spieltage einmalig nachgetragen (max. 2 pro
+# Lauf, danach nie wieder). Dieselbe Bilanz steht unabhängig von `enabled` und Telegram im
+# Bot-Lagebild (`app/bot/context.py`) und auf der Team-Seite – dort geht es nur um die
+# letzte Zeile aus der DB, kein API-Call und kein Mitlesen anderer Manager.
+matchday_report:
+  enabled: true

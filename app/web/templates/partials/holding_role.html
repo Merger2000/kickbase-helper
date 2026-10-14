@@ -1,0 +1,11 @@
+<div class="holding-edit" id="holding-role-{{ player_id }}">
+<form action="/kader/rolle" method="post" hx-post="/kader/rolle" hx-target="#holding-role-{{ player_id }}" hx-swap="outerHTML" hx-disabled-elt="#holding-role-{{ player_id }} button, #holding-role-{{ player_id }} select" hx-sync="this:queue last">
+<input type="hidden" name="player_id" value="{{ player_id }}">
+<label class="field"><span class="field__label visually-hidden">Rolle für {{ player_name }}</span>
+<select class="input" name="role" aria-label="Rolle für {{ player_name }}">
+{% for value,label in [('auto','Automatisch'),('core','Stammkader schützen'),('trade','Als Trading markieren')] %}<option value="{{ value }}"{% if role == value %} selected{% endif %}>{{ label }}</option>{% endfor %}
+</select></label>
+<button class="button button--quiet" type="submit">Speichern</button>
+</form>
+{% if saved %}<p class="holding-edit__saved muted small" role="status">Gespeichert.{% if role == 'core' %} Kein automatischer Finanzierungsverkauf.{% elif role == 'trade' %} Trading-Notiz gespeichert.{% else %} Eigener Schutz aufgehoben.{% endif %}</p>{% endif %}
+</div>

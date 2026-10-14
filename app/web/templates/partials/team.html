@@ -1,0 +1,162 @@
+{% import "macros.html" as ui %}
+{% set position_names = {1: "Tor", 2: "Abwehr", 3: "Mittelfeld", 4: "Sturm"} %}
+<div class="team" id="team">
+  {% if error %}
+  <p class="alert" role="alert">{{ error }}</p>
+  {% endif %}
+  {% if team %}
+  <div class="team__main">
+  <section class="scoreboard" aria-label="Kennzahlen">
+    <div class="stat">
+      <span class="stat__label">{{ "Frei nach Geboten" if team.budget_after_offers != team.budget else "Budget" }}</span>
+      <span class="stat__value">{{ team.budget_after_offers | money_short }}</span>
+      {% if team.budget_after_offers != team.budget %}
+      <span class="stat__note num">{{ team.budget | money_short }} auf dem Konto</span>
+      {% endif %}
+    </div>
+    <div class="stat">
+      <span class="stat__label">Teamwert</span>
+      <span class="stat__value">{{ team.team_value | money_short }}</span>
+    </div>
+    <div class="stat">
+      <span class="stat__label">Platz</span>
+      <span class="stat__value">{{ team.placement or "–" }}<small> von {{ team.manager_count }}</small></span>
+    </div>
+  </section>
+
+  <nav class="team-shortcuts" aria-label="Nächste Schritte">
+    <a href="/empfehlungen/trading">Trading &amp; Budget <span aria-hidden="true">›</span></a>
+    <a href="/empfehlungen/elf">Beste Elf <span aria-hidden="true">›</span></a>
+    <a href="/spieltag">Spieltagspunkte <span aria-hidden="true">›</span></a>
+  </nav>
+
+  <section class="today today--loading" id="today" aria-labelledby="today-title"
+           hx-get="/heute" hx-trigger="load" hx-swap="outerHTML">
+    <div class="today__head"><h2 id="today-title">Heute</h2></div>
+    <p class="today__when muted">Lädt, was vor der Deadline zu tun ist …</p>
+  </section>
+
+
+  <section class="lineup" aria-labelledby="lineup-title">
+    <h2 class="lineup__title" id="lineup-title">
+      Aufstellung <span class="num">{{ team.formation.label }}{% if team.formation.guessed %} <small>(vermutet)</small>{% endif %}</span>
+    </h2>
+    {% if team.open_slots %}
+    <p class="lineup__hint">{{ team.open_slots }} {{ "Platz" if team.open_slots == 1 else "Plätze" }} frei – fehlende Spieler bringen keine Punkte.</p>
+    {% endif %}
+    {{ ui.pitch(team.lines) }}
+    {% if team.bench %}
+    <p class="bench"><span class="bench__label">Bank:</span>
+      {% for player in team.bench %}{{ player.name }}{% if not loop.last %}, {% endif %}{% endfor %}
+    </p>
+    {% endif %}
+  </section>
+
+  <details class="squad section-details" id="squad-details">
+    <summary id="squad-title">Kader · {{ team.squad | map(attribute='players') | map('length') | sum }} Spieler <span class="squad__sum num">{{ team.squad_value | money_short }}</span></summary>
+    <a class="rec__link" href="/kader/rollen">Stammkader &amp; Trading markieren</a>
+    <div class="squad__columns" aria-hidden="true"><span>Marktwert</span><span>24 Stunden</span></div>
+    {% for group in team.squad %}
+    <h3 class="squad__group">{{ position_names[group.position.value] }}</h3>
+    <ul class="squad__list">
+      {% for player in group.players %}
+      <li>
+        <a class="player" href="/spieler/{{ player.id }}">
+        <span class="avatar avatar--small">
+          {% if player.image %}<img class="avatar__img" src="{{ player.image }}" alt="" width="40" height="40" loading="lazy" decoding="async">{% else %}<span class="avatar__initials" aria-hidden="true">{{ player.initials }}</span>{% endif %}
+        </span>
+        <span class="player__main">
+          <span class="player__name">{{ player.name }}</span>
+          <span class="player__meta">
+            {%- if player.team_name %}{{ player.team_name }}, {% endif %}Ø {{ player.average_points }}
+            {%- if player.availability.name != "FIT" %} <span class="badge badge--{{ player.availability.name | lower }}">{{ player.status_label }}</span>{% endif -%}
+          </span>
+        </span>
+        <span class="player__value">
+          <span class="num">{{ player.market_value | money_short }}</span>
+          {% set delta = player.market_value_change_24h %}
+          <span class="change num {% if delta is not none and delta > 0 %}change--up{% elif delta is not none and delta < 0 %}change--down{% endif %}"
+                title="Änderung beim letzten Marktwert-Update">{{ delta | signed_money if delta is not none else "–" }}</span>
+        </span>
+        </a>
+      </li>
+      {% endfor %}
+    </ul>
+    {% endfor %}
+  </details>
+
+  <details class="chart-block matchday-history section-details">
+    <summary>Spieltags-Bilanz</summary>
+    {% if matchday_error %}
+    <p class="alert" role="alert">{{ matchday_error }}</p>
+    {% elif matchday_history and matchday_history.latest %}
+    {% set latest = matchday_history.latest %}
+    {% set delta = matchday_history.latest_placement_delta %}
+    <div class="matchday-history__head">
+      <div class="matchday-history__latest">
+        <span class="matchday-history__matchday">{{ latest.matchday }}. Spieltag</span>
+        <span class="matchday-history__points num">{{ latest.points }} Punkte</span>
+        <span class="matchday-history__placement">
+          Platz <strong>{{ latest.placement }}</strong>
+          {%- if delta is not none and delta != 0 %}
+            <span class="change {% if delta > 0 %}change--up{% else %}change--down{% endif %} num">
+              ({{ "▲" if delta > 0 else "▼" }}{{ delta | abs }})
+            </span>
+          {%- elif delta == 0 %}
+            <span class="muted">(±0)</span>
+          {%- endif %}
+        </span>
+        {% if latest.matchday_placement is not none %}
+        <span class="matchday-history__md-placement muted">Spieltagsplatz {{ latest.matchday_placement }}</span>
+        {% endif %}
+      </div>
+    </div>
+    {% if matchday_history.entries|length >= 2 %}
+    <div class="chart chart--placement"><canvas id="chart-placement" role="img" aria-label="Platzierung pro Spieltag"></canvas></div>
+    <details class="chart-table">
+      <summary>Werte als Tabelle</summary>
+      <table>
+        <thead><tr><th scope="col">Spieltag</th><th scope="col" class="num">Punkte</th><th scope="col" class="num">Platz</th></tr></thead>
+        <tbody>
+          {% for entry in matchday_history.entries | reverse %}
+          <tr>
+            <td>{{ entry.matchday }}.</td>
+            <td class="num">{{ entry.points }}</td>
+            <td class="num">{{ entry.placement }}</td>
+          </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+    </details>
+    {% endif %}
+    {% else %}
+    <p class="muted">Noch keine Spieltags-Bilanz gespeichert. Sobald der erste Spieltag abgeschlossen ist, taucht hier der Verlauf auf.</p>
+    {% endif %}
+  </details>
+
+  </div>
+
+  <div class="team__side">
+  <section class="news" aria-labelledby="news-title">
+    <h2 id="news-title">Kader-Nachrichten</h2>
+    <details class="section-details source-details"><summary>Quelle &amp; Grenzen</summary><p class="muted small">kicker-RSS: Artikel zu getaggten Spielern; Ausfälle und Rückkehr aus Titel/Teaser. Kein vollständiger Nachrichtendienst. Meldungen bestätigen keine aktuelle Einsatzbereitschaft.</p></details>
+    {% if news_checked_at %}<p class="freshness">Feed geprüft {{ news_checked_at | local_time(request.app.state.settings.tz) }}; regelmäßig, vor der Deadline stündlich.</p>{% endif %}
+    {% if news_problem %}<p class="freshness freshness--stale">{{ news_problem }}</p>{% endif %}
+    {% if headlines %}{{ ui.headlines(headlines[:3], request.app.state.settings.tz, show_player=true) }}{% endif %}
+    {% if headlines|length > 3 %}<details class="section-details"><summary>Weitere Originalartikel ({{ headlines|length - 3 }})</summary>{{ ui.headlines(headlines[3:], request.app.state.settings.tz, show_player=true) }}</details>{% endif %}
+    {% if recent_news %}<h3>Ausfälle &amp; Rückkehr · letzte 72 h</h3>{{ ui.news_list(recent_news[:3], request.app.state.settings.tz, show_player=true) }}{% endif %}
+    {% set older = recent_news[3:] + older_news %}
+    {% if older %}<details class="section-details"><summary>Weitere Meldungen der letzten 7 Tage ({{ older|length }})</summary>{{ ui.news_list(older, request.app.state.settings.tz, show_player=true) }}</details>{% endif %}
+    {% if not squad_news and not headlines and not news_problem %}<p class="muted">Keine passenden Artikel oder Ausfallmeldungen zum Kader in den letzten 7 Tagen. Das bestätigt keine Einsatzbereitschaft.</p>{% endif %}
+  </section>
+  </div>
+
+  <p class="freshness{% if team.stale %} freshness--stale{% endif %}">
+    Stand {{ team.fetched_at | local_time(request.app.state.settings.tz) }}
+    {%- if team.stale %} – Kickbase ist gerade nicht erreichbar, das sind ältere Daten.{% endif %}
+  </p>
+  {% endif %}
+  {% if matchday_history and matchday_history.entries|length >= 2 %}
+  <script type="application/json" id="matchday-chart-data">{{ matchday_history.chart_data | tojson }}</script>
+  {% endif %}
+</div>

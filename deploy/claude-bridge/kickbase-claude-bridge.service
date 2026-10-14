@@ -1,0 +1,23 @@
+[Unit]
+Description=Kickbase-Helper Claude bridge (Claude Code CLI for the Telegram bot)
+After=network-online.target docker.service
+Wants=network-online.target
+
+[Service]
+Type=simple
+User=claude
+# Same token file the worker gets as Docker secret (gitignored, mode 0600).
+Environment=CLAUDE_BRIDGE_TOKEN_FILE=/home/claude/kickbase-helper/secrets/claude_bridge_token
+Environment=CLAUDE_BIN=/home/claude/.local/bin/claude
+Environment=BRIDGE_HOST=172.17.0.1
+Environment=BRIDGE_PORT=8767
+Environment=KICKBASE_MCP_URL=http://127.0.0.1:8768/mcp
+# Installed copy (from main), not the working tree where agents check out feature branches.
+ExecStart=/usr/bin/python3 /usr/local/lib/kickbase-claude-bridge/bridge.py
+Restart=on-failure
+RestartSec=10
+NoNewPrivileges=true
+PrivateTmp=true
+
+[Install]
+WantedBy=multi-user.target

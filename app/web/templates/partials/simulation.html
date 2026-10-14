@@ -1,0 +1,67 @@
+{% import "macros.html" as ui %}
+{% set tz = request.app.state.settings.tz %}
+<div id="simulation">
+{% if error %}<p class="alert" role="alert">{{ error }}</p>{% endif %}
+{% if data %}
+{% if data.deadline %}<p class="muted small">Nächste Deadline: <strong>{{ data.deadline | local_time(tz) }}</strong>.</p>{% else %}<p class="note note--warning">Nächste Deadline unbekannt. Neue Käufe füllen deshalb noch keine Plätze in der geplanten Elf.</p>{% endif %}
+{% set r = data.result if not error else none %}
+{% if r %}
+<section class="trading-section" aria-labelledby="plan-result-title">
+<h2 id="plan-result-title">Nach deinem Plan</h2>
+<dl class="rec__facts">
+<div><dt>Konto nach Transfers</dt><dd class="num">{{ r.budget | money_short }}</dd></div>
+<div><dt>Nach übrigen Geboten</dt><dd class="num">{{ r.budget_after_bids | money_short }}</dd></div>
+<div><dt>Freie Plätze der Elf</dt><dd class="num">{{ r.gaps }}</dd></div>
+</dl>
+{% if r.deficit %}<p class="note note--warning">Für ein gedecktes Budget fehlen noch <strong>{{ r.deficit | money_short }}</strong>. Weitere Verkäufe oder kleinere Käufe einplanen.</p>{% elif not r.gaps %}<p class="note note--ok">Geplantes Budget gedeckt und alle elf Plätze besetzbar. Ausgewählte Transfers müssen dazu umgesetzt werden.</p>{% endif %}
+{% if r.gaps %}<p class="note note--warning">Für eine volle Elf fehlen nach dem Plan {{ r.gaps }} Spieler. Unbestätigte oder zu späte Käufe schließen diese Lücken nicht.</p>{% endif %}
+{% for offer in r.bought if not offer.before_deadline %}<p class="note note--warning">{{ offer.rec.player.name }}: Erwerb vor der Deadline {% if offer.manager_sale %}vom Verkäufer abhängig{% else %}nicht bestätigt{% endif %}. Kaufpreis eingeplant, für die kommende Elf noch nicht mitgezählt.</p>{% endfor %}
+<details class="section-details">
+<summary>Budgetrechnung und Gebote</summary>
+<dl class="rec__facts">
+<div><dt>Konto jetzt</dt><dd class="num">{{ data.budget | money_full }}</dd></div>
+<div><dt>Verkäufe heute</dt><dd class="num">+ {{ r.revenue | money_full }}</dd></div>
+<div><dt>Käufe geplant</dt><dd class="num">− {{ r.cost | money_full }}</dd></div>
+<div><dt>Übrige Gebote</dt><dd class="num">− {{ r.remaining_bids | money_full }}</dd></div>
+</dl>
+<p class="muted small">{{ data.reserved_bids | money_full }} bisher reserviert; {{ r.released_bids | money_full }} bestehende Gebote sind in ausgewählten Käufen enthalten und werden nicht erneut abgezogen. Andere Gebote bleiben reserviert. Marktwertanstiege sind nicht eingerechnet.</p>
+</details>
+<details class="section-details">
+<summary>Beste Elf nach dem Plan · {{ r.after.formation.label }}</summary>
+<p class="muted small">Index-Summe {{ r.before.total_index | round | int }} → {{ r.after.total_index | round | int }}; Formation {{ r.before.formation.label }} → {{ r.after.formation.label }}. {{ r.roster_size }} Spieler nach allen Transfers.</p>
+{{ ui.pitch(r.after.lines, mode="xp") }}
+{% for line in r.after.lines %}{% for rec in line.players %}<details class="section-details"><summary>{{ rec.player.name }} · Index {{ (rec.xp.value * 100) | round | int }}</summary>{{ ui.xp_table(rec.xp) }}</details>{% endfor %}{% endfor %}
+{% if r.after.stand_ins %}<p class="note note--warning">Notbesetzung mit geringer Startchance: {% for rec in r.after.stand_ins %}{{ rec.player.name }}{% if not loop.last %}, {% endif %}{% endfor %}.</p>{% endif %}
+</details>
+</section>
+{% endif %}
+<form class="simulation-form" action="/empfehlungen/simulation" method="get"
+      hx-get="/empfehlungen/simulation" hx-target="#simulation" hx-swap="outerHTML show:top" hx-push-url="true"
+      hx-sync="this:replace" hx-indicator="#simulation-loading" hx-disabled-elt="find button">
+<details class="trading-section section-details"><summary>1. Verkäufe auswählen ({{ sales|length }})</summary>
+<fieldset><legend class="visually-hidden">Verkäufe auswählen</legend>
+<p class="muted small">Erlös zum heutigen Marktwert, ohne angenommene künftige Steigerung.</p>
+{% for rec in data.squad %}
+<label class="simulation-choice"><input type="checkbox" name="verkauf" value="{{ rec.player.id }}"{% if rec.player.id in sales %} checked{% endif %}>
+<span><strong>{{ rec.player.name }}</strong><span class="muted small">{{ rec.player.position.short_label }} · {{ rec.market_value | money_short }}</span></span></label>
+{% endfor %}
+</fieldset></details>
+<details class="trading-section section-details"><summary>2. Käufe auswählen ({{ purchases|length }})</summary>
+<fieldset><legend class="visually-hidden">Käufe auswählen</legend>
+<p class="muted small">Auch über Budget auswählbar. Startwert: Angebotspreis, eigenes Gebot oder Gebotsschätzung — der höchste Betrag. Kaufpreis in ganzen Euro anpassen.</p>
+{% for offer in data.offers %}{% set rec = offer.rec %}
+<div class="simulation-offer">
+<label class="simulation-choice"><input type="checkbox" name="kauf" value="{{ rec.player.id }}"{% if rec.player.id in purchases %} checked{% endif %}>
+<span><strong>{{ rec.player.name }}</strong><span class="muted small">{{ rec.player.position.short_label }} · {% if offer.before_deadline %}Angebot endet vor Deadline{% else %}Zeitpunkt nicht gesichert{% endif %}</span></span></label>
+<p class="muted small simulation-price">Angebot {{ rec.price | money_short }}{% if offer.own_bid %} · eigenes Gebot {{ offer.own_bid | money_short }}{% endif %}</p>
+<label class="field simulation-price"><span class="field__label">Kaufpreis (€)</span><input class="input num" name="preis_{{ rec.player.id }}" inputmode="numeric" pattern="[1-9][0-9]{0,8}" value="{{ cost_inputs.get(rec.player.id) or offer.cost }}" aria-label="Kaufpreis für {{ rec.player.name }}" autocomplete="off"></label>
+</div>
+{% else %}<p class="muted">Keine passenden aktuellen Marktangebote.</p>{% endfor %}
+</fieldset></details>
+<div class="simulation-actions"><button class="button" type="submit">Plan berechnen</button><a class="button button--quiet" href="/empfehlungen/simulation">Zurücksetzen</a></div>
+<p class="simulation-loading htmx-indicator" id="simulation-loading" role="status">Plan wird berechnet …</p>
+</form>
+{{ ui.data_notes(basis.notes, basis.warnings + data.warnings | list) }}
+<p class="freshness{% if basis.stale %} freshness--stale{% endif %}">Stand {{ basis.fetched_at | local_time(tz) }}{% if basis.stale %} – ältere Daten, vor Umsetzung in Kickbase prüfen.{% endif %}</p>
+{% endif %}
+</div>

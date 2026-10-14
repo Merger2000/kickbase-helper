@@ -1,0 +1,44 @@
+# Python
+__pycache__/
+*.py[cod]
+.venv/
+.pytest_cache/
+.ruff_cache/
+.coverage
+htmlcov/
+*.egg-info/
+dist/
+build/
+
+# Local config & secrets
+.env
+.env.*
+!.env.example
+secrets/
+
+# Editors / OS
+.idea/
+.vscode/
+.DS_Store
+
+# Agent-Loop
+.agent-logs/
+.agent-stop
+
+# Local captures, database exports and credential material
+artifacts/
+docs/screenshots/
+docs/images/*.png
+!docs/images/banner.png
+*.log
+*.sql
+*.sql.gz
+*.dump
+*.db
+*.sqlite
+*.sqlite3
+*.pem
+*.key
+*.p12
+*.pfx
+*.bundle

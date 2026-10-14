@@ -1,0 +1,24 @@
+{
+  "u": {
+    "email": "manager@example.com",
+    "notifications": 1023,
+    "cover": "content/file/anonymous.png",
+    "flags": 32,
+    "proExpiry": "2026-08-22T15:37:59Z",
+    "vemail": "manager@example.com",
+    "perms": [
+      3001,
+      15
+    ],
+    "id": "9000001",
+    "name": "Manager 1",
+    "profile": "content/file/anonymous.png",
+    "mfacp": [],
+    "hums": false,
+    "emv": false,
+    "emvr": false,
+    "emoir": false,
+    "emois": 0,
+    "uim": "content/file/anonymous.png"
+  }
+}

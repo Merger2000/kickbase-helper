@@ -1,0 +1,14 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512">
+  <clipPath id="tile"><rect width="512" height="512" rx="112"/></clipPath>
+  <g clip-path="url(#tile)">
+    <rect width="512" height="512" fill="#1B4231"/>
+    <rect y="0" width="512" height="85" fill="#20503B"/>
+    <rect y="171" width="512" height="85" fill="#20503B"/>
+    <rect y="341" width="512" height="85" fill="#20503B"/>
+  </g>
+  <g fill="none" stroke="#E9EEE6" stroke-width="22">
+    <line x1="0" y1="256" x2="512" y2="256"/>
+    <circle cx="256" cy="256" r="124"/>
+  </g>
+  <circle cx="256" cy="256" r="36" fill="#F2B544"/>
+</svg>

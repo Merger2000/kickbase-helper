@@ -1,0 +1,45 @@
+<div class="player-results" id="player-results">
+  {% if error %}
+  <p class="alert" role="alert">{{ error }}</p>
+  {% elif not players and not query and not position %}
+  <section class="empty">
+    <h2>Noch keine Spielerdaten</h2>
+    <p class="muted">Der Worker sammelt Marktwerte und Status aller Bundesliga-Spieler beim ersten Start und danach jeden Morgen.</p>
+  </section>
+  {% elif not players %}
+  <p class="muted">Keine Spieler gefunden.</p>
+  {% else %}
+  <ul class="squad__list">
+    {% for player in players %}
+    {% set player_id = player.id %}
+    {% set is_watched = player_id in (watched or []) %}
+    {% set watched = is_watched %}
+    <li class="player-row">
+      <a class="player" href="/spieler/{{ player.id }}">
+        <span class="avatar avatar--small">
+          {% if player.image %}<img class="avatar__img" src="{{ player.image }}" alt="" width="40" height="40" loading="lazy" decoding="async">{% else %}<span class="avatar__initials" aria-hidden="true">{{ player.initials }}</span>{% endif %}
+        </span>
+        <span class="player__main">
+          <span class="player__name">{{ player.name }}</span>
+          <span class="player__meta">
+            {{ player.position.short_label }}{% if player.team_name %}, {{ player.team_name }}{% endif %}
+            {%- if player.availability.name != "FIT" %} <span class="badge badge--{{ player.availability.name | lower }}">{{ player.status_label }}</span>{% endif -%}
+          </span>
+        </span>
+        <span class="player__value"><span class="num">{{ player.market_value | money_short }}</span></span>
+      </a>
+      <div class="player-row__aside">
+        {% include "partials/watchlist_star.html" with context %}
+      </div>
+    </li>
+    {% endfor %}
+  </ul>
+  {% if players | length >= 50 %}<p class="muted small">Die 50 wertvollsten Treffer. Suche genauer, um andere zu finden.</p>{% endif %}
+  {% endif %}
+  {% if as_of %}
+  <p class="freshness{% if outdated %} freshness--stale{% endif %}">
+    Marktwerte und Status vom {{ as_of | local_time(request.app.state.settings.tz) }}
+    {%- if outdated %} – der tägliche Abgleich ist überfällig.{% endif %}
+  </p>
+  {% endif %}
+</div>

@@ -1,0 +1,28 @@
+{% extends "base.html" %}
+{% set nav_items = [("team", "/", "Team"), ("empfehlungen", "/empfehlungen", "Plan"), ("spieler", "/spieler", "Spieler")] %}
+{# HTMX requests carry the CSRF token as a header (checked on every state-changing POST). #}
+{% block body_attrs %} hx-headers='{"X-CSRF-Token": "{{ csrf_token(request) }}"}'{% endblock %}
+{% block body %}
+<a class="skip-link" href="#main">Zum Inhalt</a>
+<header class="topbar">
+  <span class="topbar__league">{{ request.app.state.settings.kickbase_league_name }}</span>
+  <div class="topbar__actions">
+    {% block topbar_actions %}{% endblock %}
+    <a class="button button--quiet topbar__watchlist" href="/merkliste" aria-label="Merkliste öffnen" title="Merkliste"{% if active_nav == "merkliste" %} aria-current="page"{% endif %}>★</a>
+    <form method="post" action="/logout">
+      <button class="button button--quiet" type="submit">Abmelden</button>
+    </form>
+  </div>
+</header>
+<main class="page{% if nav_items|length > 1 %} page--with-tabbar{% endif %}" id="main">
+  {% block content %}{% endblock %}
+</main>
+<p class="toast" id="toast" role="status" aria-live="polite" hidden></p>
+{% if nav_items|length > 1 %}
+<nav class="tabbar" aria-label="Hauptnavigation">
+  {% for key, href, label in nav_items %}
+  <a href="{{ href }}"{% if active_nav == key %} aria-current="page"{% endif %}>{{ label }}</a>
+  {% endfor %}
+</nav>
+{% endif %}
+{% endblock %}

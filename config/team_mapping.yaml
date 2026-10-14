@@ -1,0 +1,21 @@
+# Kickbase team id -> OpenLigaDB team id (Bundesliga 2026/27).
+# Clubs missing here (e.g. after promotion) are matched by name; the app logs a warning then.
+teams:
+  "2": 40      # Bayern - FC Bayern München
+  "3": 7       # Dortmund - Borussia Dortmund
+  "4": 91      # Frankfurt - Eintracht Frankfurt
+  "5": 112     # Freiburg - SC Freiburg
+  "6": 100     # Hamburg - Hamburger SV
+  "7": 6       # Leverkusen - Bayer 04 Leverkusen
+  "8": 9       # Schalke - FC Schalke 04
+  "9": 16      # Stuttgart - VfB Stuttgart
+  "10": 134    # Bremen - SV Werder Bremen
+  "13": 95     # Augsburg - FC Augsburg
+  "14": 175    # Hoffenheim - TSG Hoffenheim
+  "15": 87     # M'gladbach - Borussia Mönchengladbach
+  "18": 81     # Mainz - 1. FSV Mainz 05
+  "28": 65     # Köln - 1. FC Köln
+  "29": 31     # Paderborn - SC Paderborn 07
+  "40": 80     # Union Berlin - 1. FC Union Berlin
+  "43": 1635   # Leipzig - RB Leipzig
+  "77": 198    # Elversberg - SV 07 Elversberg

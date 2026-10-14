@@ -1,0 +1,805 @@
+{
+ "af": [
+  {
+   "i": "12969018727",
+   "t": 15,
+   "coc": 0,
+   "data": {
+    "byr": "Manager 1",
+    "pi": "3470",
+    "pn": "Caci",
+    "tid": "18",
+    "t": 1,
+    "trp": 8500000,
+    "pim": "content/file/3b8addfebba24f57b176b6fbe7d1ba7b.png",
+    "tim": "content/file/d4ac9675b44944039d463837f888cb1c.svg"
+   },
+   "dt": "2026-10-06T23:54:30Z"
+  },
+  {
+   "i": "12967801168",
+   "t": 15,
+   "coc": 0,
+   "data": {
+    "byr": "Manager 1",
+    "pi": "10120",
+    "pn": "Røssing-Lelesiit",
+    "tid": "6",
+    "t": 1,
+    "trp": 500500,
+    "pim": "content/file/d968f7add8014681a04c39e93ba3c904.png",
+    "tim": "content/file/c9b7d8772f324f9badeb285af4c5810a.svg"
+   },
+   "dt": "2026-10-06T20:51:47Z"
+  },
+  {
+   "i": "12967611838",
+   "t": 15,
+   "coc": 0,
+   "data": {
+    "slr": "Manager 6",
+    "pi": "2864",
+    "pn": "Collins",
+    "tid": "4",
+    "t": 2,
+    "trp": 10929493,
+    "pim": "content/file/22edbaccec3048b49f80a4433d588cbd.png",
+    "tim": "content/file/422de82bee3b47eb898699d6d27095ba.svg"
+   },
+   "dt": "2026-10-06T20:27:51Z"
+  },
+  {
+   "i": "12965185207",
+   "t": 15,
+   "coc": 0,
+   "data": {
+    "byr": "Manager 6",
+    "pi": "7774",
+    "pn": "Konoplia",
+    "tid": "15",
+    "t": 1,
+    "trp": 6600099,
+    "pim": "content/file/87d405a9de61403c9679352004c3655f.png",
+    "tim": "content/file/7178ef92ad0747a5ad1a05d0783f5088.svg"
+   },
+   "dt": "2026-10-06T13:57:22Z"
+  },
+  {
+   "i": "12961223245",
+   "t": 15,
+   "coc": 0,
+   "data": {
+    "slr": "Manager 6",
+    "pi": "8872",
+    "pn": "Sticker",
+    "tid": "29",
+    "t": 2,
+    "trp": 519221,
+    "pim": "content/file/25a358d12b764a1699faaa5cd208f776.png",
+    "tim": "content/file/ce455adfd794457f9ab90f7bab522812.svg"
+   },
+   "dt": "2026-10-06T04:11:33Z"
+  },
+  {
+   "i": "12961151689",
+   "t": 15,
+   "coc": 0,
+   "data": {
+    "byr": "Manager 6",
+    "pi": "8872",
+    "pn": "Sticker",
+    "tid": "29",
+    "t": 1,
+    "trp": 519229,
+    "pim": "content/file/25a358d12b764a1699faaa5cd208f776.png",
+    "tim": "content/file/ce455adfd794457f9ab90f7bab522812.svg"
+   },
+   "dt": "2026-10-06T04:02:42Z"
+  },
+  {
+   "i": "12960657844",
+   "t": 15,
+   "coc": 0,
+   "data": {
+    "byr": "Manager 5",
+    "pi": "2476",
+    "pn": "Lee",
+    "tid": "18",
+    "t": 1,
+    "trp": 7332339,
+    "pim": "content/file/3b8addfebba24f57b176b6fbe7d1ba7b.png",
+    "tim": "content/file/d4ac9675b44944039d463837f888cb1c.svg"
+   },
+   "dt": "2026-10-06T02:43:16Z"
+  },
+  {
+   "i": "12959431702",
+   "t": 15,
+   "coc": 0,
+   "data": {
+    "byr": "Manager 2",
+    "pi": "10121",
+    "pn": "Rondic",
+    "tid": "28",
+    "t": 1,
+    "trp": 1450000,
+    "pim": "content/file/f477c9023dc54f6eabbf06e5ad7bd0ba.png",
+    "tim": "content/file/dca70c4089fd4623932b245c0e81eaba.svg"
+   },
+   "dt": "2026-10-05T22:56:46Z"
+  },
+  {
+   "i": "12958876525",
+   "t": 15,
+   "coc": 0,
+   "data": {
+    "slr": "Manager 6",
+    "pi": "2702",
+    "pn": "Martel",
+    "tid": "18",
+    "t": 2,
+    "trp": 7613342,
+    "pim": "content/file/3b8addfebba24f57b176b6fbe7d1ba7b.png",
+    "tim": "content/file/d4ac9675b44944039d463837f888cb1c.svg"
+   },
+   "dt": "2026-10-05T21:41:25Z"
+  },
+  {
+   "i": "12958418863",
+   "t": 15,
+   "coc": 0,
+   "data": {
+    "slr": "Manager 2",
+    "pi": "11043",
+    "pn": "Assignon",
+    "tid": "9",
+    "t": 2,
+    "trp": 5847518,
+    "pim": "content/file/47214559d4384efab358f0688fc666de.png",
+    "tim": "content/file/9a1bb78d0ccf45f895797c0c6d8c4d40.svg"
+   },
+   "dt": "2026-10-05T20:37:01Z"
+  },
+  {
+   "i": "12957734851",
+   "t": 15,
+   "coc": 0,
+   "data": {
+    "slr": "Manager 5",
+    "pi": "2068",
+    "pn": "Zagadou",
+    "tid": "9",
+    "t": 2,
+    "trp": 5850052,
+    "pim": "content/file/47214559d4384efab358f0688fc666de.png",
+    "tim": "content/file/9a1bb78d0ccf45f895797c0c6d8c4d40.svg"
+   },
+   "dt": "2026-10-05T19:11:13Z"
+  },
+  {
+   "i": "12957724129",
+   "t": 15,
+   "coc": 0,
+   "data": {
+    "slr": "Manager 5",
+    "pi": "14926",
+    "pn": "Soylu",
+    "tid": "10",
+    "t": 2,
+    "trp": 5848898,
+    "pim": "content/file/2d03e9b347934deaa8a0c040a9594150.png",
+    "tim": "content/file/82f8ba6f2d9e46119e4deac25a0b5480.svg"
+   },
+   "dt": "2026-10-05T19:09:48Z"
+  },
+  {
+   "i": "12950995300",
+   "t": 15,
+   "coc": 0,
+   "data": {
+    "byr": "Manager 2",
+    "pi": "11161",
+    "pn": "Machida",
+    "tid": "14",
+    "t": 1,
+    "trp": 9510000,
+    "pim": "content/file/1835f49349d841c5aaa72de8234f2cb1.png",
+    "tim": "content/file/5212904732a04199aab426e44067347c.svg"
+   },
+   "dt": "2026-10-05T01:31:04Z"
+  },
+  {
+   "i": "12948732868",
+   "t": 15,
+   "coc": 0,
+   "data": {
+    "byr": "Manager 5",
+    "pi": "6085",
+    "pn": "Seimen",
+    "tid": "9",
+    "t": 1,
+    "trp": 10352009,
+    "pim": "content/file/47214559d4384efab358f0688fc666de.png",
+    "tim": "content/file/9a1bb78d0ccf45f895797c0c6d8c4d40.svg"
+   },
+   "dt": "2026-10-04T19:57:34Z"
+  },
+  {
+   "i": "12947133664",
+   "t": 15,
+   "coc": 0,
+   "data": {
+    "slr": "Manager 2",
+    "pi": "4406",
+    "pn": "Dina Ebimbe",
+    "tid": "8",
+    "t": 2,
+    "trp": 9955897,
+    "pim": "content/file/d6a3303abd514c5d88da5e6a95251e43.png",
+    "tim": "content/file/fed743ec085c41a9b2453875157257fe.svg"
+   },
+   "dt": "2026-10-04T15:38:41Z"
+  },
+  {
+   "i": "12940592104",
+   "t": 15,
+   "coc": 0,
+   "data": {
+    "byr": "Manager 1",
+    "pi": "7737",
+    "pn": "Veerman",
+    "tid": "3",
+    "t": 1,
+    "trp": 17200000,
+    "pim": "content/file/d5ca76d467ce40e1b9012c9f28f77855.png",
+    "tim": "content/file/dc3d63ae79bf4282a4107bafcd572b99.svg"
+   },
+   "dt": "2026-10-03T22:06:13Z"
+  },
+  {
+   "i": "12939547456",
+   "t": 15,
+   "coc": 0,
+   "data": {
+    "slr": "Manager 5",
+    "pi": "9615",
+    "pn": "Al Dakhil",
+    "tid": "9",
+    "t": 2,
+    "trp": 6023652,
+    "pim": "content/file/47214559d4384efab358f0688fc666de.png",
+    "tim": "content/file/9a1bb78d0ccf45f895797c0c6d8c4d40.svg"
+   },
+   "dt": "2026-10-03T19:35:58Z"
+  },
+  {
+   "i": "12937421071",
+   "t": 15,
+   "coc": 0,
+   "data": {
+    "byr": "Manager 3",
+    "pi": "4296",
+    "pn": "Pejčinović",
+    "tid": "9",
+    "t": 1,
+    "trp": 7200000,
+    "pim": "content/file/47214559d4384efab358f0688fc666de.png",
+    "tim": "content/file/9a1bb78d0ccf45f895797c0c6d8c4d40.svg"
+   },
+   "dt": "2026-10-03T13:36:56Z"
+  },
+  {
+   "i": "12931292002",
+   "t": 15,
+   "coc": 0,
+   "data": {
+    "byr": "Manager 4",
+    "pi": "12314",
+    "pn": "Ndiaye",
+    "tid": "2",
+    "t": 1,
+    "trp": 5234567,
+    "pim": "content/file/4a58697a5cbe48ed82444be2e0a1edb6.png",
+    "tim": "content/file/ff70df040a9f4179a7b45219225a2273.svg"
+   },
+   "dt": "2026-10-02T21:25:09Z"
+  },
+  {
+   "i": "12927100357",
+   "t": 15,
+   "coc": 0,
+   "data": {
+    "byr": "Manager 5",
+    "pi": "14926",
+    "pn": "Soylu",
+    "tid": "10",
+    "t": 1,
+    "trp": 5960099,
+    "pim": "content/file/2d03e9b347934deaa8a0c040a9594150.png",
+    "tim": "content/file/82f8ba6f2d9e46119e4deac25a0b5480.svg"
+   },
+   "dt": "2026-10-02T09:24:03Z"
+  },
+  {
+   "i": "12924884695",
+   "t": 15,
+   "coc": 0,
+   "data": {
+    "byr": "Manager 6",
+    "pi": "14425",
+    "pn": "Møller Wolfe",
+    "tid": "6",
+    "t": 1,
+    "trp": 5899999,
+    "pim": "content/file/d968f7add8014681a04c39e93ba3c904.png",
+    "tim": "content/file/c9b7d8772f324f9badeb285af4c5810a.svg"
+   },
+   "dt": "2026-10-02T04:25:19Z"
+  },
+  {
+   "i": "12923262937",
+   "t": 15,
+   "coc": 0,
+   "data": {
+    "byr": "Manager 6",
+    "pi": "2749",
+    "pn": "Tigges",
+    "tid": "29",
+    "t": 1,
+    "trp": 5799999,
+    "pim": "content/file/25a358d12b764a1699faaa5cd208f776.png",
+    "tim": "content/file/ce455adfd794457f9ab90f7bab522812.svg"
+   },
+   "dt": "2026-10-01T23:39:32Z"
+  },
+  {
+   "i": "12921642535",
+   "t": 15,
+   "coc": 0,
+   "data": {
+    "byr": "Manager 3",
+    "pi": "6197",
+    "pn": "Curda",
+    "tid": "29",
+    "t": 1,
+    "trp": 7200000,
+    "pim": "content/file/25a358d12b764a1699faaa5cd208f776.png",
+    "tim": "content/file/ce455adfd794457f9ab90f7bab522812.svg"
+   },
+   "dt": "2026-10-01T19:47:05Z"
+  },
+  {
+   "i": "12919075597",
+   "t": 15,
+   "coc": 0,
+   "data": {
+    "byr": "Manager 4",
+    "pi": "2400",
+    "pn": "Trimmel",
+    "tid": "40",
+    "t": 1,
+    "trp": 4878787,
+    "pim": "content/file/1d225120f5ea44769c6ddea4877c270d.png",
+    "tim": "content/file/8f4c7c08ee9b4dca85c28260fc5917bd.svg"
+   },
+   "dt": "2026-10-01T12:29:57Z"
+  },
+  {
+   "i": "12919070044",
+   "t": 15,
+   "coc": 0,
+   "data": {
+    "slr": "Manager 5",
+    "pi": "4333",
+    "pn": "Ullrich",
+    "tid": "15",
+    "t": 2,
+    "trp": 7429164,
+    "pim": "content/file/87d405a9de61403c9679352004c3655f.png",
+    "tim": "content/file/7178ef92ad0747a5ad1a05d0783f5088.svg"
+   },
+   "dt": "2026-10-01T12:29:32Z"
+  },
+  {
+   "i": "12918879793",
+   "t": 15,
+   "coc": 0,
+   "data": {
+    "slr": "Manager 4",
+    "pi": "1333",
+    "pn": "Klostermann",
+    "tid": "43",
+    "t": 2,
+    "trp": 5675441,
+    "pim": "content/file/41e6d9b5a6dc41378971c7acec655cef.png",
+    "tim": "content/file/29ceb88867954b548ca9e27d39d050c2.svg"
+   },
+   "dt": "2026-10-01T11:56:12Z"
+  },
+  {
+   "i": "12917799487",
+   "t": 15,
+   "coc": 0,
+   "data": {
+    "byr": "Manager 2",
+    "pi": "3081",
+    "pn": "Vidović",
+    "tid": "29",
+    "t": 1,
+    "trp": 6767669,
+    "pim": "content/file/25a358d12b764a1699faaa5cd208f776.png",
+    "tim": "content/file/ce455adfd794457f9ab90f7bab522812.svg"
+   },
+   "dt": "2026-10-01T08:55:58Z"
+  },
+  {
+   "i": "12917115427",
+   "t": 15,
+   "coc": 0,
+   "data": {
+    "slr": "Manager 2",
+    "pi": "2897",
+    "pn": "Reitz",
+    "tid": "43",
+    "t": 2,
+    "trp": 10608911,
+    "pim": "content/file/41e6d9b5a6dc41378971c7acec655cef.png",
+    "tim": "content/file/29ceb88867954b548ca9e27d39d050c2.svg"
+   },
+   "dt": "2026-10-01T07:11:26Z"
+  },
+  {
+   "i": "12914989282",
+   "t": 15,
+   "coc": 0,
+   "data": {
+    "byr": "Manager 5",
+    "pi": "2068",
+    "pn": "Zagadou",
+    "tid": "9",
+    "t": 1,
+    "trp": 5380099,
+    "pim": "content/file/47214559d4384efab358f0688fc666de.png",
+    "tim": "content/file/9a1bb78d0ccf45f895797c0c6d8c4d40.svg"
+   },
+   "dt": "2026-10-01T02:21:37Z"
+  },
+  {
+   "i": "12913698358",
+   "t": 15,
+   "coc": 0,
+   "data": {
+    "byr": "Manager 5",
+    "pi": "9615",
+    "pn": "Al Dakhil",
+    "tid": "9",
+    "t": 1,
+    "trp": 6250009,
+    "pim": "content/file/47214559d4384efab358f0688fc666de.png",
+    "tim": "content/file/9a1bb78d0ccf45f895797c0c6d8c4d40.svg"
+   },
+   "dt": "2026-09-30T22:32:28Z"
+  },
+  {
+   "i": "12912837823",
+   "t": 15,
+   "coc": 0,
+   "data": {
+    "slr": "Manager 5",
+    "pi": "7156",
+    "pn": "Wöber",
+    "tid": "8",
+    "t": 2,
+    "trp": 6763739,
+    "pim": "content/file/d6a3303abd514c5d88da5e6a95251e43.png",
+    "tim": "content/file/fed743ec085c41a9b2453875157257fe.svg"
+   },
+   "dt": "2026-09-30T20:28:37Z"
+  },
+  {
+   "i": "12912680674",
+   "t": 15,
+   "coc": 0,
+   "data": {
+    "slr": "Manager 6",
+    "pi": "11875",
+    "pn": "van den Berg",
+    "tid": "28",
+    "t": 2,
+    "trp": 6106435,
+    "pim": "content/file/f477c9023dc54f6eabbf06e5ad7bd0ba.png",
+    "tim": "content/file/dca70c4089fd4623932b245c0e81eaba.svg"
+   },
+   "dt": "2026-09-30T20:11:05Z"
+  },
+  {
+   "i": "12912331987",
+   "t": 15,
+   "coc": 0,
+   "data": {
+    "byr": "Manager 2",
+    "pi": "4199",
+    "pn": "García",
+    "tid": "7",
+    "t": 1,
+    "trp": 38100000,
+    "pim": "content/file/72b74c3259934631ba5bf9cc87fb104c.png",
+    "tim": "content/file/e06a055a6eaf4fd7bebfadb35037f957.svg"
+   },
+   "dt": "2026-09-30T19:17:06Z"
+  },
+  {
+   "i": "12912037486",
+   "t": 15,
+   "coc": 0,
+   "data": {
+    "slr": "Manager 3",
+    "pi": "3318",
+    "pn": "Königsdörffer",
+    "tid": "18",
+    "t": 2,
+    "trp": 7139247,
+    "pim": "content/file/3b8addfebba24f57b176b6fbe7d1ba7b.png",
+    "tim": "content/file/d4ac9675b44944039d463837f888cb1c.svg"
+   },
+   "dt": "2026-09-30T18:25:42Z"
+  },
+  {
+   "i": "12912037456",
+   "t": 15,
+   "coc": 0,
+   "data": {
+    "slr": "Manager 1",
+    "pi": "7282",
+    "pn": "Deman",
+    "tid": "10",
+    "t": 2,
+    "trp": 10806960,
+    "pim": "content/file/2d03e9b347934deaa8a0c040a9594150.png",
+    "tim": "content/file/82f8ba6f2d9e46119e4deac25a0b5480.svg"
+   },
+   "dt": "2026-09-30T18:25:40Z"
+  },
+  {
+   "i": "12912037435",
+   "t": 15,
+   "coc": 0,
+   "data": {
+    "slr": "Manager 3",
+    "pi": "8374",
+    "pn": "Terrier",
+    "tid": "7",
+    "t": 2,
+    "trp": 5274031,
+    "pim": "content/file/72b74c3259934631ba5bf9cc87fb104c.png",
+    "tim": "content/file/e06a055a6eaf4fd7bebfadb35037f957.svg"
+   },
+   "dt": "2026-09-30T18:25:39Z"
+  },
+  {
+   "i": "12910448666",
+   "t": 15,
+   "coc": 0,
+   "data": {
+    "slr": "Manager 2",
+    "pi": "12284",
+    "pn": "Kosugi",
+    "tid": "4",
+    "t": 2,
+    "trp": 10660354,
+    "pim": "content/file/22edbaccec3048b49f80a4433d588cbd.png",
+    "tim": "content/file/422de82bee3b47eb898699d6d27095ba.svg"
+   },
+   "dt": "2026-09-30T14:07:21Z"
+  },
+  {
+   "i": "12909344756",
+   "t": 15,
+   "coc": 0,
+   "data": {
+    "byr": "Manager 4",
+    "pi": "10112",
+    "pn": "Jaquez",
+    "tid": "9",
+    "t": 1,
+    "trp": 3676767,
+    "pim": "content/file/47214559d4384efab358f0688fc666de.png",
+    "tim": "content/file/9a1bb78d0ccf45f895797c0c6d8c4d40.svg"
+   },
+   "dt": "2026-09-30T11:01:53Z"
+  },
+  {
+   "i": "12909042716",
+   "t": 15,
+   "coc": 0,
+   "data": {
+    "slr": "Manager 4",
+    "pi": "2560",
+    "pn": "Sander",
+    "tid": "15",
+    "t": 2,
+    "trp": 10071714,
+    "pim": "content/file/87d405a9de61403c9679352004c3655f.png",
+    "tim": "content/file/7178ef92ad0747a5ad1a05d0783f5088.svg"
+   },
+   "dt": "2026-09-30T10:12:23Z"
+  },
+  {
+   "i": "12909035720",
+   "t": 15,
+   "coc": 0,
+   "data": {
+    "slr": "Manager 4",
+    "pi": "1223",
+    "pn": "Friedrich",
+    "tid": "40",
+    "t": 2,
+    "trp": 2453108,
+    "pim": "content/file/1d225120f5ea44769c6ddea4877c270d.png",
+    "tim": "content/file/8f4c7c08ee9b4dca85c28260fc5917bd.svg"
+   },
+   "dt": "2026-09-30T10:11:17Z"
+  },
+  {
+   "i": "12907928573",
+   "t": 15,
+   "coc": 0,
+   "data": {
+    "byr": "Manager 2",
+    "pi": "1865",
+    "pn": "Poulsen",
+    "tid": "6",
+    "t": 1,
+    "trp": 5600000,
+    "pim": "content/file/d968f7add8014681a04c39e93ba3c904.png",
+    "tim": "content/file/c9b7d8772f324f9badeb285af4c5810a.svg"
+   },
+   "dt": "2026-09-30T07:19:54Z"
+  },
+  {
+   "i": "12906600560",
+   "t": 15,
+   "coc": 0,
+   "data": {
+    "byr": "Manager 2",
+    "pi": "12284",
+    "pn": "Kosugi",
+    "tid": "4",
+    "t": 1,
+    "trp": 10720354,
+    "pim": "content/file/22edbaccec3048b49f80a4433d588cbd.png",
+    "tim": "content/file/422de82bee3b47eb898699d6d27095ba.svg"
+   },
+   "dt": "2026-09-30T04:36:09Z"
+  },
+  {
+   "i": "12903816512",
+   "t": 15,
+   "coc": 0,
+   "data": {
+    "slr": "Manager 6",
+    "pi": "461",
+    "pn": "Chandler",
+    "tid": "4",
+    "t": 2,
+    "trp": 5082790,
+    "pim": "content/file/22edbaccec3048b49f80a4433d588cbd.png",
+    "tim": "content/file/422de82bee3b47eb898699d6d27095ba.svg"
+   },
+   "dt": "2026-09-29T21:09:58Z"
+  },
+  {
+   "i": "12902774738",
+   "t": 15,
+   "coc": 0,
+   "data": {
+    "slr": "Manager 2",
+    "pi": "9384",
+    "pn": "Darvich",
+    "tid": "77",
+    "t": 2,
+    "trp": 7037306,
+    "pim": "content/file/fbee1507382f49f99d071cab06a4c4bd.png",
+    "tim": "content/file/0316d4ec54e94ae4afac4ba34fcec8de.svg"
+   },
+   "dt": "2026-09-29T18:32:46Z"
+  },
+  {
+   "i": "12902774624",
+   "t": 15,
+   "coc": 0,
+   "data": {
+    "slr": "Manager 2",
+    "pi": "15589",
+    "pn": "Otávio",
+    "tid": "4",
+    "t": 2,
+    "trp": 6489218,
+    "pim": "content/file/22edbaccec3048b49f80a4433d588cbd.png",
+    "tim": "content/file/422de82bee3b47eb898699d6d27095ba.svg"
+   },
+   "dt": "2026-09-29T18:32:39Z"
+  },
+  {
+   "i": "12902418620",
+   "t": 15,
+   "coc": 0,
+   "data": {
+    "slr": "Manager 5",
+    "pi": "15613",
+    "pn": "Hashioka",
+    "tid": "15",
+    "t": 2,
+    "trp": 5734337,
+    "pim": "content/file/87d405a9de61403c9679352004c3655f.png",
+    "tim": "content/file/7178ef92ad0747a5ad1a05d0783f5088.svg"
+   },
+   "dt": "2026-09-29T17:31:00Z"
+  },
+  {
+   "i": "12899033882",
+   "t": 15,
+   "coc": 0,
+   "data": {
+    "byr": "Manager 6",
+    "pi": "2746",
+    "pn": "Schick",
+    "tid": "7",
+    "t": 1,
+    "trp": 29500099,
+    "pim": "content/file/72b74c3259934631ba5bf9cc87fb104c.png",
+    "tim": "content/file/e06a055a6eaf4fd7bebfadb35037f957.svg"
+   },
+   "dt": "2026-09-29T08:12:22Z"
+  },
+  {
+   "i": "12898560479",
+   "t": 15,
+   "coc": 0,
+   "data": {
+    "slr": "Manager 6",
+    "pi": "6081",
+    "pn": "Uzun",
+    "tid": "4",
+    "t": 2,
+    "trp": 26146441,
+    "pim": "content/file/22edbaccec3048b49f80a4433d588cbd.png",
+    "tim": "content/file/422de82bee3b47eb898699d6d27095ba.svg"
+   },
+   "dt": "2026-09-29T07:04:57Z"
+  },
+  {
+   "i": "12898352900",
+   "t": 15,
+   "coc": 0,
+   "data": {
+    "byr": "Manager 6",
+    "pi": "6080",
+    "pn": "Pavlović",
+    "tid": "2",
+    "t": 1,
+    "trp": 35200099,
+    "pim": "content/file/4a58697a5cbe48ed82444be2e0a1edb6.png",
+    "tim": "content/file/ff70df040a9f4179a7b45219225a2273.svg"
+   },
+   "dt": "2026-09-29T06:37:29Z"
+  },
+  {
+   "i": "12898007744",
+   "t": 15,
+   "coc": 0,
+   "data": {
+    "byr": "Manager 6",
+    "pi": "2864",
+    "pn": "Collins",
+    "tid": "4",
+    "t": 1,
+    "trp": 9200929,
+    "pim": "content/file/22edbaccec3048b49f80a4433d588cbd.png",
+    "tim": "content/file/422de82bee3b47eb898699d6d27095ba.svg"
+   },
+   "dt": "2026-09-29T05:53:50Z"
+  }
+ ],
+ "onbft": "content/file/f8e798da49044d1b8c4613d940180b50.jpe"
+}

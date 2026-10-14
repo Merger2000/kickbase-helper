@@ -1,0 +1,186 @@
+{
+  "lp": [
+    {
+      "i": "8227",
+      "n": "Vandevoordt",
+      "tid": "43",
+      "pos": 1,
+      "mi": "12043",
+      "st": 0,
+      "md": "2026-10-10T16:30:00Z",
+      "mst": 0,
+      "pim": "content/file/41e6d9b5a6dc41378971c7acec655cef.png",
+      "ictp": false,
+      "ot": {
+        "i": "4",
+        "tim": "content/file/422de82bee3b47eb898699d6d27095ba.svg",
+        "mst": 0
+      },
+      "mc": 1
+    },
+    {
+      "i": "3759",
+      "n": "Gutiérrez",
+      "tid": "7",
+      "pos": 2,
+      "mi": "12031",
+      "st": 0,
+      "md": "2026-10-10T13:30:00Z",
+      "mst": 0,
+      "pim": "content/file/72b74c3259934631ba5bf9cc87fb104c.png",
+      "ictp": false,
+      "ot": {
+        "i": "18",
+        "tim": "content/file/d4ac9675b44944039d463837f888cb1c.svg",
+        "mst": 0
+      },
+      "mc": 1
+    },
+    {
+      "i": "17285",
+      "n": "Brassier",
+      "tid": "4",
+      "pos": 2,
+      "mi": "12043",
+      "st": 0,
+      "md": "2026-10-10T16:30:00Z",
+      "mst": 0,
+      "pim": "content/file/22edbaccec3048b49f80a4433d588cbd.png",
+      "ictp": false,
+      "ot": {
+        "i": "43",
+        "tim": "content/file/29ceb88867954b548ca9e27d39d050c2.svg",
+        "mst": 0
+      },
+      "mc": 1
+    },
+    {
+      "i": "6292",
+      "n": "Hansen",
+      "tid": "29",
+      "pos": 2,
+      "mi": "12022",
+      "st": 0,
+      "md": "2026-10-10T13:30:00Z",
+      "mst": 0,
+      "pim": "content/file/25a358d12b764a1699faaa5cd208f776.png",
+      "ictp": false,
+      "ot": {
+        "i": "9",
+        "tim": "content/file/9a1bb78d0ccf45f895797c0c6d8c4d40.svg",
+        "mst": 0
+      },
+      "mc": 1
+    },
+    {
+      "i": "6061",
+      "n": "Maza",
+      "tid": "7",
+      "pos": 3,
+      "mi": "12031",
+      "st": 0,
+      "md": "2026-10-10T13:30:00Z",
+      "mst": 0,
+      "pim": "content/file/72b74c3259934631ba5bf9cc87fb104c.png",
+      "ictp": false,
+      "ot": {
+        "i": "18",
+        "tim": "content/file/d4ac9675b44944039d463837f888cb1c.svg",
+        "mst": 0
+      },
+      "mc": 1
+    },
+    {
+      "i": "8307",
+      "n": "Sano",
+      "tid": "18",
+      "pos": 3,
+      "mi": "12031",
+      "st": 0,
+      "md": "2026-10-10T13:30:00Z",
+      "mst": 0,
+      "pim": "content/file/3b8addfebba24f57b176b6fbe7d1ba7b.png",
+      "ictp": false,
+      "ot": {
+        "i": "7",
+        "tim": "content/file/e06a055a6eaf4fd7bebfadb35037f957.svg",
+        "mst": 0
+      },
+      "mc": 1
+    },
+    {
+      "i": "17288",
+      "n": "Regeer",
+      "tid": "10",
+      "pos": 3,
+      "mi": "12046",
+      "st": 0,
+      "md": "2026-10-09T18:30:00Z",
+      "mst": 0,
+      "pim": "content/file/2d03e9b347934deaa8a0c040a9594150.png",
+      "ictp": false,
+      "ot": {
+        "i": "3",
+        "tim": "content/file/dc3d63ae79bf4282a4107bafcd572b99.svg",
+        "mst": 0
+      },
+      "mc": 1
+    },
+    {
+      "i": "7737",
+      "n": "Veerman",
+      "tid": "3",
+      "pos": 3,
+      "mi": "12046",
+      "st": 0,
+      "md": "2026-10-09T18:30:00Z",
+      "mst": 0,
+      "pim": "content/file/d5ca76d467ce40e1b9012c9f28f77855.png",
+      "ictp": false,
+      "ot": {
+        "i": "10",
+        "tim": "content/file/82f8ba6f2d9e46119e4deac25a0b5480.svg",
+        "mst": 0
+      },
+      "mc": 1
+    },
+    {
+      "i": "11956",
+      "n": "Fernández",
+      "tid": "7",
+      "pos": 3,
+      "mi": "12031",
+      "st": 0,
+      "md": "2026-10-10T13:30:00Z",
+      "mst": 0,
+      "pim": "content/file/72b74c3259934631ba5bf9cc87fb104c.png",
+      "ictp": false,
+      "ot": {
+        "i": "18",
+        "tim": "content/file/d4ac9675b44944039d463837f888cb1c.svg",
+        "mst": 0
+      },
+      "mc": 1
+    }
+  ],
+  "nlp": [],
+  "p": 0,
+  "pa": true,
+  "lpc": 9,
+  "clpc": 11,
+  "mu": {
+    "u1": {
+      "i": "9000001",
+      "uim": "content/file/anonymous.png",
+      "n": "Manager 1",
+      "hll": false
+    },
+    "u2": {
+      "i": "9000006",
+      "uim": "content/file/anonymous.png",
+      "n": "Manager 6",
+      "hll": false
+    }
+  },
+  "cpte": false
+}

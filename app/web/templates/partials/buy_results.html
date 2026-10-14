@@ -1,0 +1,89 @@
+{% import "macros.html" as ui %}
+{% set tz = request.app.state.settings.tz %}
+<div class="buy-results" id="buy-results">
+{% if error %}<p class="alert" role="alert">{{ error }}</p>{% endif %}
+{% if data %}
+{{ ui.data_notes(basis.notes, basis.warnings) }}
+{% if data.bid_hint %}<p class="note">{{ data.bid_hint }}</p>{% endif %}
+{% if shown %}
+<p class="muted small">{{ matching }} {{ "Angebot passt" if matching == 1 else "Angebote passen" }}{% if matching > shown | length %}, die besten {{ shown | length }} angezeigt{% endif %}.</p>
+<ol class="recs">
+  {% for rec in shown %}
+  <li class="rec">
+    <details class="rec__fold">
+      <summary class="rec__row">
+        {{ ui.avatar(rec.player) }}
+        <span class="rec__who">
+          <span class="rec__name">{{ rec.player.name }}</span>
+          <span class="rec__meta">{{ rec.player.position.short_label }}{% if rec.player.team_name %}, {{ rec.player.team_name }}{% endif %}
+            {%- if rec.player.availability.name != "FIT" %} <span class="badge badge--{{ rec.player.availability.name | lower }}">{{ rec.player.status_label }}</span>{% endif %}
+            {% if rec.score.incomplete or (rec.xp is not none and rec.xp.incomplete) %}<span class="rec__data-note"> · Daten fehlen</span>{% endif %}</span>
+          <span class="rec__chips">
+            <span class="rec__price num">{{ rec.price | money_short }}</span>
+            {% if rec.momentum and rec.momentum.change_24h is not none %}<span class="change num {% if rec.momentum.change_24h > 0 %}change--up{% elif rec.momentum.change_24h < 0 %}change--down{% endif %}">{{ rec.momentum.change_24h | signed_money }} / 24 h</span>{% endif %}
+            {% if rec.my_offer %}<span class="badge badge--fit">dein Gebot {{ rec.my_offer | money_short }}</span>
+            {% elif rec.bid %}<span class="rec__bid num">Gebot {{ rec.bid.amount | money_short }}</span>{% endif %}
+            {% if rec.before_deadline %}<span class="rec__timing">vor Deadline</span>
+            {% elif rec.before_deadline is false %}<span class="badge badge--doubtful">erst nach der Deadline</span>
+            {% elif rec.seller != "Kickbase" %}<span class="badge badge--unknown">Zeitpunkt offen</span>
+            {% endif %}
+            {% if rec.price is not none and rec.price > data.budget + (rec.my_offer or 0) %}<span class="badge badge--doubtful">über Budget</span>{% endif %}
+          </span>
+        </span>
+        <span class="rec__score"><span class="rec__total">{{ rec.score.shown_total }}</span><span class="rec__unit">Score</span></span>
+      </summary>
+      <div class="rec__body">
+        <dl class="rec__facts">
+          <div><dt>Score pro Mio.</dt><dd class="num">{{ rec.per_million | decimal(1) if rec.per_million is not none else "–" }}</dd></div>
+          <div><dt>Index pro Mio.</dt><dd class="num">{{ (rec.xp_per_million * 100) | decimal(1) if rec.xp_per_million is not none else "–" }}</dd></div>
+          <div><dt>Läuft bis</dt><dd class="num">{{ rec.expires_at | local_time(tz) if rec.expires_at else "–" }}</dd></div>
+          <div><dt>Marktwert</dt><dd class="num">{{ rec.market_value | money_short }}</dd></div>
+        </dl>
+        {% if rec.seller != "Kickbase" %}<p class="muted small">Verkäufer <span class="rec__seller">{{ rec.seller }}</span> entscheidet, wann verkauft wird.</p>{% endif %}
+        {% if rec.bid %}
+        <details class="bid">
+          <summary>Gebot: <strong class="num">{{ rec.bid.amount | money_short }}</strong> <span class="num muted">({{ (rec.bid.premium * 100) | percent }} auf den Marktwert{% if rec.bid.at_asking_price %}, Angebotspreis{% endif %})</span></summary>
+          <p class="small">
+            {% if rec.bid.at_asking_price %}Der Angebotspreis liegt über der Empfehlung (<span class="num">{{ (rec.bid.model_premium * 100) | percent }}</span>), darunter geht es nicht.{% else %}Höher als {{ rec.bid.quantile_percent }} % der Aufschläge auf den Marktwert, die bisher bezahlt wurden.{% endif %}
+            Grundlage: {{ rec.bid.comparable }} Käufe {{ "vergleichbarer Spieler" if rec.bid.same_class else "aller Preisklassen" }}
+            in der Liga in den letzten {{ rec.bid.period_days }} Tagen. Üblich (Median): <span class="num">{{ (rec.bid.median_premium * 100) | percent }}</span>,
+            fast sicher (90 %): <span class="num">{{ (rec.bid.high_premium * 100) | percent }}</span>.
+            Verlorene Gebote sieht man nicht – das ist eine Schätzung.
+          </p>
+        </details>
+        {% endif %}
+        {{ ui.score_parts(rec.score) }}
+        {{ ui.score_table(rec.score) }}
+        {% if rec.xp is not none %}
+        <p class="muted small">Aufstellungsindex: <strong class="num">{{ (rec.xp.value * 100) | round | int }}/100</strong>.</p>
+        {{ ui.xp_table(rec.xp) }}
+        {% endif %}
+        <a class="rec__link" href="/empfehlungen/simulation?kauf={{ rec.player.id }}">Kauf &amp; Finanzierung simulieren</a>
+        <a class="rec__link" href="/spieler/{{ rec.player.id }}">Spielerseite öffnen</a>
+      </div>
+    </details>
+  </li>
+  {% endfor %}
+</ol>
+{% else %}
+<section class="empty">
+  <h2>Nichts Passendes auf dem Markt</h2>
+  <p class="muted">
+    {%- if not data.recommendations and data.over_budget_recs and not filters.over_budget -%}
+      Kein Spieler passt ins Budget, aber {{ data.over_budget }} über dem Budget erreichen den Mindest-Score. Aktiviere oben „Auch über dem Budget anzeigen“.
+    {%- elif data.recommendations or data.over_budget_recs -%}
+      Kein Angebot passt zu den Filtern. Lockere sie, z. B. die Position oder den Preis.
+    {%- else -%}
+      Kein Spieler erreicht gerade den Mindest-Score. Schau nach dem nächsten Marktwert-Update wieder rein.
+    {%- endif -%}
+  </p>
+</section>
+{% endif %}
+<p class="muted small">
+  {% if data.over_budget and not filters.over_budget %}{{ data.over_budget }} Spieler über dem Budget ausgeblendet. {% endif %}
+  {% if data.below_min_score %}{{ data.below_min_score }} unter dem Mindest-Score {{ data.min_score | round | int }}. {% endif %}
+  {% if data.without_appearances %}{{ data.without_appearances }} ohne Einsatz in den letzten Spieltagen.{% endif %}
+</p>
+{% include "partials/freshness.html" %}
+{% endif %}
+</div>

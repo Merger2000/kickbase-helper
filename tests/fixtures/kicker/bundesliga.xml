@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Synthetic test feed in the structure of kicker's Bundesliga RSS (texts are made up). -->
+<rss version="2.0" xmlns:content="http://purl.org/rss/1.0/modules/content/" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>kicker Bundesliga News</title>
+    <link>https://www.kicker.de/</link>
+    <ttl>5</ttl>
+    <item>
+      <title>Torwart fehlt mehrere Wochen: Leipzig muss umplanen</title>
+      <description>RB Leipzig muss vorerst ohne Maarten Vandevoordt auskommen. Der Keeper zog sich im Training eine Muskelverletzung im Oberschenkel zu und fällt rund drei Wochen aus.</description>
+      <content:encoded>RB Leipzig muss vorerst ohne Maarten Vandevoordt auskommen.</content:encoded>
+      <link>https://www.kicker.de/torwart-fehlt-1000001/artikel#omrss</link>
+      <guid isPermaLink="true">https://www.kicker.de/torwart-fehlt-1000001/artikel#omrss</guid>
+      <category>Bundesliga</category>
+      <category>Fußball</category>
+      <category>Vandevoordt</category>
+      <category>RB Leipzig</category>
+      <category>RB Leipzig</category>
+      <pubDate>Tue, 06 Oct 2026 09:30:00 GMT</pubDate>
+    </item>
+    <item>
+      <title>Der nächste Schritt zum Comeback</title>
+      <description>Christoph Baumgartner bestritt am Montag erstmals wieder Teile des Mannschaftstrainings von RB Leipzig. Ein Einsatz am Wochenende kommt aber noch zu früh.</description>
+      <link>https://www.kicker.de/naechster-schritt-1000002/artikel#omrss</link>
+      <guid isPermaLink="true">https://www.kicker.de/naechster-schritt-1000002/artikel#omrss</guid>
+      <category>Baumgartner</category>
+      <category>RB Leipzig</category>
+      <pubDate>Mon, 05 Oct 2026 16:00:00 +0200</pubDate>
+    </item>
+    <item>
+      <title>Wer wechselt wohin? Der Transferticker</title>
+      <description>Alle Gerüchte und Wechsel des Tages im Überblick.</description>
+      <link>https://www.kicker.de/transferticker-1000003/artikel#omrss</link>
+      <guid isPermaLink="true">https://www.kicker.de/transferticker-1000003/artikel#omrss</guid>
+      <category>Bundesliga</category>
+      <pubDate>Mon, 05 Oct 2026 11:00:00 GMT</pubDate>
+    </item>
+    <item>
+      <title>Eintrag ohne Datum</title>
+      <description>Dieser Eintrag ist unvollständig und wird übersprungen.</description>
+      <link>https://www.kicker.de/ohne-datum-1000004/artikel#omrss</link>
+    </item>
+  </channel>
+</rss>

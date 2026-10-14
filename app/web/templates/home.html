@@ -1,0 +1,26 @@
+{% extends "layout.html" %}
+{% block title %}Mein Team · Kickbase Helper{% endblock %}
+{% block scripts %}
+<script src="{{ static_url('js/pull-refresh.js') }}" defer></script>
+{% if matchday_history and matchday_history.latest %}
+<script src="{{ static_url('vendor/chart.umd.min.js') }}" defer></script>
+<script src="{{ static_url('js/charts.js') }}" defer></script>
+{% endif %}
+{% endblock %}
+{% block topbar_actions %}
+<button class="button button--quiet refresh" id="refresh" type="button"
+        hx-post="/team/refresh" hx-target="#team" hx-swap="outerHTML" hx-indicator="#refresh"
+        aria-label="Daten aktualisieren">
+  <svg class="refresh__icon" viewBox="0 0 24 24" width="20" height="20" aria-hidden="true">
+    <path d="M20 12a8 8 0 1 1-2.34-5.66M20 4v5h-5" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+  </svg>
+  <span>Aktualisieren</span>
+</button>
+{% endblock %}
+{% block content %}
+<div class="pull-indicator" id="pull-indicator" aria-hidden="true">
+  <span class="pull-indicator__pull">Zum Aktualisieren ziehen</span>
+  <span class="pull-indicator__release">Loslassen zum Aktualisieren</span>
+</div>
+{% include "partials/team.html" %}
+{% endblock %}

@@ -1,0 +1,102 @@
+{
+  "i": "6292",
+  "fn": "Mattes",
+  "ln": "Hansen",
+  "shn": 22,
+  "tid": "29",
+  "tn": "Paderborn",
+  "oui": "9000001",
+  "st": 0,
+  "stl": [],
+  "pos": 2,
+  "iposl": false,
+  "tp": 253,
+  "ap": 63,
+  "sec": 19509,
+  "g": 0,
+  "a": 0,
+  "pes": 0,
+  "cs": 0,
+  "ph": [
+    {
+      "hp": true,
+      "p": 93
+    },
+    {
+      "hp": true,
+      "p": 44
+    },
+    {
+      "hp": true,
+      "p": 52
+    },
+    {
+      "hp": true,
+      "p": 64
+    }
+  ],
+  "mv": 3722776,
+  "cv": 3700000,
+  "tfhmvt": -28500,
+  "mvt": 2,
+  "day": 4,
+  "r": 0,
+  "y": 1,
+  "mdsum": [
+    {
+      "t1": "29",
+      "t2": "14",
+      "t1g": 3,
+      "t2g": 1,
+      "day": 4,
+      "md": "2026-09-20T17:30:00Z",
+      "cur": true,
+      "mdst": 2,
+      "mdln": "4 Match Day",
+      "t1im": "content/file/ce455adfd794457f9ab90f7bab522812.svg",
+      "t2im": "content/file/5212904732a04199aab426e44067347c.svg"
+    },
+    {
+      "t1": "29",
+      "t2": "9",
+      "t1g": 0,
+      "t2g": 0,
+      "day": 5,
+      "md": "2026-10-10T13:30:00Z",
+      "cur": false,
+      "mdst": 0,
+      "mdln": "5 Match Day",
+      "t1im": "content/file/ce455adfd794457f9ab90f7bab522812.svg",
+      "t2im": "content/file/9a1bb78d0ccf45f895797c0c6d8c4d40.svg"
+    },
+    {
+      "t1": "10",
+      "t2": "29",
+      "t1g": 0,
+      "t2g": 0,
+      "day": 6,
+      "md": "2026-10-17T13:30:00Z",
+      "cur": false,
+      "mdst": 0,
+      "mdln": "6 Match Day",
+      "t1im": "content/file/82f8ba6f2d9e46119e4deac25a0b5480.svg",
+      "t2im": "content/file/ce455adfd794457f9ab90f7bab522812.svg"
+    }
+  ],
+  "stud": 48,
+  "smc": 4,
+  "ismc": 4,
+  "smdc": 4,
+  "sl": false,
+  "plpt": "Ligainsider",
+  "plpurl": "content/file/ef187fece16544febb50bd330706fd7d.png",
+  "dt": "2026-08-19T19:42:00Z",
+  "opl": [],
+  "pim": "content/file/25a358d12b764a1699faaa5cd208f776.png",
+  "tim": "content/file/ce455adfd794457f9ab90f7bab522812.svg",
+  "uim": "content/file/anonymous.png",
+  "ua": "content/file/anonymous.png",
+  "plpim": "content/file/301a9e4df8bb438191b6831e36ee1053.png",
+  "ts": "2026-09-21T10:07:43Z",
+  "mc": 1
+}

@@ -1,0 +1,24 @@
+{
+  "$schema": "https://opencode.ai/config.json",
+  "model": "opencode-go/minimax-m3",
+  "agent": {
+    "build": {
+      "model": "opencode-go/minimax-m3",
+      "steps": 80
+    },
+    "plan": {
+      "model": "opencode-go/kimi-k2.7-code",
+      "steps": 20
+    }
+  },
+  "permission": {
+    "read": {
+      "secrets/**": "deny"
+    },
+    "external_directory": {
+      "*": "allow",
+      "/opt/kickbase-helper/secrets/**": "deny",
+      "/opt/kickbase-helper/secrets": "deny"
+    }
+  }
+}

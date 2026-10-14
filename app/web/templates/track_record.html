@@ -1,0 +1,82 @@
+{% extends "layout.html" %}
+{% block title %}Bilanz · Empfehlungen · Kickbase Helper{% endblock %}
+{% macro pct(value) %}{% if value is none %}–{% else %}{{ (value * 100) | percent }}{% endif %}{% endmacro %}
+{% macro group(g) %}{% if g.count %}<span class="num">{{ pct(g.mean_change) }}</span> <span class="muted small">({{ g.count }}{% if g.rising is not none %}, {{ pct(g.rising) }} steigend{% endif %})</span>{% else %}<span class="muted">–</span>{% endif %}{% endmacro %}
+{% block content %}
+{% include "partials/plan_nav.html" %}
+
+{% if error %}<p class="alert" role="alert">{{ error }}</p>{% endif %}
+
+{% if record %}
+<p class="lead">
+  Jeden Morgen hält das Dashboard alle Marktangebote und Kaderspieler mit ihrem Score fest.
+  Hier steht, wie sich die empfohlenen Spieler danach entwickelt haben – im Vergleich zu den übrigen vom selben Tag.
+  {% if record.first_day %}Protokolliert seit {{ record.first_day.strftime("%-d.%-m.%Y") }}.{% endif %}
+</p>
+{% if record.empty %}
+<section class="empty">
+  <h2>Noch zu wenig Daten</h2>
+  <p class="muted">Die erste Auswertung gibt es einen Tag nach dem ersten Protokoll, aussagekräftig wird sie nach ein paar Wochen.</p>
+</section>
+{% endif %}
+
+{% for key, title, rec_label, other_label, goal in [
+  ("kaufen", "Kaufempfehlungen", "Empfohlen", "Übrige Angebote", "Gut, wenn die empfohlenen stärker steigen."),
+  ("verkaufen", "Verkaufskandidaten", "Markiert", "Übriger Kader", "Gut, wenn die markierten schwächer laufen."),
+] %}
+{% set r = record.views[key] %}
+<section class="record" aria-labelledby="record-{{ key }}">
+  <h2 id="record-{{ key }}">{{ title }}</h2>
+  <p class="muted small">{{ goal }} Marktwert-Änderung im Schnitt, in Klammern die Anzahl.</p>
+  <table class="record__table">
+    <thead><tr><th scope="col">Nach</th><th scope="col">{{ rec_label }}</th><th scope="col">{{ other_label }}</th></tr></thead>
+    <tbody>
+      {% for h in r.horizons %}
+      <tr>
+        <th scope="row">{{ h.days }} {{ "Tag" if h.days == 1 else "Tagen" }}</th>
+        <td>{{ group(h.recommended) }}</td>
+        <td>{{ group(h.others) }}</td>
+      </tr>
+      {% endfor %}
+      <tr>
+        <th scope="row">Punkte in 7 Tagen</th>
+        <td class="num">{{ r.points.recommended | decimal(1) if r.points.recommended is not none else "–" }}</td>
+        <td class="num">{{ r.points.others | decimal(1) if r.points.others is not none else "–" }}</td>
+      </tr>
+    </tbody>
+  </table>
+</section>
+{% endfor %}
+{% endif %}
+
+{% if offers %}
+<section class="record" aria-labelledby="record-offers">
+  <h2 id="record-offers">Deine Gebote</h2>
+  <p class="muted small">Letzte 60 Tage. Verlorene Gebote zeigen, was die Liga wirklich zahlt – das sieht das Gebotsmodell sonst nicht.</p>
+  <dl class="rec__facts">
+    <div><dt>Gewonnen</dt><dd class="num">{{ offers.won }}</dd></div>
+    <div><dt>Verloren</dt><dd class="num">{{ offers.lost }}</dd></div>
+    <div><dt>Kein Verkauf</dt><dd class="num">{{ offers.none }}</dd></div>
+    <div><dt>Offen</dt><dd class="num">{{ offers.open }}</dd></div>
+  </dl>
+  {% if offers.lost_gap is not none %}<p>Bei verlorenen Geboten lag der Siegerpreis im Mittel <strong class="num">{{ pct(offers.lost_gap) }}</strong> über deinem Gebot.</p>{% endif %}
+  {% if offers.won_premium is not none %}<p>Gewonnene Gebote lagen im Mittel <strong class="num">{{ pct(offers.won_premium) }}</strong> über dem Marktwert.</p>{% endif %}
+  {% if offers.recent %}
+  <ul class="offers">
+    {% for o in offers.recent %}
+    <li>
+      <span class="offers__name">{{ o.player_name }}</span>
+      <span class="num">{{ o.amount | money_short }}</span>
+      {% if o.outcome == "won" %}<span class="badge badge--fit">gewonnen</span>
+      {% elif o.outcome == "lost" %}<span class="badge badge--out">verloren</span>{% if o.final_price %} <span class="muted small num">Sieger {{ o.final_price | money_short }}</span>{% endif %}
+      {% elif o.outcome == "none" %}<span class="badge badge--unknown">kein Verkauf</span>
+      {% else %}<span class="badge badge--doubtful">offen</span>{% endif %}
+    </li>
+    {% endfor %}
+  </ul>
+  {% else %}
+  <p class="muted">Noch keine eigenen Gebote erfasst. Sie werden alle 2 Stunden vom Markt übernommen.</p>
+  {% endif %}
+</section>
+{% endif %}
+{% endblock %}

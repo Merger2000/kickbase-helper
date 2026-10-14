@@ -1,0 +1,16 @@
+{# All rows on the /merkliste page, wrapped in the <ul>. Used by the remove endpoint to swap
+   the whole list after the user removed a player (outerHTML). #}
+<ul class="watchlist__list" id="watchlist-list">
+  {% if entries %}
+  {% for entry in entries %}
+  {% set threshold_input = entry.entry.price_below or '' %}
+  {% include "partials/watchlist_row.html" %}
+  {% endfor %}
+  {% else %}
+  <li class="watchlist__empty">
+    <p>Die Merkliste ist leer.</p>
+    <p class="muted small">Auf jeder Spieler-Seite kannst du den Stern antippen, um einen Spieler hier zu merken.</p>
+  </li>
+  {% endif %}
+</ul>
+{% if market_error %}<p class="note note--warning">{{ market_error }}</p>{% endif %}

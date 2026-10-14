@@ -1,0 +1,67 @@
+{% extends "layout.html" %}
+{% import "macros.html" as ui %}
+{% set tz = request.app.state.settings.tz %}
+{% block title %}Trading · Kickbase Helper{% endblock %}
+{% block content %}
+{% include "partials/plan_nav.html" %}
+{% if error %}<p class="alert" role="alert">{{ error }}</p>{% endif %}
+{% if data %}
+
+<section class="trading-section" aria-labelledby="deadline-plan-title">
+<h2 id="deadline-plan-title">Plan bis zur Deadline</h2>
+{% if data.deadline %}
+<p>{% if data.closing %}<strong>Jetzt Kader &amp; Budget finalisieren.</strong>{% else %}<strong>Trading-Zeitfenster offen.</strong>{% endif %}
+Deadline <time datetime="{{ data.deadline.isoformat() }}">{{ data.deadline | local_time(tz) }}</time>.</p>
+<p class="muted small">Verkäufe spätestens bis <strong>{{ data.sell_by | local_time(tz) }}</strong> einplanen. Das ist ein Sicherheitspuffer, keine bestätigte Verkaufszusage.</p>
+{% else %}<p class="note note--warning">Keine kommende Deadline bekannt: neue Trading-Käufe werden nicht empfohlen.</p>{% endif %}
+<dl class="rec__facts">
+<div><dt>Konto jetzt</dt><dd class="num">{{ data.budget | money_short }}</dd></div>
+<div><dt>Nach allen Geboten</dt><dd class="num">{{ data.budget_after_offers | money_short }}</dd></div>
+<div><dt>Noch zu decken</dt><dd class="num">{{ data.deficit | money_short }}</dd></div>
+</dl>
+{% if data.deficit %}
+{% if data.funding %}
+<p>Finanzierung zu heutigen Marktwerten:{% for player in data.funding.players %} <strong>{{ player.name }}</strong>{% if not loop.last %},{% endif %}{% endfor %} verkaufen → <strong class="num">{{ data.funding.total | money_short }}</strong>. Danach <span class="num">{{ data.funding.surplus | money_short }}</span> auch dann, wenn alle offenen Gebote gewinnen.</p>
+{% if data.touches_eleven %}<p class="note note--warning">Trading-Spieler allein reichen nicht. Dieser Plan betrifft die Spieltags-Elf: Ersatz besorgen oder offene Gebote zurückziehen.</p>{% endif %}
+{% else %}<p class="note note--warning">Mit den geprüften Verkäufen ist das Minus nicht vollständig gedeckt. Gebote zurückziehen oder weitere Verkäufe planen.</p>{% endif %}
+{% else %}<p class="note note--ok">Aktuelles Budget und offene Gebote sind gedeckt. Mögliche künftige Gewinne sind dabei nicht eingerechnet.</p>{% endif %}
+{% if data.open_slots %}<p class="note note--warning">Der besten Elf fehlen {{ data.open_slots }} Plätze. Ein fehlender Spieler kostet −100 Punkte.</p>{% endif %}
+<a class="button button--quiet button--block" href="/empfehlungen/simulation">Käufe &amp; Verkäufe durchspielen</a>
+<a class="rec__link" href="/empfehlungen/elf">Spieltags-Elf prüfen</a>
+</section>
+<section class="trading-section" aria-labelledby="trading-squad-title">
+<h2 id="trading-squad-title">Trading-Positionen im Kader</h2>
+<a class="rec__link" href="/kader/rollen">Stammkader bearbeiten</a>
+<a class="rec__link" href="/empfehlungen/gewinne">Gewinne &amp; abgeschlossene Trades</a>
+<a class="rec__link" href="/empfehlungen/trends">Tagestrends &amp; Trendwenden prüfen</a>
+{% if data.protected | selectattr("role", "equalto", "core") | list %}<p class="note">Dein geschützter Stammkader wird im Finanzierungsplan nicht verkauft. Reichen andere Spieler nicht, bleibt das Defizit offen.</p>{% endif %}
+<p class="muted small">Spieler außerhalb der vorgeschlagenen Elf. 24 h = Bewegung beim letzten Marktwert-Update; Gewinn seit Kauf ist noch nicht realisiert.</p>
+{% if data.holdings %}<ul class="trading-list">
+{% for p in data.holdings %}
+<li class="trade-card">
+<div class="trade-card__head"><a href="/spieler/{{ p.id }}">{{ p.name }}</a>{% if p.role == "trade" %}<span class="badge badge--unknown">Deine Trading-Notiz</span>{% endif %}<span class="badge badge--{{ 'fit' if p.delta is not none and p.delta > 0 else 'unknown' }}">{{ p.action }}</span></div>
+<dl class="rec__facts">
+<div><dt>24 Stunden</dt><dd class="num change {% if p.delta is not none and p.delta > 0 %}change--up{% elif p.delta is not none and p.delta < 0 %}change--down{% endif %}">{{ p.delta | signed_money if p.delta is not none else "unbekannt" }}</dd></div>
+<div><dt>Gewinn seit Kauf</dt><dd class="num">{{ p.gain | signed_money if p.gain is not none else "–" }}</dd></div>
+<div><dt>Marktwert</dt><dd class="num">{{ p.value | money_short }}</dd></div>
+</dl>
+{% if p.reasons %}<p class="muted small">{{ p.reasons | join(" ") }}</p>{% endif %}
+</li>
+{% endfor %}</ul>{% else %}<p class="muted">Keine zusätzlichen Trading-Positionen: der Kader wird für die Elf benötigt.</p>{% endif %}
+<details class="score-details"><summary>{{ data.protected | length }} Spieler für Elf oder eigenen Schutz vorgesehen</summary>
+<ul>{% for p in data.protected %}<li><a href="/spieler/{{ p.id }}">{{ p.name }}</a>{% if p.role == "core" %} <span class="badge badge--fit">Von dir geschützt</span>{% elif p.role == "trade" %} <span class="badge badge--unknown">Trading, für die Elf benötigt</span>{% endif %} – {{ p.delta | signed_money if p.delta is not none else "Tagestrend unbekannt" }} / 24 h</li>{% endfor %}</ul>
+</details>
+</section>
+<section class="trading-section" aria-labelledby="trade-buys-title">
+<h2 id="trade-buys-title">Trading-Chancen auf dem Markt</h2>
+<p class="muted small">Steigende Spieler, deren Angebote in Budget und Zeitfenster passen. Aufschläge können den Gewinn aufzehren; Szenarien sind keine Prognosen.</p>
+{% if data.bid_hint %}<p class="note">{{ data.bid_hint }}</p>{% endif %}
+{% if data.opportunities %}<ul class="trading-list">
+{% for trade in data.opportunities[:3] %}{% include "partials/trade_opportunity.html" %}{% endfor %}</ul>
+{% if data.opportunities | length > 3 %}<details class="section-details more-trades"><summary>Weitere {{ data.opportunities | length - 3 }} Trading-Chancen</summary><ul class="trading-list">{% for trade in data.opportunities[3:] %}{% include "partials/trade_opportunity.html" %}{% endfor %}</ul></details>{% endif %}
+{% else %}<p class="muted">Derzeit keine belegte Trading-Chance innerhalb von Budget und Zeitfenster. Fehlende Tagesdaten, zu hohe Aufschläge oder eine nahe Deadline können der Grund sein.</p>{% endif %}
+</section>
+{{ ui.data_notes(basis.notes, basis.warnings) }}
+<p class="freshness{% if basis.stale %} freshness--stale{% endif %}">Datenstand {{ basis.fetched_at | local_time(tz) }}{% if basis.stale %} – ältere Daten, vor Entscheidungen in Kickbase prüfen.{% endif %}</p>
+{% endif %}
+{% endblock %}

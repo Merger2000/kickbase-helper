@@ -1,0 +1,665 @@
+{
+  "us": [
+    {
+      "i": "9000002",
+      "unm": "Manager 2",
+      "mdp": 944,
+      "pa": true,
+      "lp": [
+        3218,
+        11161,
+        14241,
+        1704,
+        3350,
+        2199,
+        4335,
+        7721,
+        7676,
+        4199,
+        1920
+      ],
+      "lpi": [
+        {
+          "i": "3218",
+          "pim": "content/file/a38df722ffed47d28338a8ecdccf2d7d.png",
+          "ictp": false
+        },
+        {
+          "i": "11161",
+          "pim": "content/file/1835f49349d841c5aaa72de8234f2cb1.png",
+          "ictp": false
+        },
+        {
+          "i": "14241",
+          "pim": "content/file/72b74c3259934631ba5bf9cc87fb104c.png",
+          "ictp": false
+        },
+        {
+          "i": "1704",
+          "pim": "content/file/d5ca76d467ce40e1b9012c9f28f77855.png",
+          "ictp": false
+        },
+        {
+          "i": "3350",
+          "pim": "content/file/fbee1507382f49f99d071cab06a4c4bd.png",
+          "ictp": false
+        },
+        {
+          "i": "2199",
+          "pim": "content/file/47214559d4384efab358f0688fc666de.png",
+          "ictp": false
+        },
+        {
+          "i": "4335",
+          "pim": "content/file/a38df722ffed47d28338a8ecdccf2d7d.png",
+          "ictp": false
+        },
+        {
+          "i": "7721",
+          "pim": "content/file/2d03e9b347934deaa8a0c040a9594150.png",
+          "ictp": false
+        },
+        {
+          "i": "7676",
+          "pim": "content/file/e5622c99f6c84a309a46482d575b78c9.png",
+          "ictp": false
+        },
+        {
+          "i": "4199",
+          "pim": "content/file/72b74c3259934631ba5bf9cc87fb104c.png",
+          "ictp": false
+        },
+        {
+          "i": "1920",
+          "pim": "content/file/d5ca76d467ce40e1b9012c9f28f77855.png",
+          "ictp": false
+        }
+      ],
+      "pl": 1
+    },
+    {
+      "i": "9000003",
+      "unm": "Manager 3",
+      "mdp": 557,
+      "pa": true,
+      "lp": [
+        1873,
+        2294,
+        11255,
+        6197,
+        1996,
+        10115,
+        11006,
+        8252,
+        3304,
+        11959,
+        4296
+      ],
+      "lpi": [
+        {
+          "i": "1873",
+          "pim": "content/file/d5ca76d467ce40e1b9012c9f28f77855.png",
+          "ictp": false
+        },
+        {
+          "i": "2294",
+          "pim": "content/file/2d03e9b347934deaa8a0c040a9594150.png",
+          "ictp": false
+        },
+        {
+          "i": "11255",
+          "pim": "content/file/d6a3303abd514c5d88da5e6a95251e43.png",
+          "ictp": false
+        },
+        {
+          "i": "6197",
+          "pim": "content/file/25a358d12b764a1699faaa5cd208f776.png",
+          "ictp": false
+        },
+        {
+          "i": "1996",
+          "pim": "content/file/2d03e9b347934deaa8a0c040a9594150.png",
+          "ictp": false
+        },
+        {
+          "i": "10115",
+          "pim": "content/file/d5ca76d467ce40e1b9012c9f28f77855.png",
+          "ictp": false
+        },
+        {
+          "i": "11006",
+          "pim": "content/file/a38df722ffed47d28338a8ecdccf2d7d.png",
+          "ictp": false
+        },
+        {
+          "i": "8252",
+          "pim": "content/file/fbee1507382f49f99d071cab06a4c4bd.png",
+          "ictp": false
+        },
+        {
+          "i": "3304",
+          "pim": "content/file/a38df722ffed47d28338a8ecdccf2d7d.png",
+          "ictp": false
+        },
+        {
+          "i": "11959",
+          "pim": "content/file/1835f49349d841c5aaa72de8234f2cb1.png",
+          "ictp": false
+        },
+        {
+          "i": "4296",
+          "pim": "content/file/47214559d4384efab358f0688fc666de.png",
+          "ictp": false
+        }
+      ],
+      "uim": "content/file/anonymous.png",
+      "pl": 5
+    },
+    {
+      "i": "9000001",
+      "unm": "Manager 1",
+      "mdp": 934,
+      "pa": true,
+      "lp": [
+        8227,
+        3759,
+        17285,
+        3470,
+        6061,
+        8307,
+        17288,
+        7737,
+        11956,
+        3204,
+        10120
+      ],
+      "lpi": [
+        {
+          "i": "8227",
+          "pim": "content/file/41e6d9b5a6dc41378971c7acec655cef.png",
+          "ictp": false
+        },
+        {
+          "i": "3759",
+          "pim": "content/file/72b74c3259934631ba5bf9cc87fb104c.png",
+          "ictp": false
+        },
+        {
+          "i": "17285",
+          "pim": "content/file/22edbaccec3048b49f80a4433d588cbd.png",
+          "ictp": false
+        },
+        {
+          "i": "3470",
+          "pim": "content/file/3b8addfebba24f57b176b6fbe7d1ba7b.png",
+          "ictp": false
+        },
+        {
+          "i": "6061",
+          "pim": "content/file/72b74c3259934631ba5bf9cc87fb104c.png",
+          "ictp": false
+        },
+        {
+          "i": "8307",
+          "pim": "content/file/3b8addfebba24f57b176b6fbe7d1ba7b.png",
+          "ictp": false
+        },
+        {
+          "i": "17288",
+          "pim": "content/file/2d03e9b347934deaa8a0c040a9594150.png",
+          "ictp": false
+        },
+        {
+          "i": "7737",
+          "pim": "content/file/d5ca76d467ce40e1b9012c9f28f77855.png",
+          "ictp": false
+        },
+        {
+          "i": "11956",
+          "pim": "content/file/72b74c3259934631ba5bf9cc87fb104c.png",
+          "ictp": false
+        },
+        {
+          "i": "3204",
+          "pim": "content/file/1835f49349d841c5aaa72de8234f2cb1.png",
+          "ictp": false
+        },
+        {
+          "i": "10120",
+          "pim": "content/file/d968f7add8014681a04c39e93ba3c904.png",
+          "ictp": false
+        }
+      ],
+      "uim": "content/file/anonymous.png",
+      "pl": 2
+    },
+    {
+      "i": "9000004",
+      "unm": "Manager 4",
+      "mdp": 618,
+      "pa": true,
+      "lp": [
+        2195,
+        2366,
+        1246,
+        2300,
+        10112,
+        3069,
+        2804,
+        10048,
+        12285,
+        1961,
+        2646
+      ],
+      "lpi": [
+        {
+          "i": "2195",
+          "pim": "content/file/e5622c99f6c84a309a46482d575b78c9.png",
+          "ictp": false
+        },
+        {
+          "i": "2366",
+          "pim": "content/file/4a58697a5cbe48ed82444be2e0a1edb6.png",
+          "ictp": false
+        },
+        {
+          "i": "1246",
+          "pim": "content/file/41e6d9b5a6dc41378971c7acec655cef.png",
+          "ictp": false
+        },
+        {
+          "i": "2300",
+          "pim": "content/file/4a58697a5cbe48ed82444be2e0a1edb6.png",
+          "ictp": false
+        },
+        {
+          "i": "10112",
+          "pim": "content/file/47214559d4384efab358f0688fc666de.png",
+          "ictp": false
+        },
+        {
+          "i": "3069",
+          "pim": "content/file/d5ca76d467ce40e1b9012c9f28f77855.png",
+          "ictp": false
+        },
+        {
+          "i": "2804",
+          "pim": "content/file/4a58697a5cbe48ed82444be2e0a1edb6.png",
+          "ictp": false
+        },
+        {
+          "i": "10048",
+          "pim": "content/file/25a358d12b764a1699faaa5cd208f776.png",
+          "ictp": false
+        },
+        {
+          "i": "12285",
+          "pim": "content/file/22edbaccec3048b49f80a4433d588cbd.png",
+          "ictp": false
+        },
+        {
+          "i": "1961",
+          "pim": "content/file/4a58697a5cbe48ed82444be2e0a1edb6.png",
+          "ictp": false
+        },
+        {
+          "i": "2646",
+          "pim": "content/file/3b8addfebba24f57b176b6fbe7d1ba7b.png",
+          "ictp": false
+        }
+      ],
+      "uim": "content/file/anonymous.png",
+      "pl": 4
+    },
+    {
+      "i": "9000005",
+      "unm": "Manager 5",
+      "mdp": 776,
+      "pa": true,
+      "lp": [
+        1883,
+        6174,
+        3284,
+        1991,
+        2383,
+        43,
+        7441,
+        8292,
+        2687,
+        3336,
+        608
+      ],
+      "lpi": [
+        {
+          "i": "1883",
+          "pim": "content/file/87d405a9de61403c9679352004c3655f.png",
+          "ictp": false
+        },
+        {
+          "i": "6174",
+          "pim": "content/file/2d03e9b347934deaa8a0c040a9594150.png",
+          "ictp": false
+        },
+        {
+          "i": "3284",
+          "pim": "content/file/fbee1507382f49f99d071cab06a4c4bd.png",
+          "ictp": false
+        },
+        {
+          "i": "1991",
+          "pim": "content/file/4a58697a5cbe48ed82444be2e0a1edb6.png",
+          "ictp": false
+        },
+        {
+          "i": "2383",
+          "pim": "content/file/d5ca76d467ce40e1b9012c9f28f77855.png",
+          "ictp": false
+        },
+        {
+          "i": "43",
+          "pim": "content/file/2d03e9b347934deaa8a0c040a9594150.png",
+          "ictp": false
+        },
+        {
+          "i": "7441",
+          "pim": "content/file/fbee1507382f49f99d071cab06a4c4bd.png",
+          "ictp": false
+        },
+        {
+          "i": "8292",
+          "pim": "content/file/25a358d12b764a1699faaa5cd208f776.png",
+          "ictp": false
+        },
+        {
+          "i": "2687",
+          "pim": "content/file/41e6d9b5a6dc41378971c7acec655cef.png",
+          "ictp": false
+        },
+        {
+          "i": "3336",
+          "pim": "content/file/25a358d12b764a1699faaa5cd208f776.png",
+          "ictp": false
+        },
+        {
+          "i": "608",
+          "pim": "content/file/2d03e9b347934deaa8a0c040a9594150.png",
+          "ictp": false
+        }
+      ],
+      "pl": 3
+    },
+    {
+      "i": "9000006",
+      "unm": "Manager 6",
+      "mdp": 479,
+      "pa": true,
+      "lp": [
+        2977,
+        4606,
+        7224,
+        49,
+        2928,
+        9507,
+        6080,
+        11261,
+        2275,
+        2746,
+        1955
+      ],
+      "lpi": [
+        {
+          "i": "2977",
+          "pim": "content/file/25a358d12b764a1699faaa5cd208f776.png",
+          "ictp": false
+        },
+        {
+          "i": "4606",
+          "pim": "content/file/d6a3303abd514c5d88da5e6a95251e43.png",
+          "ictp": false
+        },
+        {
+          "i": "7224",
+          "pim": "content/file/41e6d9b5a6dc41378971c7acec655cef.png",
+          "ictp": false
+        },
+        {
+          "i": "49",
+          "pim": "content/file/a38df722ffed47d28338a8ecdccf2d7d.png",
+          "ictp": false
+        },
+        {
+          "i": "2928",
+          "pim": "content/file/fbee1507382f49f99d071cab06a4c4bd.png",
+          "ictp": false
+        },
+        {
+          "i": "9507",
+          "pim": "content/file/41e6d9b5a6dc41378971c7acec655cef.png",
+          "ictp": false
+        },
+        {
+          "i": "6080",
+          "pim": "content/file/4a58697a5cbe48ed82444be2e0a1edb6.png",
+          "ictp": false
+        },
+        {
+          "i": "11261",
+          "pim": "content/file/3b8addfebba24f57b176b6fbe7d1ba7b.png",
+          "ictp": false
+        },
+        {
+          "i": "2275",
+          "pim": "content/file/41e6d9b5a6dc41378971c7acec655cef.png",
+          "ictp": false
+        },
+        {
+          "i": "2746",
+          "pim": "content/file/72b74c3259934631ba5bf9cc87fb104c.png",
+          "ictp": false
+        },
+        {
+          "i": "1955",
+          "pim": "content/file/1d225120f5ea44769c6ddea4877c270d.png",
+          "ictp": false
+        }
+      ],
+      "uim": "content/file/anonymous.png",
+      "pl": 6
+    }
+  ],
+  "n": "Manager 1",
+  "ppc": 0,
+  "lp": [
+    {
+      "i": "3204",
+      "n": "Conté",
+      "tid": 14,
+      "p": 205,
+      "st": 5,
+      "mi": 12040,
+      "mt": 95,
+      "mtd": "90",
+      "md": "2026-10-10T13:30:00Z",
+      "mst": 2,
+      "k": [
+        1,
+        9
+      ],
+      "pim": "content/file/1835f49349d841c5aaa72de8234f2cb1.png",
+      "ictp": false
+    },
+    {
+      "i": "3470",
+      "n": "Caci",
+      "tid": 18,
+      "p": 311,
+      "st": 5,
+      "mi": 12031,
+      "mt": 95,
+      "mtd": "90",
+      "md": "2026-10-10T13:30:00Z",
+      "mst": 2,
+      "k": [
+        1,
+        1,
+        9
+      ],
+      "pim": "content/file/3b8addfebba24f57b176b6fbe7d1ba7b.png",
+      "ictp": false
+    },
+    {
+      "i": "3759",
+      "n": "Gutiérrez",
+      "tid": 7,
+      "p": 125,
+      "st": 5,
+      "mi": 12031,
+      "mt": 95,
+      "mtd": "90",
+      "md": "2026-10-10T13:30:00Z",
+      "mst": 2,
+      "k": [],
+      "pim": "content/file/72b74c3259934631ba5bf9cc87fb104c.png",
+      "ictp": false
+    },
+    {
+      "i": "6061",
+      "n": "Maza",
+      "tid": 7,
+      "p": 55,
+      "st": 5,
+      "mi": 12031,
+      "mt": 95,
+      "mtd": "90",
+      "md": "2026-10-10T13:30:00Z",
+      "mst": 2,
+      "k": [
+        9
+      ],
+      "pim": "content/file/72b74c3259934631ba5bf9cc87fb104c.png",
+      "ictp": false
+    },
+    {
+      "i": "7737",
+      "n": "Veerman",
+      "tid": 3,
+      "p": 88,
+      "st": 3,
+      "mi": 12046,
+      "mt": 97,
+      "mtd": "90",
+      "md": "2026-10-09T18:30:00Z",
+      "mst": 2,
+      "k": [
+        8,
+        3,
+        4
+      ],
+      "pim": "content/file/d5ca76d467ce40e1b9012c9f28f77855.png",
+      "ictp": false
+    },
+    {
+      "i": "8227",
+      "n": "Vandevoordt",
+      "tid": 43,
+      "p": 335,
+      "st": 5,
+      "mi": 12043,
+      "mt": 92,
+      "mtd": "90",
+      "md": "2026-10-10T16:30:00Z",
+      "mst": 2,
+      "k": [
+        25
+      ],
+      "pim": "content/file/41e6d9b5a6dc41378971c7acec655cef.png",
+      "ictp": false
+    },
+    {
+      "i": "8307",
+      "n": "Sano",
+      "tid": 18,
+      "p": 57,
+      "st": 5,
+      "mi": 12031,
+      "mt": 95,
+      "mtd": "90",
+      "md": "2026-10-10T13:30:00Z",
+      "mst": 2,
+      "k": [
+        9
+      ],
+      "pim": "content/file/3b8addfebba24f57b176b6fbe7d1ba7b.png",
+      "ictp": false
+    },
+    {
+      "i": "10120",
+      "n": "Røssing-Lelesiit",
+      "tid": 6,
+      "p": 47,
+      "st": 3,
+      "mi": 12040,
+      "mt": 95,
+      "mtd": "90",
+      "md": "2026-10-10T13:30:00Z",
+      "mst": 2,
+      "k": [
+        8
+      ],
+      "pim": "content/file/d968f7add8014681a04c39e93ba3c904.png",
+      "ictp": false
+    },
+    {
+      "i": "11956",
+      "n": "Fernández",
+      "tid": 7,
+      "p": 22,
+      "st": 3,
+      "mi": 12031,
+      "mt": 95,
+      "mtd": "90",
+      "md": "2026-10-10T13:30:00Z",
+      "mst": 2,
+      "k": [
+        8
+      ],
+      "pim": "content/file/72b74c3259934631ba5bf9cc87fb104c.png",
+      "ictp": false
+    },
+    {
+      "i": "17285",
+      "n": "Brassier",
+      "tid": 4,
+      "p": 43,
+      "st": 5,
+      "mi": 12043,
+      "mt": 92,
+      "mtd": "90",
+      "md": "2026-10-10T16:30:00Z",
+      "mst": 2,
+      "k": [],
+      "pim": "content/file/22edbaccec3048b49f80a4433d588cbd.png",
+      "ictp": false
+    },
+    {
+      "i": "17288",
+      "n": "Regeer",
+      "tid": 10,
+      "p": 24,
+      "st": 5,
+      "mi": 12046,
+      "mt": 97,
+      "mtd": "90",
+      "md": "2026-10-09T18:30:00Z",
+      "mst": 2,
+      "k": [
+        9
+      ],
+      "pim": "content/file/2d03e9b347934deaa8a0c040a9594150.png",
+      "ictp": false
+    }
+  ],
+  "nlp": [],
+  "uim": "content/file/anonymous.png",
+  "clpc": 11
+}

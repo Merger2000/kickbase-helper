@@ -1,0 +1,94 @@
+{
+  "it": [
+    {
+      "i": "1",
+      "n": "Bundesliga",
+      "fb": "content/file/01f2069f696a4350b5a3035f94904bce.png",
+      "cpim": "content/file/2beed7fec3534109a0cc13adfc372f8b.png",
+      "fts": [
+        1,
+        2,
+        3,
+        4,
+        5,
+        9,
+        10,
+        7
+      ]
+    },
+    {
+      "i": "2",
+      "n": "2. Bundesliga",
+      "fb": "content/file/b4dc8f4ef02c4d12b4a4a166c3b18129.png",
+      "cpim": "content/file/e2f8f8bdab23404eaab4866fa5ae0f2e.png",
+      "fts": [
+        1,
+        2,
+        3,
+        4,
+        5,
+        9,
+        10,
+        7
+      ]
+    },
+    {
+      "i": "3",
+      "n": "La Liga",
+      "fb": "content/file/4ef7a82ee0914695b61a5e325c494e1c.png",
+      "cpim": "content/file/1acdbd3da46143bab833341f47a79a1b.png",
+      "fts": [
+        1,
+        2,
+        3,
+        4,
+        5,
+        9,
+        10,
+        7
+      ]
+    },
+    {
+      "i": "4",
+      "n": "GP Frauen-Bundesliga",
+      "fb": "content/file/0b69dae7283a4d94a4ce79d6ba4729d9.png",
+      "cpim": "content/file/066729955df647908ee3c1575abf518f.png",
+      "fts": [
+        1,
+        2,
+        3,
+        4,
+        5,
+        9,
+        10,
+        7
+      ]
+    },
+    {
+      "i": "6",
+      "n": "DFB-Pokal",
+      "cpim": "content/file/a2fab1cd1cbf475fbb51e299a6171e4e.png",
+      "fts": [
+        1,
+        2,
+        3
+      ]
+    },
+    {
+      "i": "9",
+      "n": "MLS",
+      "cpim": "content/file/c37f69535a224f6888aa7f975d0afa0c.png",
+      "fts": [
+        1,
+        2,
+        3,
+        5,
+        7,
+        8,
+        9,
+        10,
+        4
+      ]
+    }
+  ]
+}

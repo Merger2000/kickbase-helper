@@ -1,0 +1,42 @@
+# KI-Anbindung (Mistral, Gratis-Plan: 10 $ Guthaben pro Monat, danach Sperre bis Monatsende).
+# Harte Grenzen: Ist eine erreicht, gibt es bis zum nächsten Tag bzw. Monat keinen Aufruf mehr;
+# alles andere läuft ohne KI weiter. Gezählt wird in der Tabelle ai_usage (App und Worker).
+limits:
+  calls_per_day: 80
+  tokens_per_day: 150000
+  tokens_per_month: 2000000
+  # Fragen aus dem Telegram-Chat pro Tag (eine Frage kann mehrere KI-Aufrufe umfassen).
+  questions_per_day: 30
+  # Höchstens dieser Teil des Gratis-Guthabens; bei einem Bezahlmodell höchstens 3 € im Monat.
+  budget_usd_per_month: 2.0
+  # Abstand zwischen zwei Aufrufen (die Gratis-Stufe erlaubt etwa einen pro Sekunde).
+  min_interval_seconds: 2.0
+
+# Preise pro 1 Mio. Tokens in USD (Stand 07.10.2026), nur für die Budgetrechnung.
+prices:
+  ministral-14b-latest: {input: 0.20, output: 0.20}
+  ministral-8b-latest: {input: 0.15, output: 0.15}
+# Für Modelle ohne Eintrag: bewusst hoch angesetzt, damit das Budget eher zu früh greift.
+default_price: {input: 1.0, output: 3.0}
+
+# Längste erlaubte Antwort je Aufgabe (Tokens).
+tasks:
+  news: {max_tokens: 1500}
+  briefing: {max_tokens: 600}
+  player: {max_tokens: 500}
+  # Fragen im Telegram-Chat: eigenes Tageslimit (eine Frage = meist 1, höchstens 4 Aufrufe),
+  # damit Briefing, News und Spieler-Einschätzungen immer noch genug Aufrufe übrig haben.
+  chat: {max_tokens: 900, calls_per_day: 40}
+
+# Claude im Telegram-Chat (@claude oder /claude): läuft über die Bridge auf der VM mit dem
+# Claude-Abo, nicht über das Mistral-Guthaben. Fragen im Fenster gehen an Claude, jede Frage
+# verlängert es. Modelle umschalten mit /claude_model <name>.
+claude:
+  window_minutes: 10
+  questions_per_day: 40
+  default_model: sonnet
+  models: [sonnet, opus, haiku]
+  # Obergrenze pro Frage (Rechenwert der CLI; die Bridge deckelt zusätzlich bei 5 $).
+  max_budget_usd_per_question: 2.0
+  # Sekunden pro Frage (Recherche mit Websuche dauert); die Bridge deckelt bei 600.
+  timeout_seconds: 240

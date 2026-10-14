@@ -1,0 +1,12 @@
+{% set r = trade.rec %}
+<li class="trade-card trade-card--compact">
+<details class="trade-fold">
+<summary><span class="trade-fold__who"><strong>{{ r.player.name }}</strong><small>{{ r.player.position.short_label }} · Kaufpreis {{ trade.cost | money_short }}</small></span><span class="change change--up num">{{ trade.daily_gain | signed_money }}<small>/ 24 h</small></span></summary>
+<div class="trade-fold__body">
+<dl class="rec__facts"><div><dt>Aufschlag zurück nach</dt><dd>{{ trade.break_even_updates }} Updates</dd></div><div><dt>Updates bis Verkauf</dt><dd>{{ trade.updates }}</dd></div></dl>
+<p class="muted small">Gewinnszenario <strong class="num">{{ trade.scenario_profit | signed_money }}</strong>, nur falls die letzte Tagesänderung {{ trade.updates }} Updates unverändert bleibt. Keine Prognose. {% if not r.bid %}Gebotsempfehlung fehlt; Mindestpreis angesetzt.{% endif %}</p>
+<a class="rec__link" href="/spieler/{{ r.player.id }}">Spieler &amp; Begründung</a>
+<a class="rec__link" href="/empfehlungen/simulation?kauf={{ r.player.id }}">Kauf durchspielen</a>
+</div>
+</details>
+</li>

@@ -1,0 +1,28 @@
+# LigaInsider: Kickbase-Team-Id -> Vereins-Slug/Id für die „voraussichtliche Aufstellung“.
+# Die Seite liefert nur die erwartete Startelf (keine Bank, keine Ausfälle); Spielernamen
+# werden per Namensabgleich den Kickbase-Spielern zugeordnet (config/team_mapping.yaml).
+base_url: https://www.ligainsider.de
+teams:
+  "2": "fc-bayern-muenchen/1"       # Bayern
+  "3": "borussia-dortmund/14"       # Dortmund
+  "4": "eintracht-frankfurt/3"      # Frankfurt
+  "5": "sc-freiburg/18"             # Freiburg
+  "6": "hamburger-sv/9"             # Hamburg
+  "7": "bayer-04-leverkusen/4"      # Leverkusen
+  "8": "fc-schalke-04/13"           # Schalke
+  "9": "vfb-stuttgart/12"           # Stuttgart
+  "10": "sv-werder-bremen/2"        # Bremen
+  "13": "fc-augsburg/21"            # Augsburg
+  "14": "tsg-hoffenheim/10"         # Hoffenheim
+  "15": "borussia-moenchengladbach/5"  # M'gladbach
+  "18": "1-fsv-mainz-05/17"         # Mainz
+  "28": "1-fc-koeln/15"             # Köln
+  "29": "sc-paderborn-07/1249"      # Paderborn
+  "40": "1-fc-union-berlin/1246"    # Union Berlin
+  "43": "rb-leipzig/1311"           # Leipzig
+  "77": "sv-07-elversberg/1331"     # Elversberg
+# Einige Wappen-Bilder nutzen einen anderen Slug als die Vereins-URL (Verletzten-Seite).
+wappen_aliases:
+  tsg-1899-hoffenheim: "14"  # Hoffenheim: URL "tsg-hoffenheim", Wappen mit "1899"
+  fsv-mainz-05: "18"       # Mainz: URL "1-fsv-mainz-05", Wappen "fsv-mainz-05"
+  1fc-union-berlin: "40"   # Union Berlin: URL "1-fc-union-berlin", Wappen "1fc-union-berlin"

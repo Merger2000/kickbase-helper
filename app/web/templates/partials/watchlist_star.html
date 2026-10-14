@@ -1,0 +1,19 @@
+{# Star button that toggles a player on/off the watchlist via HTMX.
+   `watched` (bool) decides the look and the next POST endpoint.
+   The button is *outside* the row link, so it never swallows the link click.
+   Replace the shared wrapper so a successful retry clears the previous error as well. #}
+{% set label = "Auf Merkliste" if not watched else "Auf der Merkliste" %}
+{% set endpoint = "/merkliste/add" if not watched else "/merkliste/remove" %}
+<span class="watchlist-control" id="watchlist-control-{{ player_id }}">
+<button class="watchlist-star{% if watched %} watchlist-star--on{% endif %}"
+        type="button"
+        aria-pressed="{{ "true" if watched else "false" }}"
+        aria-label="{{ label }}"
+        title="{{ label }}"
+        hx-post="{{ endpoint }}"
+        hx-vals='{"player_id": {{ player_id | tojson }}}'
+        hx-target="closest .watchlist-control"
+        hx-swap="outerHTML"
+        hx-disabled-elt="this">★</button>
+{% if error %}<span class="watchlist-star__error small" role="alert">{{ error }}</span>{% endif %}
+</span>

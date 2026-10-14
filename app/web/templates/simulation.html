@@ -1,0 +1,10 @@
+{% extends "layout.html" %}
+{% block title %}Transfer-Simulation · Kickbase Helper{% endblock %}
+{% block scripts %}<script src="{{ static_url('js/simulation.js') }}" defer></script>{% endblock %}
+{% block content %}
+<a class="back" href="/empfehlungen/trading">Trading</a>
+<h1>Transfers durchspielen</h1>
+<p class="lead">Verkäufe und Käufe kombinieren: Was bleibt fürs Budget und die nächste Elf?</p>
+<p class="muted small">Ein Rechenplan zu heutigen Werten. Die Umsetzung erfolgt in der Kickbase-App; ausgewählte Verkäufe stellen erst danach Geld bereit.</p>
+{% include "partials/simulation.html" %}
+{% endblock %}

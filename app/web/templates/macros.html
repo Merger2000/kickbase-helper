@@ -1,0 +1,182 @@
+{% set POSITION_NAMES = {1: "Tor", 2: "Abwehr", 3: "Mittelfeld", 4: "Sturm"} %}
+
+{# Pitch with one row per line. Items are player cards (mode "team") or recommendations
+   (mode "score", showing the score; mode "xp", showing expected points 0…1). #}
+{% macro pitch(lines, mode="team") %}
+<div class="pitch">
+  <div class="pitch__marks" aria-hidden="true">
+    <span class="pitch__box pitch__box--top"></span>
+    <span class="pitch__half"></span>
+    <span class="pitch__circle"></span>
+    <span class="pitch__box pitch__box--bottom"></span>
+  </div>
+  {% for line in lines %}
+  <ol class="pitch__line" aria-label="{{ POSITION_NAMES[line.position.value] }}">
+    {% for item in line.players %}
+    {% set player = item.player if mode in ("score", "xp") else item %}
+    <li class="token token--{{ player.availability.name | lower }}">
+      <a class="token__link" href="/spieler/{{ player.id }}">
+      <span class="avatar">
+        {% if player.image %}<img class="avatar__img" src="{{ player.image }}" alt="" width="48" height="48" loading="lazy" decoding="async">{% else %}<span class="avatar__initials" aria-hidden="true">{{ player.initials }}</span>{% endif %}
+      </span>
+      <span class="token__name">{{ player.name }}</span>
+      {% if mode == "score" %}
+      <span class="token__stat num">{{ item.score.shown_total }} Pkt.</span>
+      {% elif mode == "xp" %}
+      <span class="token__stat num">{{ (item.xp.value * 100) | round | int }}/100</span>
+      {% else %}
+      <span class="token__stat num">Ø {{ player.average_points }}</span>
+      {% endif %}
+      {% if player.availability.name != "FIT" %}<span class="visually-hidden">, {{ player.status_label }}</span>{% endif %}
+      </a>
+    </li>
+    {% endfor %}
+    {% for _ in range(line.empty_slots) %}
+    <li class="token token--empty">
+      <span class="avatar avatar--empty" aria-hidden="true"></span>
+      <span class="token__name">frei</span>
+    </li>
+    {% endfor %}
+  </ol>
+  {% endfor %}
+</div>
+{% endmacro %}
+
+{% macro avatar(player, size="small") %}
+<span class="avatar avatar--{{ size }}">
+  {% if player.image %}<img class="avatar__img" src="{{ player.image }}" alt="" width="40" height="40" loading="lazy" decoding="async">{% else %}<span class="avatar__initials" aria-hidden="true">{{ player.initials }}</span>{% endif %}
+</span>
+{% endmacro %}
+
+{# The score's components as a short line: what each part contributed in points. #}
+{% macro score_parts(score) %}
+{% set shown = score.shown_points %}
+<ul class="score-parts" aria-label="Bestandteile des Scores">
+  {% for c in score.components %}
+  <li class="score-parts__item{% if shown[c.key] < 0 %} score-parts__item--minus{% endif %}">
+    <span>{{ c.label }}</span> <span class="num">{{ shown[c.key] | signed_points }}</span>
+  </li>
+  {% endfor %}
+  {% if score.incomplete %}
+  <li class="score-parts__item score-parts__item--note">{{ score.missing | join(", ") }} ohne Daten, neutral gerechnet</li>
+  {% endif %}
+</ul>
+{% endmacro %}
+
+{# Full explanation: normalised value, weight, contribution and reason per component. #}
+{% macro score_table(score) %}
+{% set shown = score.shown_points %}
+<details class="score-details">
+  <summary>Wie entsteht der Score?</summary>
+  <table>
+    <thead>
+      <tr><th scope="col">Teil</th><th scope="col" class="num">Wert</th><th scope="col" class="num">Gewicht</th><th scope="col" class="num">Punkte</th></tr>
+    </thead>
+    <tbody>
+      {% for c in score.components %}
+      <tr>
+        <th scope="row">{{ "Status-Malus" if c.key == "status" else c.label }}</th>
+        <td class="num">{{ c.value | decimal(2) }}</td>
+        <td class="num">{{ c.weight | decimal(2) }}</td>
+        <td class="num">{{ shown[c.key] | signed_points }}</td>
+      </tr>
+      <tr class="score-details__reason"><td colspan="4">{{ c.reason }}</td></tr>
+      {% endfor %}
+    </tbody>
+    <tfoot>
+      <tr><th scope="row" colspan="3">Score{% if score.clamped %} (auf 0–100 begrenzt){% endif %}</th><td class="num">{{ score.shown_total }}</td></tr>
+    </tfoot>
+  </table>
+</details>
+{% endmacro %}
+
+{% macro xp_table(xp) %}
+{# C4: expected points breakdown – Startchance · Form · Gegnerstärke, jeder 0…1, mit Begründung. #}
+{% set pct = (xp.value * 100) | round | int %}
+<details class="score-details">
+  <summary>Wie entsteht der Aufstellungsindex?</summary>
+  <p class="muted small">0–100 je Spieler: Startchance × Formrang × Programm der nächsten Gegner. Eine relative Kennzahl, keine Punkteprognose oder Wahrscheinlichkeit.</p>
+  <table>
+    <thead>
+      <tr><th scope="col">Faktor</th><th scope="col" class="num">Wert</th><th scope="col" class="num">Beitrag</th></tr>
+    </thead>
+    <tbody>
+      {% for c in xp.parts %}
+      <tr>
+        <th scope="row">{{ c.label }}</th>
+        <td class="num">{{ (c.value * 100) | round | int }} %</td>
+        <td class="num">× {{ (c.value * 100) | round | int }} %</td>
+      </tr>
+      <tr class="score-details__reason"><td colspan="3">{{ c.reason }}</td></tr>
+      {% endfor %}
+    </tbody>
+    <tfoot>
+      <tr><th scope="row" colspan="2">Aufstellungsindex</th><td class="num">{{ pct }}/100</td></tr>
+    </tfoot>
+  </table>
+  {% if xp.incomplete %}
+  <p class="muted small">{{ xp.missing | join(", ") }} ohne Daten – neutral gerechnet.</p>
+  {% endif %}
+</details>
+{% endmacro %}
+
+
+{% macro weights_note(profile) %}
+<details class="weights-note section-details">
+<summary>Bewertungsgewichte</summary>
+<p>
+  Gewichte: Form {{ profile.weights.form | decimal(2) }}, Trend {{ profile.weights.trend | decimal(2) }},
+  Programm {{ profile.weights.programm | decimal(2) }}, Einsatz {{ profile.weights.einsatz | decimal(2) }},
+  Klasse {{ profile.weights.klasse | decimal(2) }}, Status-Malus × {{ profile.weights.status | decimal(1) }}
+  (anpassbar in <code>config/scoring.yaml</code>).
+</p>
+</details>
+{% endmacro %}
+
+{# News reports (kicker) with status badge, details and source link. #}
+{% macro news_list(reports, tz, show_player=false) %}
+<ul class="news__list">
+  {% for report in reports %}
+  <li class="news__item">
+    <span class="news__head">
+      {%- if show_player %}{% if report.player_id %}<a href="/spieler/{{ report.player_id }}">{{ report.player_name }}</a>{% else %}{{ report.player_name }}{% endif %} {% endif -%}
+      <span class="badge badge--{{ report.badge }}">{{ report.status_label }}</span>
+      <time class="news__date muted small" datetime="{{ report.published_at.isoformat() }}">Meldung vom {{ report.published_at | local_time(tz) }}</time>
+      {% if report.updated_at %}<span class="news__date muted small">Artikeländerung erkannt {{ report.updated_at | local_time(tz) }} · Revision {{ report.revision }}</span>{% endif %}
+    </span>
+    <span class="news__detail">{{ report.kind_label }}
+      {%- if report.absence %}: {{ report.absence }}{% endif %}
+      {%- if report.expected_return %}, Rückkehr: {{ report.expected_return }}{% endif %}</span>
+    <a class="news__source" href="{{ report.link }}" target="_blank" rel="noopener noreferrer">{{ report.title }} <span class="muted">(kicker, {{ report.published_at | local_time(tz) }})</span></a>
+    {% if report.source_excerpt %}<details class="section-details"><summary>Textbasis &amp; Zuordnung</summary><p class="muted small">{{ report.source_excerpt }}</p><p class="muted small">Zuordnung: Spielername und Verein eindeutig; Auswertung von Revision {{ report.revision }}. Artikeltext ist keine bestätigte aktuelle Einsatzbereitschaft.</p></details>{% endif %}
+  </li>
+  {% endfor %}
+</ul>
+{% endmacro %}
+{% macro data_notes(notes, warnings=()) %}
+{# Warnings (a source failed or is outdated) always stay visible; informational hints: one
+   stays visible, several fold into one box. #}
+{% for warning in warnings | select %}<p class="note note--warning">{{ warning }}</p>{% endfor %}
+{% set notes = notes | select | list %}
+{% if notes | length == 1 %}
+<p class="note">{{ notes[0] }}</p>
+{% elif notes %}
+<details class="note data-notes">
+  <summary>{{ notes | length }} Hinweise zu den Daten</summary>
+  <ul>{% for note in notes %}<li>{{ note }}</li>{% endfor %}</ul>
+</details>
+{% endif %}
+{% endmacro %}
+
+{% macro headlines(items, tz, show_player=false) %}
+<ul class="news__list">
+  {% for item in items %}
+  <li class="news__item">
+    {% if show_player %}<span class="news__head">{% for p in item.players %}<a href="/spieler/{{ p.id }}">{{ p.name }}</a>{% if not loop.last %}, {% endif %}{% endfor %}</span>{% endif %}
+    <a class="news__source" href="{{ item.link }}" target="_blank" rel="noopener noreferrer">{{ item.title }}</a>
+    <time class="news__date muted small" datetime="{{ item.published_at.isoformat() }}">Originalartikel · kicker, {{ item.published_at | local_time(tz) }}</time>
+    {% if item.updated_at %}<span class="news__date muted small">Änderung erkannt {{ item.updated_at | local_time(tz) }} · Revision {{ item.revision }}</span>{% endif %}
+  </li>
+  {% endfor %}
+</ul>
+{% endmacro %}

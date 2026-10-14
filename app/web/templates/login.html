@@ -1,0 +1,29 @@
+{% extends "base.html" %}
+{% block title %}Anmelden · Kickbase Helper{% endblock %}
+{% block body %}
+<main class="login">
+  <svg class="login__pitch" viewBox="0 0 400 800" preserveAspectRatio="xMidYMid slice" aria-hidden="true">
+    <g fill="none" stroke="currentColor" stroke-width="2">
+      <line x1="-400" y1="400" x2="800" y2="400" vector-effect="non-scaling-stroke"/>
+      <circle cx="200" cy="400" r="150" vector-effect="non-scaling-stroke"/>
+    </g>
+    <circle cx="200" cy="400" r="5" fill="currentColor"/>
+  </svg>
+  <form class="login__form" method="post" action="/login">
+    <h1 class="login__title">Kickbase Helper<span>{{ request.app.state.settings.kickbase_league_name }}</span></h1>
+    <div class="login__fields">
+      <input type="hidden" name="csrf" value="{{ csrf_token(request) }}">
+      <input type="hidden" name="next" value="{{ next }}">
+      <input type="text" name="username" value="kickbase-helper" autocomplete="username" hidden>
+      <div class="field">
+        <label for="password">Passwort</label>
+        <input class="input" id="password" name="password" type="password"
+               autocomplete="current-password" required autofocus
+               {% if error %}aria-invalid="true" aria-describedby="login-error"{% endif %}>
+      </div>
+      {% if error %}<p class="alert" id="login-error" role="alert">{{ error }}</p>{% endif %}
+      <button class="button button--block" type="submit">Anmelden</button>
+    </div>
+  </form>
+</main>
+{% endblock %}

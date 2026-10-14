@@ -1,0 +1,51 @@
+{# Single row on the /merkliste page; swapped in place after the user edits the threshold. #}
+<li class="watchlist__row{% if not entry %} watchlist__row--empty{% endif %}"
+    id="watchlist-row-{{ entry.entry.player_id if entry else player_id }}">
+  {% if entry %}
+  {% set item = entry %}
+  {% set pid = item.entry.player_id %}
+  <div class="watchlist__name">
+    <a href="/spieler/{{ pid }}">{{ item.player_name }}</a>
+    {% if item.entry.price_below is not none %}
+    <span class="watchlist__threshold">Schwelle: <span class="num">{{ item.entry.price_below | money_short }}</span></span>
+    {% endif %}
+  </div>
+  <div class="watchlist__value num">{{ item.market_value | money_short }}</div>
+  <div class="watchlist__status">
+    {% set avail_name = item.availability.name %}
+    {% if avail_name != "FIT" %}<span class="badge badge--{{ avail_name | lower }}">{{ item.status_label }}</span>{% endif %}
+  </div>
+  <div class="watchlist__market">
+    {% set listing = market.get(pid) %}
+    {% if listing is not none %}
+    <span class="badge badge--fit">auf dem Markt: <span class="num">{{ listing | money_short }}</span></span>
+    {% else %}
+    <span class="muted small">nicht gelistet</span>
+    {% endif %}
+  </div>
+  <form class="watchlist__threshold-form" method="post" action="/merkliste/threshold"
+        hx-post="/merkliste/threshold" hx-target="closest .watchlist__row" hx-swap="outerHTML"
+        hx-disabled-elt="find button">
+    <input type="hidden" name="player_id" value="{{ pid }}">
+    <label class="visually-hidden" for="threshold-{{ pid }}">Preis-Schwelle in Euro</label>
+    <div class="watchlist__threshold-edit">
+      <input class="input watchlist__threshold-input" id="threshold-{{ pid }}"
+             name="price_below" type="number" inputmode="numeric" min="0" max="9999999999" step="1"
+             placeholder="Schwelle in €" value="{{ threshold_input if threshold_error else (item.entry.price_below if item.entry.price_below is not none else '') }}">
+      <button class="button button--quiet" type="submit">Speichern</button>
+    </div>
+    {% if threshold_error %}<p class="alert" role="alert">{{ threshold_error }}</p>{% endif %}
+  </form>
+  <div class="watchlist__actions">
+    <form method="post" action="/merkliste/remove"
+          hx-post="/merkliste/remove" hx-target="#watchlist-list" hx-swap="outerHTML"
+          hx-confirm="Spieler wirklich von der Merkliste nehmen?">
+      <input type="hidden" name="player_id" value="{{ pid }}">
+      <button class="button button--quiet watchlist__remove" type="submit">Entfernen</button>
+    </form>
+  </div>
+  {% else %}
+  {% if threshold_error %}<p class="alert" role="alert">{{ threshold_error }}</p>{% endif %}
+  <div class="watchlist__removed muted">Spieler nicht mehr auf der Merkliste.</div>
+  {% endif %}
+</li>

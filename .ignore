@@ -1,0 +1,7 @@
+# Für Such-Tools der Agents (ripgrep: grep/glob) ausblenden – spart Tokens.
+# Die Dateien bleiben im Repo und lassen sich gezielt öffnen.
+docs/screenshots/
+docs/images/
+uv.lock
+# Spec nur über `uv run python scripts/spec.py` nachschlagen.
+docs/kickbase-openapi.yaml

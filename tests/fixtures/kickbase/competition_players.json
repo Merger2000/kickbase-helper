@@ -1,0 +1,538 @@
+{
+  "it": [
+    {
+      "pi": "8329",
+      "n": "Olise",
+      "tid": "2",
+      "mi": "12019",
+      "p": 663,
+      "pos": 3,
+      "il": false,
+      "st": 5,
+      "mt": 93,
+      "g": 3,
+      "a": 1,
+      "pes": 0,
+      "cs": 0,
+      "pim": "content/file/4a58697a5cbe48ed82444be2e0a1edb6.png",
+      "ot": {
+        "i": "40",
+        "tim": "content/file/8f4c7c08ee9b4dca85c28260fc5917bd.svg",
+        "mst": 2
+      }
+    },
+    {
+      "pi": "2804",
+      "n": "Musiala",
+      "tid": "2",
+      "mi": "12019",
+      "p": 333,
+      "pos": 3,
+      "il": false,
+      "st": 5,
+      "mt": 93,
+      "g": 1,
+      "a": 1,
+      "pes": 0,
+      "cs": 0,
+      "pim": "content/file/4a58697a5cbe48ed82444be2e0a1edb6.png",
+      "ot": {
+        "i": "40",
+        "tim": "content/file/8f4c7c08ee9b4dca85c28260fc5917bd.svg",
+        "mst": 2
+      }
+    },
+    {
+      "pi": "2366",
+      "n": "Davies",
+      "tid": "2",
+      "mi": "12019",
+      "p": 320,
+      "pos": 2,
+      "il": false,
+      "st": 5,
+      "mt": 93,
+      "g": 0,
+      "a": 2,
+      "pes": 0,
+      "cs": 0,
+      "pim": "content/file/4a58697a5cbe48ed82444be2e0a1edb6.png",
+      "ot": {
+        "i": "40",
+        "tim": "content/file/8f4c7c08ee9b4dca85c28260fc5917bd.svg",
+        "mst": 2
+      }
+    },
+    {
+      "pi": "3759",
+      "n": "Gutiérrez",
+      "tid": "7",
+      "mi": "12013",
+      "p": 309,
+      "pos": 2,
+      "il": false,
+      "st": 5,
+      "mt": 93,
+      "g": 1,
+      "a": 1,
+      "pes": 0,
+      "cs": 0,
+      "pim": "content/file/72b74c3259934631ba5bf9cc87fb104c.png",
+      "ot": {
+        "i": "43",
+        "tim": "content/file/29ceb88867954b548ca9e27d39d050c2.svg",
+        "mst": 2
+      }
+    },
+    {
+      "pi": "7226",
+      "n": "Kane",
+      "tid": "2",
+      "mi": "12019",
+      "p": 294,
+      "pos": 4,
+      "il": false,
+      "st": 5,
+      "mt": 93,
+      "g": 2,
+      "a": 0,
+      "pes": 0,
+      "cs": 0,
+      "pim": "content/file/4a58697a5cbe48ed82444be2e0a1edb6.png",
+      "ot": {
+        "i": "40",
+        "tim": "content/file/8f4c7c08ee9b4dca85c28260fc5917bd.svg",
+        "mst": 2
+      }
+    },
+    {
+      "pi": "7721",
+      "n": "Grüll",
+      "tid": "10",
+      "mi": "12001",
+      "p": 266,
+      "pos": 3,
+      "il": false,
+      "st": 5,
+      "mt": 96,
+      "g": 1,
+      "a": 0,
+      "pes": 0,
+      "cs": 0,
+      "pim": "content/file/2d03e9b347934deaa8a0c040a9594150.png",
+      "ot": {
+        "i": "13",
+        "tim": "content/file/8d68c946b9774505b8292adfa910d0a0.svg",
+        "mst": 2
+      }
+    },
+    {
+      "pi": "2646",
+      "n": "Becker",
+      "tid": "18",
+      "mi": "12007",
+      "p": 248,
+      "pos": 4,
+      "il": false,
+      "st": 5,
+      "mt": 97,
+      "g": 1,
+      "a": 1,
+      "pes": 0,
+      "cs": 0,
+      "pim": "content/file/3b8addfebba24f57b176b6fbe7d1ba7b.png",
+      "ot": {
+        "i": "15",
+        "tim": "content/file/7178ef92ad0747a5ad1a05d0783f5088.svg",
+        "mst": 2
+      }
+    },
+    {
+      "pi": "4335",
+      "n": "Scherhant",
+      "tid": "5",
+      "mi": "12010",
+      "p": 238,
+      "pos": 3,
+      "il": false,
+      "st": 5,
+      "mt": 92,
+      "g": 1,
+      "a": 1,
+      "pes": 0,
+      "cs": 0,
+      "pim": "content/file/a38df722ffed47d28338a8ecdccf2d7d.png",
+      "ot": {
+        "i": "4",
+        "tim": "content/file/422de82bee3b47eb898699d6d27095ba.svg",
+        "mst": 2
+      }
+    },
+    {
+      "pi": "8292",
+      "n": "Castañeda",
+      "tid": "29",
+      "mi": "11995",
+      "p": 235,
+      "pos": 3,
+      "il": false,
+      "st": 5,
+      "mt": 93,
+      "g": 1,
+      "a": 0,
+      "pes": 0,
+      "cs": 0,
+      "pim": "content/file/25a358d12b764a1699faaa5cd208f776.png",
+      "ot": {
+        "i": "14",
+        "tim": "content/file/5212904732a04199aab426e44067347c.svg",
+        "mst": 2
+      }
+    },
+    {
+      "pi": "1685",
+      "n": "Kimmich",
+      "tid": "2",
+      "mi": "12019",
+      "p": 216,
+      "pos": 3,
+      "il": false,
+      "st": 5,
+      "mt": 93,
+      "g": 0,
+      "a": 0,
+      "pes": 0,
+      "cs": 0,
+      "pim": "content/file/4a58697a5cbe48ed82444be2e0a1edb6.png",
+      "ot": {
+        "i": "40",
+        "tim": "content/file/8f4c7c08ee9b4dca85c28260fc5917bd.svg",
+        "mst": 2
+      }
+    },
+    {
+      "pi": "11512",
+      "n": "Capaldo",
+      "tid": "6",
+      "mi": "12004",
+      "p": 206,
+      "pos": 2,
+      "il": false,
+      "st": 5,
+      "mt": 92,
+      "g": 1,
+      "a": 0,
+      "pes": 0,
+      "cs": 0,
+      "pim": "content/file/d968f7add8014681a04c39e93ba3c904.png",
+      "ot": {
+        "i": "28",
+        "tim": "content/file/dca70c4089fd4623932b245c0e81eaba.svg",
+        "mst": 2
+      }
+    },
+    {
+      "pi": "3120",
+      "n": "Bischof",
+      "tid": "2",
+      "mi": "12019",
+      "p": 201,
+      "pos": 3,
+      "il": false,
+      "st": 3,
+      "mt": 93,
+      "g": 0,
+      "a": 2,
+      "pes": 0,
+      "cs": 0,
+      "pim": "content/file/4a58697a5cbe48ed82444be2e0a1edb6.png",
+      "ot": {
+        "i": "40",
+        "tim": "content/file/8f4c7c08ee9b4dca85c28260fc5917bd.svg",
+        "mst": 2
+      }
+    },
+    {
+      "pi": "6061",
+      "n": "Maza",
+      "tid": "7",
+      "mi": "12013",
+      "p": 194,
+      "pos": 3,
+      "il": false,
+      "st": 5,
+      "mt": 93,
+      "g": 0,
+      "a": 0,
+      "pes": 0,
+      "cs": 0,
+      "pim": "content/file/72b74c3259934631ba5bf9cc87fb104c.png",
+      "ot": {
+        "i": "43",
+        "tim": "content/file/29ceb88867954b548ca9e27d39d050c2.svg",
+        "mst": 2
+      }
+    },
+    {
+      "pi": "608",
+      "n": "Füllkrug",
+      "tid": "10",
+      "mi": "12001",
+      "p": 187,
+      "pos": 4,
+      "il": false,
+      "st": 5,
+      "mt": 96,
+      "g": 1,
+      "a": 0,
+      "pes": 0,
+      "cs": 0,
+      "pim": "content/file/2d03e9b347934deaa8a0c040a9594150.png",
+      "ot": {
+        "i": "13",
+        "tim": "content/file/8d68c946b9774505b8292adfa910d0a0.svg",
+        "mst": 2
+      }
+    },
+    {
+      "pi": "237",
+      "n": "Neuer",
+      "tid": "2",
+      "mi": "12019",
+      "p": 186,
+      "pos": 1,
+      "il": false,
+      "st": 5,
+      "mt": 93,
+      "g": 0,
+      "a": 0,
+      "pes": 0,
+      "cs": 1,
+      "pim": "content/file/4a58697a5cbe48ed82444be2e0a1edb6.png",
+      "ot": {
+        "i": "40",
+        "tim": "content/file/8f4c7c08ee9b4dca85c28260fc5917bd.svg",
+        "mst": 2
+      }
+    },
+    {
+      "pi": "17288",
+      "n": "Regeer",
+      "tid": "10",
+      "mi": "12001",
+      "p": 186,
+      "pos": 3,
+      "il": false,
+      "st": 5,
+      "mt": 96,
+      "g": 0,
+      "a": 0,
+      "pes": 0,
+      "cs": 0,
+      "pim": "content/file/2d03e9b347934deaa8a0c040a9594150.png",
+      "ot": {
+        "i": "13",
+        "tim": "content/file/8d68c946b9774505b8292adfa910d0a0.svg",
+        "mst": 2
+      }
+    },
+    {
+      "pi": "8166",
+      "n": "Chuki",
+      "tid": "10",
+      "mi": "12001",
+      "p": 185,
+      "pos": 3,
+      "il": false,
+      "st": 5,
+      "mt": 96,
+      "g": 0,
+      "a": 1,
+      "pes": 0,
+      "cs": 0,
+      "pim": "content/file/2d03e9b347934deaa8a0c040a9594150.png",
+      "ot": {
+        "i": "13",
+        "tim": "content/file/8d68c946b9774505b8292adfa910d0a0.svg",
+        "mst": 2
+      }
+    },
+    {
+      "pi": "173",
+      "n": "Tah",
+      "tid": "2",
+      "mi": "12019",
+      "p": 182,
+      "pos": 2,
+      "il": false,
+      "st": 5,
+      "mt": 93,
+      "g": 0,
+      "a": 0,
+      "pes": 0,
+      "cs": 0,
+      "pim": "content/file/4a58697a5cbe48ed82444be2e0a1edb6.png",
+      "ot": {
+        "i": "40",
+        "tim": "content/file/8f4c7c08ee9b4dca85c28260fc5917bd.svg",
+        "mst": 2
+      }
+    },
+    {
+      "pi": "14251",
+      "n": "Saibari",
+      "tid": "2",
+      "mi": "12019",
+      "p": 182,
+      "pos": 4,
+      "il": false,
+      "st": 3,
+      "mt": 93,
+      "g": 1,
+      "a": 0,
+      "pes": 0,
+      "cs": 0,
+      "pim": "content/file/4a58697a5cbe48ed82444be2e0a1edb6.png",
+      "ot": {
+        "i": "40",
+        "tim": "content/file/8f4c7c08ee9b4dca85c28260fc5917bd.svg",
+        "mst": 2
+      }
+    },
+    {
+      "pi": "11006",
+      "n": "Suzuki",
+      "tid": "5",
+      "mi": "12010",
+      "p": 179,
+      "pos": 3,
+      "il": false,
+      "st": 5,
+      "mt": 92,
+      "g": 1,
+      "a": 0,
+      "pes": 0,
+      "cs": 0,
+      "pim": "content/file/a38df722ffed47d28338a8ecdccf2d7d.png",
+      "ot": {
+        "i": "4",
+        "tim": "content/file/422de82bee3b47eb898699d6d27095ba.svg",
+        "mst": 2
+      }
+    },
+    {
+      "pi": "1996",
+      "n": "Friedl",
+      "tid": "10",
+      "mi": "12001",
+      "p": 178,
+      "pos": 2,
+      "il": false,
+      "st": 5,
+      "mt": 96,
+      "g": 0,
+      "a": 0,
+      "pes": 0,
+      "cs": 0,
+      "pim": "content/file/2d03e9b347934deaa8a0c040a9594150.png",
+      "ot": {
+        "i": "13",
+        "tim": "content/file/8d68c946b9774505b8292adfa910d0a0.svg",
+        "mst": 2
+      }
+    },
+    {
+      "pi": "6148",
+      "n": "Pinckert",
+      "tid": "77",
+      "mi": "11998",
+      "p": 173,
+      "pos": 2,
+      "il": false,
+      "st": 5,
+      "mt": 92,
+      "g": 0,
+      "a": 0,
+      "pes": 0,
+      "cs": 0,
+      "pim": "content/file/fbee1507382f49f99d071cab06a4c4bd.png",
+      "ot": {
+        "i": "8",
+        "tim": "content/file/fed743ec085c41a9b2453875157257fe.svg",
+        "mst": 2
+      }
+    },
+    {
+      "pi": "9605",
+      "n": "Grønbæk",
+      "tid": "6",
+      "mi": "12004",
+      "p": 170,
+      "pos": 3,
+      "il": false,
+      "st": 5,
+      "mt": 92,
+      "g": 0,
+      "a": 2,
+      "pes": 0,
+      "cs": 0,
+      "pim": "content/file/d968f7add8014681a04c39e93ba3c904.png",
+      "ot": {
+        "i": "28",
+        "tim": "content/file/dca70c4089fd4623932b245c0e81eaba.svg",
+        "mst": 2
+      }
+    },
+    {
+      "pi": "8307",
+      "n": "Sano",
+      "tid": "18",
+      "mi": "12007",
+      "p": 169,
+      "pos": 3,
+      "il": false,
+      "st": 5,
+      "mt": 97,
+      "g": 0,
+      "a": 1,
+      "pes": 0,
+      "cs": 0,
+      "pim": "content/file/3b8addfebba24f57b176b6fbe7d1ba7b.png",
+      "ot": {
+        "i": "15",
+        "tim": "content/file/7178ef92ad0747a5ad1a05d0783f5088.svg",
+        "mst": 2
+      }
+    },
+    {
+      "pi": "1540",
+      "n": "Da Costa",
+      "tid": "18",
+      "mi": "12007",
+      "p": 168,
+      "pos": 2,
+      "il": false,
+      "st": 3,
+      "mt": 97,
+      "g": 1,
+      "a": 0,
+      "pes": 0,
+      "cs": 0,
+      "pim": "content/file/3b8addfebba24f57b176b6fbe7d1ba7b.png",
+      "ot": {
+        "i": "15",
+        "tim": "content/file/7178ef92ad0747a5ad1a05d0783f5088.svg",
+        "mst": 2
+      }
+    }
+  ],
+  "day": 4,
+  "sn": "26/27",
+  "mdsn": "4",
+  "spr": {
+    "i": "7",
+    "url": "https://go.kickbase.com/skechers",
+    "lf": "content/file/dc6a1aaf983f4d06993d6e94ef4f146f.png",
+    "durl": "content/file/7bf51977e16b428bb58eeedb25ee99dc.png"
+  }
+}

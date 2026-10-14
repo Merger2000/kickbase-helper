@@ -1,0 +1,9 @@
+{% extends "layout.html" %}
+{% block title %}Merkliste · Kickbase Helper{% endblock %}
+{% block content %}
+<h1>Merkliste</h1>
+<p class="muted">Spieler im Blick behalten: Mit aktiviertem Telegram-Bot erhältst du Hinweise zu Marktangeboten, Preis-Schwellen und geändertem Status.</p>
+<a class="button button--quiet watchlist__browse" href="/spieler">Spieler suchen und merken</a>
+{% if error %}<p class="alert" role="alert">{{ error }}</p>{% endif %}
+{% include "partials/watchlist_rows.html" %}
+{% endblock %}
